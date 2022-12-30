@@ -49,9 +49,15 @@ export default function Header() {
                             <li className="nav-item">
                                 <Link className="nav-link" to='/catalog'>Catalog</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to='/favourites'>Favourites</Link>
-                            </li>
+                            {
+                                user !== null || localUser !== null ? (
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to='/favourites'>Favourites</Link>
+                                        </li>
+                                    </>
+                                ) : ''
+                            }
                             {favsArray?.length > 0 ? 
                                 <li className="nav-item  d-flex align-items-center">
                                     <span className="text-success">
