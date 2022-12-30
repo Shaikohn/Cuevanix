@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import { Link, useLocation, useNavigate } from "react-router-dom"
+import decode from 'jwt-decode'
 import Searcher from "./Searcher"
 
 export default function Header() {
@@ -15,13 +16,22 @@ export default function Header() {
 
     const handleLogOut = () => {
         setUser(null)
+        setLocalUser(null)
         localStorage.removeItem('googleProfile')
         localStorage.removeItem('profile')
         navigateTo('/catalog')
     }
 
     useEffect(() => {
+        const token = localUser?.results?.token
+        if(token) {
+            const decodedToken = decode(token)
+            if(decodedToken.exp * 1000 < new Date().getTime()) {
+                handleLogOut()
+            }
+        }
         setUser(JSON.parse(localStorage.getItem('googleProfile')))
+        setLocalUser(JSON.parse(localStorage.getItem('profile')))
     }, [location])
 
 

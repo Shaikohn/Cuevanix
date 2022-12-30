@@ -4,7 +4,7 @@ const mongoose = require('mongoose') ;
 const cors = require('cors') 
 const morgan = require('morgan')
 const { PORT, CONNECTION_URL } = process.env
-const userRoutes = require('./routes/userRoutes') ; 
+const routes = require('./routes/index') ; 
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(express.json({ limit: '50mb' }));
 app.use(morgan('dev'))
 
-app.use('/user', userRoutes)
+app.use("/", routes);
 
 mongoose.set("strictQuery", false);
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
