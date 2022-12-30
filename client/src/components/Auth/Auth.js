@@ -5,6 +5,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom';
+import { signIn, signUp } from '../../redux/actions/authActions';
 
 export default function Auth() {
 
@@ -19,9 +20,9 @@ export default function Auth() {
     const handleSubmit = (e) => {
         e.preventDefault()
         if(isSignUp) {
-
+            dispatch(signUp(formData, navigateTo))
         } else {
-            
+            dispatch(signIn(formData, navigateTo))
         }
         console.log(formData)
     }
@@ -82,8 +83,7 @@ export default function Auth() {
                         <div className="form-group col-md-4">
                             <label>Repeat password</label>
                             <div className='d-flex'>
-                                <input type={showPassword ? "text" : "password"} name="confirmPassword" className="form-control" placeholder="Password" onChange={handleChange} />
-                                <button type='button' style={{background:'none', border: 'none'}} onClick={handleShowPassword}>{showPassword ? <BsFillEyeSlashFill /> : <BsEyeFill />}</button>
+                                <input type="password" name="confirmPassword" className="form-control" placeholder="Password" onChange={handleChange} />
                             </div>
                         </div>
                     </>

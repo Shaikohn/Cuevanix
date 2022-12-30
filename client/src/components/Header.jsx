@@ -7,14 +7,16 @@ export default function Header() {
     const favMovies = localStorage.getItem('favs')
     const favsArray = JSON.parse(favMovies)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('googleProfile')))
+    const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const navigateTo = useNavigate()
     const location = useLocation()
-    
+    console.log('localUser', localUser)
     console.log('user', user)
 
     const handleLogOut = () => {
         setUser(null)
         localStorage.removeItem('googleProfile')
+        localStorage.removeItem('profile')
         navigateTo('/catalog')
     }
 
@@ -60,7 +62,23 @@ export default function Header() {
                                 {user.name}
                                 <button type="button" className="btn btn-danger" onClick={handleLogOut}>Sign Out</button>
                             </>
-                        ) : <Link className="btn btn-lg btn-primary ms-4" to='/signup'>Sign In</Link>
+                        ) : ''
+                    }
+                    {
+                        localUser !== null ? (
+                            <>
+                                {/* <img className="rounded mx-auto d-block" src={localUser?.picture} alt="profile" /> */}
+                                {localUser.result.name}
+                                <button type="button" className="btn btn-danger" onClick={handleLogOut}>Sign Out</button>
+                            </>
+                        ) : ''
+                    }
+                    {
+                        user === null && localUser === null ? (
+                            <>
+                                <Link className="btn btn-lg btn-primary ms-4" to='/signup'>Sign In</Link>
+                            </> 
+                        ) : ''
                     }
                 </div>
             </nav>
