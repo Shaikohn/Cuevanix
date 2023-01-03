@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { Navigate, useParams } from "react-router-dom"
 import { getDetails } from "../redux/actions/movieActions";
 import Swal from "sweetalert2"
-import Header from "./Header"
 import { clearMovie } from "../redux/slices/movieSlice";
+import Spinner from "./Spinner";
 
 export default function Details() {
 
-    let token = sessionStorage.getItem('Token')
     let { id } = useParams()
     const movie = useSelector(state => state.movies.details)
     const dispatch = useDispatch()
@@ -21,13 +20,7 @@ export default function Details() {
 
     return (
         <>
-        {!token  && Swal.fire({
-                title: 'FORBIDDEN NAVIGATION',
-                text: 'You cant go there without being logged!',
-                icon: 'error',
-                timer: 3000,
-            }) && <Navigate to='/' replace/>}
-        {movie && <div>
+        {movie !== undefined ? <div>
             <h2> {movie?.title} </h2>
             <div className="row">
                 <div className="col-4">
@@ -52,7 +45,7 @@ export default function Details() {
                     </ul>
                 </div>
             </div>
-        </div>}
+        </div> : <Spinner />}
         </>
     )
 }

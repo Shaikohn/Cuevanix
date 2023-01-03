@@ -1,30 +1,40 @@
-import { Link  } from "react-router-dom";
+import { Link, useLocation  } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovies } from "../redux/actions/movieActions";
 import { useState } from "react";
+import Spinner from "./Spinner/index";
+import Pagination from "./Pagination";
 
 export default function Catalog(props) {
 
     const {movies} = useSelector(state => state.movies)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('googleProfile')))
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
+    const [page, setPage] = useState(1)
+    const [perPage, setPerPage] = useState(8)
+    const max = (movies?.length / perPage).toFixed()
     const dispatch = useDispatch()
+    const location = useLocation()
+    console.log(movies)
 
     useEffect(() => {
         dispatch(getMovies())
-    }, [dispatch])
+    }, [dispatch, location])
 
     return (
         <>    
         <div>
             <div className="row" >
-            {movies && movies.map((m, i) => {
+            {movies.length > 0 ? 
+            movies
+            .slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+            .map((m, i) => {
                 return (
                     <div className="col-3" key={i}>
                         <div className="card my-4">
-                            <img className="card-img-top" src={`https://image.tmdb.org/t/p/w500/${m.poster_path}`} alt="film" />
+                            <img className="card-img-top" src={m.image} alt="film" />
                             {
                                 user !== null || localUser !== null ? <button className="favourite-btn" onClick={props.addOrRemoveFromFavs} data-movie-id={m.id}>🖤</button> : ''
                             }
@@ -36,7 +46,8 @@ export default function Catalog(props) {
                         </div>
                     </div>
                 )
-            })}
+            }) : <Spinner />}
+            <Pagination page={page} setPage={setPage} max={max} />
             </div>
         </div>
         </>

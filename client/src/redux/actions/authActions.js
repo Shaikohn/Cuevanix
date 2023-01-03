@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 export const AUTH = "AUTH";
 export const LOGOUT = "LOGOUT";
 
@@ -16,7 +17,19 @@ export const signIn = (formData, navigateTo) => async(dispatch) => {
         const { data } = await API.post("/user/signin", formData);
         dispatch({ type: AUTH, data });
         navigateTo('/catalog')
+        Swal.fire({
+            title: "Signed in",
+            text: "User Signed in successfully!",
+            icon: "success",
+            timer: 2000,
+        });
     } catch (e) {
+        Swal.fire({
+            title: "Signed in failed",
+            text: e.response.data.message,
+            icon: "error",
+            timer: 2000,
+        });
         console.log(e)
     }
 }
@@ -26,7 +39,18 @@ export const signUp = (formData, navigateTo) => async(dispatch) => {
         const { data } = await API.post("/user/signup", formData);
         dispatch({ type: AUTH, data });
         navigateTo('/catalog')
+        Swal.fire({
+            title: "Signed up",
+            text: "User signed up successfully!",
+            icon: "success",
+            timer: 2000,
+        });
     } catch (e) {
-        console.log(e)
+        Swal.fire({
+            title: "Signed up failed",
+            text: e.response.data.message,
+            icon: "error",
+            timer: 2000,
+        });
     }
 }

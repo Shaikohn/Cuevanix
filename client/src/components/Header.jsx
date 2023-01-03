@@ -2,6 +2,9 @@ import {useEffect, useState} from 'react'
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import decode from 'jwt-decode'
 import Searcher from "./Searcher"
+import Modals from './Modals/Modals'
+import { useModal } from './Modals/useModal'
+import Auth from './Auth/Auth'
 
 export default function Header() {
 
@@ -11,8 +14,9 @@ export default function Header() {
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const navigateTo = useNavigate()
     const location = useLocation()
-    console.log('localUser', localUser)
-    console.log('user', user)
+    const [isOpenModal, openedModal, closeModal] = useModal(false);
+    /* console.log('localUser', localUser)
+    console.log('user', user) */
 
     const handleLogOut = () => {
         setUser(null)
@@ -92,7 +96,7 @@ export default function Header() {
                     {
                         user === null && localUser === null ? (
                             <>
-                                <Link className="btn btn-lg btn-primary ms-4" to='/signup'>Sign In</Link>
+                                <Auth />
                             </> 
                         ) : ''
                     }

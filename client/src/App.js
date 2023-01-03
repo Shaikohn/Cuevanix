@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 import Favourites from './components/Favourites';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import Auth from './components/Auth/Auth';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Header from './components/Header';
 import LandingPage from './components/LandingPage';
@@ -79,7 +78,6 @@ function App() {
       <Header />
       <Routes>
         <Route exact path='/' element={<LandingPage />} />
-        <Route exact path='/signup' element={<Auth />} />
         <Route exact path='/catalog' element={<Catalog addOrRemoveFromFavs={addOrRemoveFromFavs} />} />
         <Route exact path='/movie/:id' element={<Details addOrRemoveFromFavs={addOrRemoveFromFavs} />} />
         <Route exact path='/results' element={<Results addOrRemoveFromFavs={addOrRemoveFromFavs} />} />

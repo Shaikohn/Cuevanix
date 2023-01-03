@@ -12,3 +12,8 @@
     top: 10px;
     width: 30px;
 }
+
+button {
+    background: none;
+    border: none;
+}
