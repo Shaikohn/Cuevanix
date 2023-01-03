@@ -14,7 +14,6 @@ export default function Header() {
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const navigateTo = useNavigate()
     const location = useLocation()
-    const [isOpenModal, openedModal, closeModal] = useModal(false);
     /* console.log('localUser', localUser)
     console.log('user', user) */
 
