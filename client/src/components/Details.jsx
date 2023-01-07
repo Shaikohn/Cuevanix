@@ -14,7 +14,7 @@ import { useState } from "react";
 
 export default function Details() {
 
-    let { id } = useParams()
+    let { _id } = useParams()
     const movie = useSelector(state => state.movies.details)
     console.log(movie)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('googleProfile')))
@@ -27,23 +27,35 @@ export default function Details() {
 
     useEffect(() => {
         dispatch(clearMovie())
-        dispatch(getDetails(id))
-    }, [dispatch, id])
+        dispatch(getDetails(_id))
+    }, [dispatch, _id])
 
     return (
         <>
         {movie !== undefined ? <div>
-            <h2> {movie[0]?.title} </h2>
+            <h2> {movie?.title} </h2>
             <div className="row">
                 <div className="col-4">
-                    <img className="img-fluid" src={`https://image.tmdb.org/t/p/w500/${movie[0]?.image}`} alt="film" />
+                    <img className="img-fluid" src={`https://image.tmdb.org/t/p/w500/${movie?.image}`} alt="film" />
                 </div>
                 <div className="col-8">
-                    <h5> {movie[0]?.release_date} </h5>
+                    <h5> {movie?.release_date} </h5>
                     <h5> Overview: </h5>
-                    <p> {movie[0]?.overview} </p>
-                    <h5>Rating: {movie[0]?.rating} </h5>
-                    <h5>Price: {movie[0]?.price} </h5>
+                    <p> {movie?.overview} </p>
+                    <h5>Rating: {movie?.rating} </h5>
+                    <h5>Price: ${movie?.price?.toFixed()} </h5>
+                    {/* <h5>Genres:</h5>
+                    <ul>
+                        {
+                            movie?.genres?.map((g, i) => {
+                                return (
+                                    <li key={i}>
+                                        {g.name}
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul> */}
                     {user !== null || localUser !== null ? <button onClick={openedModal} type="button" className="btn btn-dark">Buy</button> : ''}  
                 </div>
             </div>

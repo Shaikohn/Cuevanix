@@ -40,7 +40,29 @@ const signup = async(req, res) => {
     }
 }
 
+const getUser = async(req, res) => {
+    const { _id } = req.body
+    try {
+        const user = await User.findOne({_id}).populate('orders')
+        console.log(_id)
+        res.status(200).json(user)
+    } catch (e) {
+        res.status(500).json({message: 'Something went wrong.'})
+    }
+}
+
+const getUsers = async(req, res) => {
+    try {
+        const users = await User.find({}).populate('orders')
+        res.status(200).json(users)
+    } catch (e) {
+        res.status(500).json({message: 'Something went wrong.'})
+    }
+}
+
 module.exports = {
     signin, 
-    signup
+    signup,
+    getUser,
+    getUsers
 }

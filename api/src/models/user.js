@@ -8,6 +8,11 @@ const userSchema = mongoose.Schema({
     password: { type: String, required: true },
     id: { type: String },
     favourites: {type: Array},
-    purchasedMovies: {type: Array},
+    orders: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Order',
+        },
+    ],
 })
 module.exports = mongoose.model('User', userSchema)

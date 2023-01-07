@@ -6,22 +6,30 @@ import { getMovies } from "../redux/actions/movieActions";
 import { useState } from "react";
 import Spinner from "./Spinner/index";
 import Pagination from "./Pagination";
+import { getUserById } from "../redux/actions/userActions";
 
 export default function Catalog(props) {
 
     const {movies} = useSelector(state => state.movies)
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('googleProfile')))
+    /* const [user, setUser] = useState(JSON.parse(localStorage.getItem('googleProfile'))) */
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
+    const {user} = useSelector(state => state.user) 
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(8)
     const max = (movies?.length / perPage).toFixed()
     const dispatch = useDispatch()
     const location = useLocation()
-    console.log(movies)
+    console.log(localUser)
+    const _id = localUser.result._id
 
     useEffect(() => {
         dispatch(getMovies())
     }, [dispatch, location])
+
+    if(localUser) {
+        dispatch(getUserById(_id))
+        console.log('userDb', user) 
+    }
 
     return (
         <>    
@@ -35,13 +43,13 @@ export default function Catalog(props) {
                     <div className="col-3" key={i}>
                         <div className="card my-4">
                             <img className="card-img-top" src={m.image} alt="film" />
-                            {
+                            {/* {
                                 user !== null || localUser !== null ? <button className="favourite-btn" onClick={props.addOrRemoveFromFavs} data-movie-id={m.id}>🖤</button> : ''
-                            }
+                            } */}
                                 <div className="card-body">
                                     <h5 className="card-title"> {m.title} </h5>
                                     <p className="card-text"> {m.overview.substring(0, 100)}... </p>
-                                    <Link to={`/movie/${m.id}`} className="btn btn-primary">View details</Link>
+                                    <Link to={`/movie/${m._id}`} className="btn btn-primary">View details</Link>
                                 </div>
                         </div>
                     </div>

@@ -5,7 +5,7 @@ const stripe = new Stripe(STRIPE_KEY)
 
 async function receivePayment(req, res) {
     try {
-        const { id, amount, description } = req.body
+        const { id, amount, description} = req.body
 
     const payment = await stripe.paymentIntents.create({
         amount,

@@ -14,8 +14,6 @@ export default function Header() {
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const navigateTo = useNavigate()
     const location = useLocation()
-    /* console.log('localUser', localUser)
-    console.log('user', user) */
 
     const handleLogOut = () => {
         setUser(null)
@@ -52,7 +50,7 @@ export default function Header() {
                             <li className="nav-item">
                                 <Link className="nav-link" to='/catalog'>Catalog</Link>
                             </li>
-                            {
+                            {/* {
                                 user !== null || localUser !== null ? (
                                     <>
                                         <li className="nav-item">
@@ -70,16 +68,25 @@ export default function Header() {
                             }
                             <li className="nav-item">
                                 <Link className="nav-link" to='/contact'>Contact</Link>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                     <Searcher />
                     {
                         user !== null ? (
                             <>
-                                <img className="rounded mx-auto d-block" src={user.picture} alt="profile" />
-                                {user.name}
-                                <button type="button" className="btn btn-danger" onClick={handleLogOut}>Sign Out</button>
+                                <div className="btn-group ms-4">
+                                    <button type="button" className="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {user.name}
+                                    </button>
+                                    <ul className="dropdown-menu">
+                                        <li><a className="dropdown-item" href="#">Profile</a></li>
+                                        <li><a className="dropdown-item" href="#">Purchases</a></li>
+                                        <li><a className="dropdown-item" href="#">Reviews</a></li>
+                                        <li><hr className="dropdown-divider" /></li>
+                                        <li><button className="dropdown-item" onClick={handleLogOut}>Log Out</button></li>
+                                    </ul>
+                                </div>
                             </>
                         ) : ''
                     }
@@ -87,8 +94,18 @@ export default function Header() {
                         localUser !== null ? (
                             <>
                                 {/* <img className="rounded mx-auto d-block" src={localUser?.picture} alt="profile" /> */}
-                                {localUser.result.name}
-                                <button type="button" className="btn btn-danger" onClick={handleLogOut}>Sign Out</button>
+                                <div className="btn-group ms-4">
+                                    <button type="button" className="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {localUser.result.name}
+                                    </button>
+                                    <ul className="dropdown-menu">
+                                        <li><a className="dropdown-item" href="#">Profile</a></li>
+                                        <li><a className="dropdown-item" href="#">Purchases</a></li>
+                                        <li><a className="dropdown-item" href="#">Reviews</a></li>
+                                        <li><hr className="dropdown-divider" /></li>
+                                        <li><button className="dropdown-item" onClick={handleLogOut}>Log Out</button></li>
+                                    </ul>
+                                </div>
                             </>
                         ) : ''
                     }

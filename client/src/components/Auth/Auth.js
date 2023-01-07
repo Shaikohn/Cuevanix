@@ -27,7 +27,6 @@ export default function Auth() {
         } else {
             dispatch(signIn(formData, navigateTo))
         }
-        console.log(formData)
     }
 
     const handleChange = (e) => {

@@ -7,8 +7,8 @@ export const getMovies = () => (dispatch) => {
     .catch(e => console.log(e))
 }
 
-export const getDetails = (id) => (dispatch) => {
-    axios.get(`http://localhost:3001/movies/${id}`)
+export const getDetails = (_id) => (dispatch) => {
+    axios.get(`http://localhost:3001/movies/${_id}`)
     .then(res => dispatch(getMovieById(res.data)))
     .catch(e => console.log(e))
 }

@@ -11,10 +11,21 @@ export default function Stripe({movie,closeModal}) {
     const stripe = useStripe()
     const elements = useElements()
     const [loading, setLoading] = useState(false)
-    const [userId, setUserId] = useState(JSON.parse(localStorage?.getItem('profile')));
+    const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const navigate = useNavigate()
-    const price = movie[0]?.price.toFixed()
+    const price = movie?.price?.toFixed()
     console.log("price", price)
+    console.log(movie?._id)
+
+    const saveOrder = async() => {
+        const userId = localUser.result._id
+        const purchased_Movie = movie
+
+        await axios.post("http://localhost:3001/order", {
+            userId,
+            purchased_Movie: purchased_Movie,
+        })
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -31,8 +42,9 @@ export default function Stripe({movie,closeModal}) {
                 const {data} = await axios.post("http://localhost:3001/payment", {
                 id,
                 amount: price * 100,
-                description: movie[0].title,
+                description: movie.title,
             })
+            saveOrder()
             setLoading(false)
             /* product.stock-- */
             elements.getElement(CardElement).clear()
