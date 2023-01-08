@@ -19,8 +19,8 @@ export default function Catalog(props) {
     const max = (movies?.length / perPage).toFixed()
     const dispatch = useDispatch()
     const location = useLocation()
-    console.log(localUser)
-    const _id = localUser.result._id
+    const _id = localUser?.result?._id
+    console.log(movies)
 
     useEffect(() => {
         dispatch(getMovies())
@@ -49,7 +49,7 @@ export default function Catalog(props) {
                                 <div className="card-body">
                                     <h5 className="card-title"> {m.title} </h5>
                                     <p className="card-text"> {m.overview.substring(0, 100)}... </p>
-                                    <Link to={`/movie/${m._id}`} className="btn btn-primary">View details</Link>
+                                    <Link to={`/movie/${m.id}`} className="btn btn-primary">View details</Link>
                                 </div>
                         </div>
                     </div>

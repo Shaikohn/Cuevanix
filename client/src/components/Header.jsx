@@ -80,8 +80,8 @@ export default function Header() {
                                         {user.name}
                                     </button>
                                     <ul className="dropdown-menu">
-                                        <li><a className="dropdown-item" href="#">Profile</a></li>
-                                        <li><a className="dropdown-item" href="#">Purchases</a></li>
+                                        <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
+                                        <li><Link className="dropdown-item" to="/purchases">Purchases</Link></li>
                                         <li><a className="dropdown-item" href="#">Reviews</a></li>
                                         <li><hr className="dropdown-divider" /></li>
                                         <li><button className="dropdown-item" onClick={handleLogOut}>Log Out</button></li>
@@ -99,8 +99,8 @@ export default function Header() {
                                         {localUser.result.name}
                                     </button>
                                     <ul className="dropdown-menu">
-                                        <li><a className="dropdown-item" href="#">Profile</a></li>
-                                        <li><a className="dropdown-item" href="#">Purchases</a></li>
+                                        <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
+                                        <li><Link className="dropdown-item" to="/purchases">Purchases</Link></li>
                                         <li><a className="dropdown-item" href="#">Reviews</a></li>
                                         <li><hr className="dropdown-divider" /></li>
                                         <li><button className="dropdown-item" onClick={handleLogOut}>Log Out</button></li>

@@ -14,8 +14,6 @@ export default function Stripe({movie,closeModal}) {
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const navigate = useNavigate()
     const price = movie?.price?.toFixed()
-    console.log("price", price)
-    console.log(movie?._id)
 
     const saveOrder = async() => {
         const userId = localUser.result._id

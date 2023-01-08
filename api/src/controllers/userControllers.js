@@ -6,7 +6,7 @@ const signin = async(req, res) => {
     const { email, password } = req.body
 
     try {
-        const existingUser = await User.findOne({email})
+        const existingUser = await User.findOne({email}).populate('orders')
         if(!existingUser) return res.status(404).json({message: "That user doesn't exist!"})
 
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password)
@@ -30,7 +30,7 @@ const signup = async(req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
-    const result = await User.create({email, password: hashedPassword, name: `${firstName} ${lastName}`})
+    const result = await User.create({email, password: hashedPassword, name: `${firstName} ${lastName}`}).populate('orders')
 
     const token = jwt.sign({email: result.email, id: result._id}, 'test', {expiresIn: '1h'})
 
@@ -41,10 +41,9 @@ const signup = async(req, res) => {
 }
 
 const getUser = async(req, res) => {
-    const { _id } = req.body
+    const { _id } = req.params
     try {
         const user = await User.findOne({_id}).populate('orders')
-        console.log(_id)
         res.status(200).json(user)
     } catch (e) {
         res.status(500).json({message: 'Something went wrong.'})

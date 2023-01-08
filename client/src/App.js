@@ -8,6 +8,9 @@ import Favourites from './components/Favourites';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Header from './components/Header';
 import LandingPage from './components/LandingPage';
+import Purchases from './components/Profile/Purchases';
+import Profile from './components/Profile/Profile';
+import PurchasedMovie from './components/Profile/PurchasedMovie';
 
 function App() {
 
@@ -17,9 +20,12 @@ function App() {
       <Routes>
         <Route exact path='/' element={<LandingPage />} />
         <Route exact path='/catalog' element={<Catalog />} />
-        <Route exact path='/movie/:_id' element={<Details />} />
+        <Route exact path='/movie/:id' element={<Details />} />
         <Route exact path='/results' element={<Results />} />
         <Route exact path='/favourites' element={<Favourites />} />
+        <Route exact path='/purchases' element={<Purchases />} />
+        <Route exact path='/profile' element={<Profile />} />
+        <Route exact path='/purchasedMovie/:id' element={<PurchasedMovie />} />
       </Routes>
       <Footer />
     </ GoogleOAuthProvider>

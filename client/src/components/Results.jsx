@@ -33,7 +33,7 @@ export default function Results() {
     return (
         <>
         <div className="row" >
-            <p> Results of: {keyword} </p>
+            <h1> Results of: {keyword} </h1>
             {results.length === 0 && 
             <div>
                 <h3>There isnt any result for this search!</h3>

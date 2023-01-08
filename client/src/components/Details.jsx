@@ -14,7 +14,7 @@ import { useState } from "react";
 
 export default function Details() {
 
-    let { _id } = useParams()
+    let { id } = useParams()
     const movie = useSelector(state => state.movies.details)
     console.log(movie)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('googleProfile')))
@@ -27,8 +27,8 @@ export default function Details() {
 
     useEffect(() => {
         dispatch(clearMovie())
-        dispatch(getDetails(_id))
-    }, [dispatch, _id])
+        dispatch(getDetails(id))
+    }, [dispatch, id])
 
     return (
         <>
