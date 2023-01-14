@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import { getUserById } from "../../redux/actions/userActions"
 
 
@@ -18,13 +19,17 @@ export default function Profile() {
         <div>
             <h1> {profile.name} </h1>
             <h2> {profile.email} </h2>
+            <img src={profile?.picture} alt={profile.name} />
             <h3>Orders:</h3>
             {
                             profile?.orders?.map((o, i) => {
                                 return (
-                                    <div key={i}>
-                                        <h4>{o?.purchased_Movie?.title}</h4>
-                                        <p>{o._id}</p>
+                                    <div className="card d-inline-flex ms-4 mb-3" style={{width: '19rem'}} key={i}>
+                                        <div className="card-body">
+                                            <h5 className="card-title">{o?.purchased_Movie?.title}</h5>
+                                            <p className="card-text">Order ID: {o._id}</p>
+                                            <Link to={`/purchasedMovie/${o?.purchased_Movie?.id}`} className="btn btn-primary">View</Link>
+                                        </div>
                                     </div>
                                 )
                             })

@@ -22,10 +22,21 @@ export default function Purchases() {
             {
                             profile?.orders?.map((o, i) => {
                                 return (
-                                    <li key={i}>
-                                        {o?.purchased_Movie?.title}
-                                        <Link to={`/purchasedMovie/${o?.purchased_Movie?.id}`} className="btn btn-primary">View</Link>
-                                    </li>
+                                    <div className="card mb-3 ms-5 d-inline-flex align-items-center" style={{maxWidth: '400px'}} key={i}>
+                                        <div className="row g-0">
+                                            <div className="col-md-4">
+                                                <img src={o?.purchased_Movie?.image} className="img-fluid rounded-start" style={{height: '100%'}} alt={o?.purchased_Movie?.title} />
+                                            </div>
+                                        <div className="col-md-8">
+                                            <div className="card-body">
+                                                <h5 className="card-title">{o?.purchased_Movie?.title}</h5>
+                                                <p className="card-text">Rating: {o?.purchased_Movie?.rating}</p>
+                                                <p className="card-text">Release date: {o?.purchased_Movie?.release_date}</p>
+                                                <Link to={`/purchasedMovie/${o?.purchased_Movie?.id}`} className="btn btn-primary">View</Link>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
                                 )
                             })
                         }
