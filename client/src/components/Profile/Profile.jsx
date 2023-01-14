@@ -7,6 +7,7 @@ export default function Profile() {
 
     const {user} = useSelector(state => state.user)
     console.log(user)
+    const {profile} = useSelector(state => state.user)
     const dispatch = useDispatch()
     
     useEffect(() => {
@@ -15,11 +16,11 @@ export default function Profile() {
 
     return (
         <div>
-            <h1> {user.result.name} </h1>
-            <h2> {user.result.email} </h2>
+            <h1> {profile.name} </h1>
+            <h2> {profile.email} </h2>
             <h3>Orders:</h3>
             {
-                            user?.result?.orders?.map((o, i) => {
+                            profile?.orders?.map((o, i) => {
                                 return (
                                     <div key={i}>
                                         <h4>{o?.purchased_Movie?.title}</h4>

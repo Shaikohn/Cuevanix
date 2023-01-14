@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import Swal from "sweetalert2"
 import Header from "./Header"
 import sadFilm from '../assets/sadFilm.png'
+import Pagination from "./Pagination"
 
 
 export default function Results() {
@@ -12,6 +13,10 @@ export default function Results() {
     let keyword = query.get('keyword')
     const [results, setResults] = useState([])
     const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
+
+    const [page, setPage] = useState(1)
+    const [perPage, setPerPage] = useState(6)
+    const max = (results?.length / perPage).toFixed()
 
     useEffect(() => {
         const apikey = '9d0aee88c318326033d3cc2001d4d5ed' 
@@ -40,7 +45,8 @@ export default function Results() {
                 <img src={sadFilm} alt='Not found' />
             </div>
             }
-            {results?.map((m, i) => {
+            {results?.slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+            .map((m, i) => {
                 return (
                     <div className="col-4" key={i}>
                         <div className="card my-4">
@@ -54,6 +60,7 @@ export default function Results() {
                     </div>
                 )
             })}
+            <Pagination page={page} setPage={setPage} max={max} />
         </div>
         </>
     )

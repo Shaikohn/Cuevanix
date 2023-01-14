@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const userFromLocalStorage = JSON.parse(localStorage.getItem('profile') || '{}')
+const userFromLocalStorage = JSON.parse(localStorage.getItem('profile') || null)
 
 export const userSlice = createSlice({
     name: "users",
     initialState: {
         allUsers: [],
-        user: userFromLocalStorage
+        user: userFromLocalStorage,
+        profile: {}
     },
     reducers: {
         getUsers: (state, action) => {
@@ -15,8 +16,15 @@ export const userSlice = createSlice({
         getUser: (state, action) => {
             state.user = action.payload
         },
+        getProfile: (state, action) => {
+            state.profile = action.payload
+        },
+        clearUser: (state) => {
+            state.user = null
+            localStorage.removeItem('profile')
+        },
     }
 })
 
-export const { getUsers, getUser } = userSlice.actions
+export const { getUsers, getUser, getProfile, clearUser } = userSlice.actions
 export default userSlice.reducer

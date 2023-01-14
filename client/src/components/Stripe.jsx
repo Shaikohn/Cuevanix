@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 import Loader from './Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 
-export default function Stripe({movie,closeModal}) {
+export default function Stripe({movie, closeModal, isOpenModal}) {
 
     const stripe = useStripe()
     const elements = useElements()
@@ -32,8 +32,7 @@ export default function Stripe({movie,closeModal}) {
             type: 'card',
             card: elements.getElement(CardElement)
         })
-        setLoading(true)
-
+        setLoading(true)              
         if(!error) {
             const { id } = paymentMethod
             try {
@@ -44,7 +43,6 @@ export default function Stripe({movie,closeModal}) {
             })
             saveOrder()
             setLoading(false)
-            /* product.stock-- */
             elements.getElement(CardElement).clear()
             closeModal()
             navigate("/catalog")

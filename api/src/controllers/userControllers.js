@@ -30,13 +30,31 @@ const signup = async(req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
-    const result = await User.create({email, password: hashedPassword, name: `${firstName} ${lastName}`}).populate('orders')
+    const result = await User.create({email, password: hashedPassword, name: `${firstName} ${lastName}`})
 
     const token = jwt.sign({email: result.email, id: result._id}, 'test', {expiresIn: '1h'})
 
     res.status(200).json({result: result, token})
     } catch(error) {
+        console.log(error)
         res.status(500).json({message: 'Something went wrong.'})
+    }
+}
+
+const googleUser = async(req, res) => {
+    try {
+        const { email, given_name, family_name, picture } = req.body
+        const existingUser = await User.findOne({email}).populate('orders')
+        if(existingUser) {
+            const token = jwt.sign({email: existingUser.email, id: existingUser._id}, 'test', {expiresIn: '1h'})
+            res.status(200).json({result: existingUser, token})
+        } else {
+            const result = await User.create({email, name: `${given_name} ${family_name}`, picture})
+            const token = jwt.sign({email: result.email, id: result._id}, 'test', {expiresIn: '1h'})
+            res.status(200).json({result: result, token})
+        }
+    } catch(e) {
+        console.log(e)
     }
 }
 
@@ -44,8 +62,10 @@ const getUser = async(req, res) => {
     const { _id } = req.params
     try {
         const user = await User.findOne({_id}).populate('orders')
+        console.log(user)
         res.status(200).json(user)
     } catch (e) {
+        console.log(e)
         res.status(500).json({message: 'Something went wrong.'})
     }
 }
@@ -55,6 +75,7 @@ const getUsers = async(req, res) => {
         const users = await User.find({}).populate('orders')
         res.status(200).json(users)
     } catch (e) {
+        console.log(e)
         res.status(500).json({message: 'Something went wrong.'})
     }
 }
@@ -62,6 +83,7 @@ const getUsers = async(req, res) => {
 module.exports = {
     signin, 
     signup,
+    googleUser,
     getUser,
     getUsers
 }

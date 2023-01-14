@@ -16,9 +16,8 @@ export default function Details() {
 
     let { id } = useParams()
     const movie = useSelector(state => state.movies.details)
-    console.log(movie)
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('googleProfile')))
-    const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
+    const { user } = useSelector(state => state.user)
+    const { profile } = useSelector(state => state.user)
     const dispatch = useDispatch()
     const [isOpenModal, openedModal, closeModal] = useModal(false);
     const stripePromise = loadStripe(
@@ -29,6 +28,21 @@ export default function Details() {
         dispatch(clearMovie())
         dispatch(getDetails(id))
     }, [dispatch, id])
+
+    function bought() {
+        openedModal() 
+        profile?.orders?.forEach(function(purchased_Movie) {
+            if(purchased_Movie.purchased_Movie.id === movie.id) {
+                Swal.fire({
+                title: 'Failed', 
+                text: 'You already have this movie!', 
+                icon: 'error',
+                timer: 5000
+            }); 
+            closeModal()
+            }         
+        })
+    }
 
     return (
         <>
@@ -56,14 +70,14 @@ export default function Details() {
                             })
                         }
                     </ul> */}
-                    {user !== null || localUser !== null ? <button onClick={openedModal} type="button" className="btn btn-dark">Buy</button> : ''}  
+                    {user !== null ? <button onClick={bought} type="button" className="btn btn-dark">Buy</button> : ''}  
                 </div>
             </div>
             <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
                 <Elements stripe={stripePromise}>
                     <div>
                         <h2>Make your purchase!</h2>
-                    <Stripe movie={movie} closeModal={closeModal} />
+                    <Stripe movie={movie} closeModal={closeModal} isOpenModal={isOpenModal} />
                     </div>
                 </Elements>
             </Modals>

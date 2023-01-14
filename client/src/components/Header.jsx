@@ -1,40 +1,38 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import decode from 'jwt-decode'
 import Searcher from "./Searcher"
-import Modals from './Modals/Modals'
-import { useModal } from './Modals/useModal'
 import Auth from './Auth/Auth'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserById } from "../redux/actions/userActions"
+import { clearUser } from '../redux/slices/userSlice'
 
 export default function Header() {
 
-    const favMovies = localStorage.getItem('favs')
-    const favsArray = JSON.parse(favMovies)
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('googleProfile')))
+    const {user} = useSelector(state => state.user) 
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const navigateTo = useNavigate()
     const location = useLocation()
+    const dispatch = useDispatch()
 
     const handleLogOut = () => {
-        setUser(null)
-        setLocalUser(null)
-        localStorage.removeItem('googleProfile')
-        localStorage.removeItem('profile')
+        dispatch(clearUser())
         navigateTo('/catalog')
     }
 
     useEffect(() => {
-        const token = localUser?.results?.token
+        const token = user?.token
         if(token) {
             const decodedToken = decode(token)
             if(decodedToken.exp * 1000 < new Date().getTime()) {
                 handleLogOut()
             }
         }
-        setUser(JSON.parse(localStorage.getItem('googleProfile')))
+        if(user) {
+            dispatch(getUserById(user.result._id))
+        }
         setLocalUser(JSON.parse(localStorage.getItem('profile')))
     }, [location])
-
 
     return (
         <header>
@@ -73,27 +71,8 @@ export default function Header() {
                     </div>
                     <Searcher />
                     {
-                        user !== null ? (
-                            <>
-                                <div className="btn-group ms-4">
-                                    <button type="button" className="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {user.name}
-                                    </button>
-                                    <ul className="dropdown-menu">
-                                        <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
-                                        <li><Link className="dropdown-item" to="/purchases">Purchases</Link></li>
-                                        <li><a className="dropdown-item" href="#">Reviews</a></li>
-                                        <li><hr className="dropdown-divider" /></li>
-                                        <li><button className="dropdown-item" onClick={handleLogOut}>Log Out</button></li>
-                                    </ul>
-                                </div>
-                            </>
-                        ) : ''
-                    }
-                    {
                         localUser !== null ? (
                             <>
-                                {/* <img className="rounded mx-auto d-block" src={localUser?.picture} alt="profile" /> */}
                                 <div className="btn-group ms-4">
                                     <button type="button" className="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         {localUser.result.name}
@@ -110,7 +89,7 @@ export default function Header() {
                         ) : ''
                     }
                     {
-                        user === null && localUser === null ? (
+                        localUser === null ? (
                             <>
                                 <Auth />
                             </> 

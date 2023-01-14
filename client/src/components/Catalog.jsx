@@ -6,30 +6,19 @@ import { getMovies } from "../redux/actions/movieActions";
 import { useState } from "react";
 import Spinner from "./Spinner/index";
 import Pagination from "./Pagination";
-import { getUserById } from "../redux/actions/userActions";
 
-export default function Catalog(props) {
+export default function Catalog() {
 
     const {movies} = useSelector(state => state.movies)
-    /* const [user, setUser] = useState(JSON.parse(localStorage.getItem('googleProfile'))) */
-    const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
-    const {user} = useSelector(state => state.user) 
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(8)
     const max = (movies?.length / perPage).toFixed()
     const dispatch = useDispatch()
     const location = useLocation()
-    const _id = localUser?.result?._id
-    console.log(movies)
 
     useEffect(() => {
         dispatch(getMovies())
     }, [dispatch, location])
-
-    if(localUser) {
-        dispatch(getUserById(_id))
-        console.log('userDb', user) 
-    }
 
     return (
         <>    

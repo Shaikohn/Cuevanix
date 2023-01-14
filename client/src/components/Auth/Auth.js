@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useReducer, useState } from 'react'
 import { BsEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { GoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom';
-import { signIn, signUp } from '../../redux/actions/authActions';
+import { signGoogle, signIn, signUp } from '../../redux/actions/authActions';
 import Modals from '../Modals/Modals';
 import { useModal } from '../Modals/useModal';
+import { useEffect } from 'react';
 
 export default function Auth() {
 
@@ -17,15 +18,15 @@ export default function Auth() {
     const [isSignUp, setIsSignUp] = useState(false);
     const [formData, setFormData] = useState(initialState)
     const dispatch = useDispatch()
-    const navigateTo = useNavigate()
+    const navigate = useNavigate()
     const [isOpenModal, openedModal, closeModal] = useModal(false);
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if(isSignUp) {
-            dispatch(signUp(formData, navigateTo))
+            dispatch(signUp(formData, navigate, closeModal))
         } else {
-            dispatch(signIn(formData, navigateTo))
+            dispatch(signIn(formData, navigate, closeModal))
         }
     }
 
@@ -39,11 +40,10 @@ export default function Auth() {
 
     const googleSuccess = async(res) => {
         const token = res.credential
-        const userObject = (jwt_decode(token))
+        const googleUser = (jwt_decode(token))
         try {
-            localStorage.setItem('googleProfile', JSON.stringify(userObject))
-            console.log(userObject)
-            navigateTo('/catalog')
+            localStorage.setItem('profile', JSON.stringify(googleUser))
+            dispatch(signGoogle(googleUser, navigate, closeModal))
         } catch (error) {
             console.log(error)
         }
@@ -61,11 +61,11 @@ export default function Auth() {
                     <div className='d-flex text-center'>
                         <div className="form-group col-md-4 ms-5 ">
                             <label>Name</label>
-                            <input type="text" name="firstName" className="form-control" placeholder="Name" onChange={handleChange}  />
+                            <input autoComplete='off' type="text" name="firstName" className="form-control" placeholder="Name" onChange={handleChange}  />
                         </div>
                         <div className="form-group col-md-4 ms-4">
                             <label>Lastname</label>
-                            <input type="text" name="lastName" className="form-control" placeholder="Lastname" onChange={handleChange}  />
+                            <input autoComplete='off' type="text" name="lastName" className="form-control" placeholder="Lastname" onChange={handleChange}  />
                         </div>
                     </div>
                 )
@@ -73,7 +73,7 @@ export default function Auth() {
             <div className='d-flex mt-1 mx-auto text-center'>
             <div className="form-group col-md-4 ms-5 text-center">
                 <label>Email</label>
-                <input type="email" name="email" className="form-control" placeholder="Email" onChange={handleChange} />
+                <input autoComplete='off' type="email" name="email" className="form-control" placeholder="Email" onChange={handleChange} />
             </div>
             <div className="form-group col-md-4 ms-4 text-center">
                 <label>Password</label>

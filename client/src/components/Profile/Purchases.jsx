@@ -7,18 +7,20 @@ import { getUserById } from "../../redux/actions/userActions"
 export default function Purchases() {
 
     const {user} = useSelector(state => state.user)
-    console.log(user)
+    const {profile} = useSelector(state => state.user)
+    console.log(profile)
+    const _id = user?.result?._id
     const dispatch = useDispatch()
     
     useEffect(() => {
-        dispatch(getUserById(user.result._id))
-    }, [dispatch, user.result._id])
+        dispatch(getUserById(_id))
+    }, [dispatch, _id])
 
     return (
         <div>
-            <h1> {user.result.name} purchases: </h1>
+            <h1> {profile?.name} purchases: </h1>
             {
-                            user?.result?.orders?.map((o, i) => {
+                            profile?.orders?.map((o, i) => {
                                 return (
                                     <li key={i}>
                                         {o?.purchased_Movie?.title}
