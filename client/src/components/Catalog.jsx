@@ -1,5 +1,4 @@
 import { Link, useLocation  } from "react-router-dom";
-import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovies } from "../redux/actions/movieActions";
@@ -12,7 +11,7 @@ export default function Catalog() {
     const {movies} = useSelector(state => state.movies)
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(8)
-    const max = (movies?.length / perPage).toFixed()
+    const max = Math.ceil(movies?.length / perPage)
     const dispatch = useDispatch()
     const location = useLocation()
 
