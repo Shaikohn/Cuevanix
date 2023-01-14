@@ -9,11 +9,12 @@ export default function Profile() {
     const {user} = useSelector(state => state.user)
     console.log(user)
     const {profile} = useSelector(state => state.user)
+    const _id = user?.result?._id
     const dispatch = useDispatch()
     
     useEffect(() => {
-        dispatch(getUserById(user.result._id))
-    }, [dispatch, user.result._id])
+        dispatch(getUserById(_id))
+    }, [dispatch, _id])
 
     return (
         <div>

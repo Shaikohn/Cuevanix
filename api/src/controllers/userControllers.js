@@ -62,7 +62,6 @@ const getUser = async(req, res) => {
     const { _id } = req.params
     try {
         const user = await User.findOne({_id}).populate('orders')
-        console.log(user)
         res.status(200).json(user)
     } catch (e) {
         console.log(e)

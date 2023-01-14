@@ -17,6 +17,7 @@ export default function Details() {
     let { id } = useParams()
     const movie = useSelector(state => state.movies.details)
     const { user } = useSelector(state => state.user)
+    const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const { profile } = useSelector(state => state.user)
     const dispatch = useDispatch()
     const [isOpenModal, openedModal, closeModal] = useModal(false);
@@ -70,13 +71,14 @@ export default function Details() {
                             })
                         }
                     </ul> */}
-                    {user !== null ? <button onClick={bought} type="button" className="btn btn-dark">Buy</button> : ''}  
+                    {localUser !== null ? <button onClick={bought} type="button" className="btn btn-dark">Buy</button> : ''}  
                 </div>
             </div>
             <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
                 <Elements stripe={stripePromise}>
                     <div>
-                        <h2>Make your purchase!</h2>
+                        <h2 className="mb-5">Make your purchase!</h2>
+                        <img className="mb-2 ms-5 rounded-start rounded-end" style={{width: '14rem', height: '14rem'}} src={`https://image.tmdb.org/t/p/w500/${movie?.image}`} alt={movie?.title} />
                     <Stripe movie={movie} closeModal={closeModal} isOpenModal={isOpenModal} />
                     </div>
                 </Elements>

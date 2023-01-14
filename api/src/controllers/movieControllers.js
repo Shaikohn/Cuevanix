@@ -35,7 +35,7 @@ const getMovieById = async (req, res, next) => {
                     video: movieApi.data.video,
                     release_date: movieApi.data.release_date,
                     genres: movieApi.data.genres,
-                    price: Math.random()*(50 - 10)
+                    price: Math.ceil(Math.random()*(50 - 10))
                 }
                 const movie = new Movie(filteredMovieApi)
                 newMovie = movie.save()

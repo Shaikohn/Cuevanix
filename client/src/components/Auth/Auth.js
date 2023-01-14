@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { signGoogle, signIn, signUp } from '../../redux/actions/authActions';
 import Modals from '../Modals/Modals';
 import { useModal } from '../Modals/useModal';
-import { useEffect } from 'react';
 
 export default function Auth() {
 

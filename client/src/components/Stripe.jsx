@@ -75,14 +75,18 @@ export default function Stripe({movie, closeModal, isOpenModal}) {
                 {loading ? 
                 <Loader />
             : 
-            <div>
-            <button type='submit'>
-                CONFIRM
-            </button>
+            <div className='text-center mt-3 mb-3'>
+                <button className="btn btn-success" type='submit'>
+                    CONFIRM
+                </button>
             </div>
             }
         </form>
-        <button onClick={closeModal}>CLOSE</button>
+        <div className='text-center'>
+            <button className="btn btn-danger" onClick={closeModal}>
+                CLOSE
+            </button>
+        </div>
         </div>
     )
 }

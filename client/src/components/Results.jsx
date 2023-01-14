@@ -16,7 +16,7 @@ export default function Results() {
 
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(6)
-    const max = (results?.length / perPage).toFixed()
+    const max = Math.ceil(results?.length / perPage)
 
     useEffect(() => {
         const apikey = '9d0aee88c318326033d3cc2001d4d5ed' 
