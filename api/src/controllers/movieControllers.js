@@ -31,15 +31,15 @@ const getMovieById = async (req, res, next) => {
                     title: movieApi.data.title,
                     image: `https://image.tmdb.org/t/p/w500/${movieApi.data.poster_path}`,
                     overview: movieApi.data.overview,
-                    rating: movieApi.data.vote_average,
+                    rating: (movieApi.data.vote_average).toFixed(2),
                     video: movieApi.data.video,
                     release_date: movieApi.data.release_date,
                     genres: movieApi.data.genres,
                     price: Math.ceil(Math.random()*(50 - 10))
                 }
                 const movie = new Movie(filteredMovieApi)
-                newMovie = movie.save()
-                res.status(200).send(newMovie)
+                movie.save()
+                res.status(200).send(movie)
             }
         )
             }
@@ -49,21 +49,11 @@ const getMovieById = async (req, res, next) => {
     }
 } 
 
-const getMoviePurchased = async (req, res, next) => {
+const getMovieAdmin= async (req, res, next) => {
     const { id } = req.params
     try {
             let movieDb = await Movie.findOne({id})
-            let filteredMovie = {
-                    id: movieDb.data.id,
-                    title: movieDb.data.title,
-                    image: `https://image.tmdb.org/t/p/w500/${movieDb.data.poster_path}`,
-                    overview: movieDb.data.overview,
-                    rating: movieDb.data.vote_average,
-                    video: true,
-                    genres: movieDb.data.genres,
-            }
-            console.log(filteredMovie)
-            res.status(200).send(filteredMovie)
+            res.status(200).send(movieDb)
         }
     catch (error) {
         next(error)
@@ -97,9 +87,22 @@ const getMovieVideo = async (req, res, next) => {
     }
 }
 
+const deleteMovie = async (req, res, next) => {
+    try {
+        const {id} = req.params
+        let movie = await Movie.findOne({id})
+        await movie.remove()
+        res.status(200).send({message: "Movie deleted succesfully!"})
+    }
+    catch(error) {
+        next(error)
+    }
+}
+
 module.exports = {
     getMovies,
     getMovieById,
-    getMoviePurchased,
-    getMovieVideo
+    getMovieAdmin,
+    getMovieVideo,
+    deleteMovie
 }

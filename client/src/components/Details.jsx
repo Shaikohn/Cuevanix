@@ -16,7 +16,6 @@ export default function Details() {
 
     let { id } = useParams()
     const movie = useSelector(state => state.movies.details)
-    const { user } = useSelector(state => state.user)
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const { profile } = useSelector(state => state.user)
     const dispatch = useDispatch()

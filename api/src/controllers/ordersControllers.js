@@ -24,6 +24,28 @@ const addOrder = async(req, res) => {
     }
 }
 
+const getOrders = async(req, res) => {
+    try {
+        const orders = await Order.find({})
+        res.json(orders)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getPurchasedMovie = async(req, res) => {
+    try {
+        /* const { id } = req.params
+        let movie = purchased_Movie.id
+        const order = Order.findOne(movie: id) */
+    }
+    catch(e) {
+        console.log(e)
+    }
+}
+
 module.exports = {
-    addOrder
+    addOrder,
+    getOrders,
+    getPurchasedMovie
 }

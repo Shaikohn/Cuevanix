@@ -1,26 +1,25 @@
+import { useState } from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { getUserById } from "../../redux/actions/userActions"
+import { getProfileById } from "../../redux/actions/userActions"
 
 
 export default function Profile() {
-
-    const {user} = useSelector(state => state.user)
-    console.log(user)
+    const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const {profile} = useSelector(state => state.user)
-    const _id = user?.result?._id
+    const _id = localUser?.result?._id
     const dispatch = useDispatch()
     
     useEffect(() => {
-        dispatch(getUserById(_id))
+        dispatch(getProfileById(_id))
     }, [dispatch, _id])
 
     return (
         <div>
             <h1> {profile.name} </h1>
             <h2> {profile.email} </h2>
-            <img src={profile?.picture} alt={profile.name} />
+            <img src={profile?.picture} alt={profile.name} referrerPolicy="no-referrer" />
             <h3>Orders:</h3>
             {
                             profile?.orders?.map((o, i) => {

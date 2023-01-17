@@ -11,6 +11,12 @@ import LandingPage from './components/LandingPage';
 import Purchases from './components/Profile/Purchases';
 import Profile from './components/Profile/Profile';
 import PurchasedMovie from './components/Profile/PurchasedMovie';
+import AdminPanel from './components/Admin/AdminPanel';
+import UserDetails from './components/Admin/UserDetails';
+import Orders from './components/Admin/Orders';
+import Users from './components/Admin/Users';
+import Movies from './components/Admin/Movies';
+import MovieDetails from './components/Admin/MovieDetails';
 
 function App() {
 
@@ -26,6 +32,12 @@ function App() {
         <Route exact path='/purchases' element={<Purchases />} />
         <Route exact path='/profile' element={<Profile />} />
         <Route exact path='/purchasedMovie/:id' element={<PurchasedMovie />} />
+        <Route exact path='/adminPanel' element={<AdminPanel />} />
+        <Route exact path='/users' element={<Users />} />
+        <Route exact path='/user/:_id' element={<UserDetails />} />
+        <Route exact path='/orders' element={<Orders />} />
+        <Route exact path='/movies' element={<Movies />} />
+        <Route exact path='/movieDetails/:id' element={<MovieDetails />} />
       </Routes>
       <Footer />
     </ GoogleOAuthProvider>

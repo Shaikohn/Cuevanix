@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { getUserById } from "../../redux/actions/userActions"
+import { getProfileById } from "../../redux/actions/userActions"
 
 
 export default function Purchases() {
@@ -13,7 +13,7 @@ export default function Purchases() {
     const dispatch = useDispatch()
     
     useEffect(() => {
-        dispatch(getUserById(_id))
+        dispatch(getProfileById(_id))
     }, [dispatch, _id])
 
     return (

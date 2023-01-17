@@ -10,6 +10,17 @@ export default function PurchasedMovie() {
 
     let { id } = useParams()
     const dispatch = useDispatch()
+
+    const videos  = useSelector(state => state.movies.videos)
+    const video = videos.find((v) => v.type === "Trailer")
+
+    useEffect(() => {
+        dispatch(clearVideos())
+        dispatch(getMovieVideos(id))
+    }, [dispatch, id])
+
+    /* let { id } = useParams()
+    const dispatch = useDispatch()
     const purchasedMovie  = useSelector(state => state.movies.purchasedMovie)
     const videos  = useSelector(state => state.movies.videos)
     const video = videos.find((v) => v.type === "Trailer")
@@ -33,5 +44,8 @@ export default function PurchasedMovie() {
                 </div>
             </div>
         </div>
+    ) */
+    return (
+        <ReactPlayer width='100%' playing='true' className="rounded mx-auto d-block" url={`https://www.youtube.com/watch?v=${video?.key}`}  />
     )
 }

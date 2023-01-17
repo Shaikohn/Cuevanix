@@ -41,7 +41,6 @@ export default function Auth() {
         const token = res.credential
         const googleUser = (jwt_decode(token))
         try {
-            localStorage.setItem('profile', JSON.stringify(googleUser))
             dispatch(signGoogle(googleUser, navigate, closeModal))
         } catch (error) {
             console.log(error)

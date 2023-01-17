@@ -4,12 +4,12 @@ import decode from 'jwt-decode'
 import Searcher from "./Searcher"
 import Auth from './Auth/Auth'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserById } from "../redux/actions/userActions"
+import { getProfileById } from "../redux/actions/userActions"
 import { clearUser } from '../redux/slices/userSlice'
+import {FaUserShield} from 'react-icons/fa'
 
 export default function Header() {
 
-    const {user} = useSelector(state => state.user) 
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const navigateTo = useNavigate()
     const location = useLocation()
@@ -21,15 +21,15 @@ export default function Header() {
     }
 
     useEffect(() => {
-        const token = user?.token
+        const token = localUser?.token
         if(token) {
             const decodedToken = decode(token)
             if(decodedToken.exp * 1000 < new Date().getTime()) {
                 handleLogOut()
             }
         }
-        if(user) {
-            dispatch(getUserById(user.result._id))
+        if(localUser) {
+            dispatch(getProfileById(localUser.result._id))
         }
         setLocalUser(JSON.parse(localStorage.getItem('profile')))
     }, [location])
@@ -86,6 +86,20 @@ export default function Header() {
                                     </ul>
                                 </div>
                             </>
+                        ) : ''
+                    }
+                    {
+                        localUser?.result?.owner === true || localUser?.result?.admin === true ? (
+                            <div>
+                            <button type='button' className="btn btn-light ms-3" data-bs-toggle="dropdown" aria-expanded="false">
+                                <FaUserShield size={30} />
+                            </button>
+                            <ul style={{left: 'auto', top: '50px'}} className="dropdown-menu ms-3">
+                                        <li><Link className="dropdown-item" to="/adminPanel">Admin Panel</Link></li>
+                                        <li><Link className="dropdown-item" to="/purchases">Purchases</Link></li>
+                                        {/* <li><a className="dropdown-item" href="#">Reviews</a></li> */}
+                                    </ul>
+                            </div>
                         ) : ''
                     }
                     {

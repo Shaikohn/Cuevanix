@@ -15,5 +15,8 @@ const userSchema = mongoose.Schema({
             ref: 'Order',
         },
     ],
+    owner: { type: Boolean, default: false },
+    admin: { type: Boolean, default: false },
+    banned: { type: Boolean, default: false },
 })
 module.exports = mongoose.model('User', userSchema)
