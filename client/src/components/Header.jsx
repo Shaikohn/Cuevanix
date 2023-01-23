@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import decode from 'jwt-decode'
 import Searcher from "./Searcher"
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getProfileById } from "../redux/actions/userActions"
 import { clearUser } from '../redux/slices/userSlice'
 import {FaUserShield} from 'react-icons/fa'
+import Inquirie from './Inquirie'
 
 export default function Header() {
 
@@ -17,6 +18,7 @@ export default function Header() {
 
     const handleLogOut = () => {
         dispatch(clearUser())
+        localStorage.removeItem('profile')
         navigateTo('/catalog')
     }
 
@@ -47,6 +49,9 @@ export default function Header() {
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <Link className="nav-link" to='/catalog'>Catalog</Link>
+                            </li>
+                            <li>
+                                <Inquirie />
                             </li>
                             {/* {
                                 user !== null || localUser !== null ? (
@@ -80,7 +85,7 @@ export default function Header() {
                                     <ul className="dropdown-menu">
                                         <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
                                         <li><Link className="dropdown-item" to="/purchases">Purchases</Link></li>
-                                        {/* <li><a className="dropdown-item" href="#">Reviews</a></li> */}
+                                        <li><Link className="dropdown-item" to="/messages">Messages</Link></li>
                                         <li><hr className="dropdown-divider" /></li>
                                         <li><button className="dropdown-item" onClick={handleLogOut}>Log Out</button></li>
                                     </ul>
@@ -96,8 +101,6 @@ export default function Header() {
                             </button>
                             <ul style={{left: 'auto', top: '50px'}} className="dropdown-menu ms-3">
                                         <li><Link className="dropdown-item" to="/adminPanel">Admin Panel</Link></li>
-                                        <li><Link className="dropdown-item" to="/purchases">Purchases</Link></li>
-                                        {/* <li><a className="dropdown-item" href="#">Reviews</a></li> */}
                                     </ul>
                             </div>
                         ) : ''

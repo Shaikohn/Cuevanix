@@ -1,0 +1,61 @@
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux";
+import { postInquirie } from "../redux/actions/inquirieActions";
+import Modals from "./Modals/Modals"
+import { useModal } from "./Modals/useModal";
+
+
+export default function Inquirie() {
+    
+    const {profile} = useSelector(state => state.user)
+    const userId = profile?._id
+    const initialState = { email: '', name: '', subject: '', text: '', userId: userId || null}
+    const [isOpenModal, openedModal, closeModal] = useModal(false);
+    const [inquirieData, setInquirieData] = useState(initialState)
+    const dispatch = useDispatch()
+
+    const handleChange = (e) => {
+        setInquirieData({ ...inquirieData, [e.target.name]: e.target.value})
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(postInquirie(inquirieData, closeModal))
+    }
+
+    return (
+        <div>
+            <button type="button" className="nav-link" onClick={openedModal}>Inquirie</button>
+            <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
+        <h2> Send us a inquirie! </h2>
+        <form className="container" onSubmit={handleSubmit} noValidate>
+                    <div className='d-flex text-center'>
+                        <div className="form-group col-md-4 ms-5 ">
+                            <label>Name</label>
+                            <input autoComplete='off' type="text" name="name" className="form-control" placeholder="Name" onChange={handleChange}  />
+                        </div>
+                    
+            <div className="form-group col-md-4 ms-5 text-center">
+                <label>Email</label>
+                <input autoComplete='off' type="email" name="email" className="form-control" placeholder="Email" onChange={handleChange} />
+            </div>
+            </div>
+            <div className="form-group col-md-4 mx-auto text-center mt-2">
+                            <label>Subject</label>
+                            <div className='d-flex'>
+                            <input autoComplete='off' type="text" name="subject" className="form-control" placeholder="Subject" onChange={handleChange}  />
+                            </div>
+                        </div>
+            <div className="form-group col-md-4 ms-5 text-center mt-2">
+                <label>Message</label>
+                <textarea style={{width: '270px'}} autoComplete='off' type="email" name="text" className="form-control" placeholder="Message" onChange={handleChange} />
+            </div>
+            <div className='text-center mt-3'>
+                <button type="submit" className="btn btn-primary">Send</button>
+            </div>
+        </form>
+        <button type="button" className="btn btn-danger" onClick={closeModal}>Close</button>
+        </Modals>
+        </div>
+    )
+}

@@ -46,7 +46,7 @@ export default function Details() {
 
     return (
         <>
-        {movie !== undefined ? <div>
+        {movie !== null ? <div>
             <h2> {movie?.title} </h2>
             <div className="row">
                 <div className="col-4">

@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react'
+import { useState } from 'react'
 import { BsEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { GoogleLogin } from '@react-oauth/google';
@@ -53,7 +53,7 @@ export default function Auth() {
         <button type="button" className="btn btn-lg btn-primary ms-4" onClick={openedModal}>Sign In</button>
         <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
         <h2> {isSignUp ? 'Sign Up' : 'Sign In'} </h2>
-        <form className="container" onSubmit={handleSubmit}>
+        <form className="container" onSubmit={handleSubmit} noValidate>
             {
                 isSignUp && (
                     <div className='d-flex text-center'>

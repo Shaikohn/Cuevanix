@@ -41,8 +41,8 @@ export default function Pagination({page, setPage, max}) {
     return (
         <div className="d-flex align-items-center justify-content-center">
             <button disabled={page === 1} onClick={prevPage}> <BsFillArrowLeftCircleFill size={30} /> </button>
-            <input autoComplete="off" name="page" onChange={e => onChange(e)} onKeyDown={e => onKeyDown(e)} value={input} />
-            <p className="text-center ms-2 mt-3">OF {max} </p>
+            {/* <input autoComplete="off" name="page" onChange={e => onChange(e)} onKeyDown={e => onKeyDown(e)} value={input} /> */}
+            <p className="text-center ms-2 mt-3"> {page} OF {max} </p>
             <button onClick={nextPage} disabled={page === parseInt(max)}> <BsFillArrowRightCircleFill size={30} /> </button>
         </div>
     )

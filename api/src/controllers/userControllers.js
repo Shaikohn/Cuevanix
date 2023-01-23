@@ -1,6 +1,21 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
+const nodemailer = require("nodemailer");
+const dotenv = require("dotenv");
+dotenv.config();
+const { MAIL_USER, MAIL_PASS } = process.env
+
+const transport = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: MAIL_USER,
+    pass: MAIL_PASS,
+  },
+  tls: { rejectUnauthorized: false },
+});
 
 const signin = async(req, res) => {
     const { email, password } = req.body
@@ -26,7 +41,12 @@ const signup = async(req, res) => {
 
     const existingUser = await User.findOne({email})
     if(existingUser) return res.status(404).json({message: "That email is already in use!"})
-
+    const pattern = new RegExp('^[A-Z]+$', 'i');
+    const emailPattern =  new RegExp('[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}')
+    if(!pattern.test(firstName)) return res.status(404).json({message: "You only can use letters for the name!"})
+    if(!pattern.test(lastName)) return res.status(404).json({message: "You only can use letters for the lastname!"})
+    if(!emailPattern.test(email)) return res.status(404).json({message: "Write a valid email!"})
+    if(password.length < 6) return res.status(404).json({message: "The password needs to have a minimum of 6 characters!"})
     if(!password === confirmPassword) return res.status(404).json({message: "Passwords don't match!"})
 
     const hashedPassword = await bcrypt.hash(password, 12)
@@ -34,7 +54,14 @@ const signup = async(req, res) => {
     const result = await User.create({email, password: hashedPassword, name: `${firstName} ${lastName}`})
 
     const token = jwt.sign({email: result.email, id: result._id}, 'test', {expiresIn: '1h'})
-
+    let signEmail = await transport.sendMail({
+        from: MAIL_USER,
+        to: result.email,
+        subject: "Welcome to Cuevanix!",
+        html: `<h1> Hello ${result.name}! </h1>
+            <p> We hope that you enjoy our website filled with the best movies! </p>
+            </div>`,
+    })
     res.status(200).json({result: result, token})
     } catch(error) {
         console.log(error)
@@ -56,6 +83,14 @@ const googleUser = async(req, res) => {
         } else {
             const result = await User.create({email, name: `${given_name} ${family_name}`, picture})
             const token = jwt.sign({email: result.email, id: result._id}, 'test', {expiresIn: '1h'})
+            let signEmail = await transport.sendMail({
+                from: MAIL_USER,
+                to: result.email,
+                subject: "Welcome to Cuevanix!",
+                html: `<h1> Hello ${result.name}! </h1>
+                    <p> We hope that you enjoy our website filled with the best movies! </p>
+                    </div>`,
+            })
             res.status(200).json({result: result, token})
         }
     } catch(e) {
@@ -94,6 +129,26 @@ const getUsers = async(req, res) => {
         res.status(500).json({message: 'Something went wrong.'}) 
     }
 }
+
+const updateUser = async (req, res) => {
+    const { _id  } = req.params
+    const { name, email, picture } = req.body
+    console.log(name, email)
+    console.log('params', req.params)
+    try {
+        const user = await User.findById(_id).populate('orders')
+        await user.updateOne({ 
+            name,
+            email,
+            picture,
+        })
+        user.save()
+        const userUpdated = await User.findOne({_id}).populate('orders')
+        return res.status(200).json(userUpdated);
+        } catch (error) {
+            res.status(400).json(error);
+        }
+    };
 
 const updateUserRole = async (req, res) => {
     const { _id } = req.params;
@@ -135,6 +190,7 @@ module.exports = {
     getUser,
     getProfile,
     getUsers,
+    updateUser,
     updateUserRole,
     updateUserStatus,
 }

@@ -5,13 +5,18 @@ import { getMovies } from "../redux/actions/movieActions";
 import { useState } from "react";
 import Spinner from "./Spinner/index";
 import Pagination from "./Pagination";
+import Swal from "sweetalert2";
+import SortMovies from "./Sort/SortMovies";
 
 export default function Catalog() {
 
     const {movies} = useSelector(state => state.movies)
+    const {filteredMovies} = useSelector(state => state.movies)
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(8)
-    const max = Math.ceil(movies?.length / perPage)
+    const [search, setSearch] = useState('')
+    const filtered = filteredMovies.filter(m => m.title.toLowerCase().includes(search.toLowerCase()))
+    const max = Math.ceil(filtered?.length / perPage)
     const dispatch = useDispatch()
     const location = useLocation()
 
@@ -19,18 +24,49 @@ export default function Catalog() {
         dispatch(getMovies())
     }, [dispatch, location])
 
+    function filteredMovie() {
+        if(search.length === 0) {
+            return filteredMovies
+        } 
+        if(filtered.length === 0) {
+            Swal.fire({
+                title: "Error",
+                text: 'Sorry, we couldnt find that movie',
+                icon: "error",
+                timer: 3000,
+            });
+            setPage(1)
+            setSearch("")
+        } 
+        return filtered
+    }
+
+    function handleOnSearch(e) {
+        setSearch(e.target.value)
+        setPage(1) 
+    }
+
     return (
         <>    
         <div>
-            <div className="row" >
+            <div className="nav justify-content-center">
+            <Pagination page={page} setPage={setPage} max={max} />
+                <label className="form-label mb-0 mt-2">
+                    <input autoComplete="off" className="form-control" onChange={handleOnSearch} placeholder="Search in the catalog" type="text" value={search} />
+                </label>
+                <div className="mt-2">
+                    < SortMovies setPage={setPage} />
+                </div>
+            </div>
+            <div style={{width: '100%'}} className="row" >
             {movies.length > 0 ? 
-            movies
+            filteredMovie()
             .slice((page - 1) * perPage, (page - 1) * perPage + perPage)
             .map((m, i) => {
                 return (
                     <div className="col-3" key={i}>
-                        <div className="card my-4">
-                            <img className="card-img-top" src={m.image} alt="film" />
+                        <div className="card my-3 mx-3">
+                            <img style={{height: '300px'}} className="card-img-top" src={m.image} alt="film" />
                             {/* {
                                 user !== null || localUser !== null ? <button className="favourite-btn" onClick={props.addOrRemoveFromFavs} data-movie-id={m.id}>🖤</button> : ''
                             } */}
@@ -43,8 +79,8 @@ export default function Catalog() {
                     </div>
                 )
             }) : <Spinner />}
-            <Pagination page={page} setPage={setPage} max={max} />
             </div>
+            <Pagination page={page} setPage={setPage} max={max} />
         </div>
         </>
     )

@@ -46,6 +46,6 @@ export default function PurchasedMovie() {
         </div>
     ) */
     return (
-        <ReactPlayer width='100%' playing='true' className="rounded mx-auto d-block" url={`https://www.youtube.com/watch?v=${video?.key}`}  />
+        <ReactPlayer width='100%' className="rounded mx-auto d-block" url={`https://www.youtube.com/watch?v=${video?.key}`}  />
     )
 }

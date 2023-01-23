@@ -8,6 +8,12 @@ export const getMovies = () => (dispatch) => {
     .catch(e => console.log(e))
 }
 
+export const getResults = (keyword) => (dispatch) => {
+    axios.get(`http://localhost:3001/movies/results?keyword=${keyword}`)
+    .then(res => dispatch(getResults(res.data)))
+    .catch(e => console.log(e))
+}
+
 export const getDetails = (id) => (dispatch) => {
     axios.get(`http://localhost:3001/movies/${id}`)
     .then(res => dispatch(getMovieById(res.data)))
@@ -33,7 +39,7 @@ export const getMovieVideos = (id) => (dispatch) => {
     .catch(e => console.log(e))
 }
 
-export const deleteMovie = (id, navigate) => (dispatch) => {
+export const deleteMovie = (id, navigate) => () => {
     try {
         axios.delete(`http://localhost:3001/movies/${id}`)
         navigate('/movies')

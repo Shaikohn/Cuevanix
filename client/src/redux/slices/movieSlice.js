@@ -4,14 +4,22 @@ export const moviesSlice = createSlice({
     name: "movies",
     initialState: {
         movies: [],
-        details: {},
+        filteredMovies: [],
+        results: [],
+        filteredResults: [],
+        details: null,
         purchasedMovie: {},
-        adminMovie: {},
+        adminMovie: null,
         videos: [],
     },
     reducers: {
         getAllMovies: (state, action) => {
             state.movies = action.payload
+            state.filteredMovies = action.payload
+        },
+        getResults: (state, action) => {
+            state.results = action.payload
+            state.filteredResults = action.payload
         },
         getMovieById: (state, action) => {
             state.details = action.payload
@@ -25,11 +33,96 @@ export const moviesSlice = createSlice({
         getVideos: (state, action) => {
             state.videos = action.payload
         },
+        orderByTitle: (state, action) => {
+            const orderMoviesTitle = action.payload === "title_asc" ?
+                state.filteredMovies.slice().sort(function(a, b) {
+                    if(a.title.toLowerCase() < b.title.toLowerCase()) {return -1}
+                    if(b.title.toLowerCase() < a.title.toLowerCase()) {return 1}
+                    return 0;
+                }) : 
+                state.filteredMovies.slice().sort(function(a, b) {
+                    if(a.title.toLowerCase() > b.title.toLowerCase()) {return -1}
+                    if(a.title.toLowerCase() > b.title.toLowerCase()) {return 1}
+                    return 0;
+        })
+        return {
+            ...state,
+            filteredMovies: orderMoviesTitle
+        }
+        },
+        orderByRating: (state, action) => {
+            const orderMoviesRating = action.payload === "rating_asc" ?
+                state.filteredMovies.slice().sort(function(a, b) {
+                    if(parseInt(a.rating) < parseInt(b.rating)) {return -1}
+                    if(parseInt(b.rating < a.rating)) {return 1}
+                    return 0;
+                }) : 
+                state.filteredMovies.slice().sort(function(a, b) {
+                    if(parseInt(a.rating) > parseInt(b.rating)) {return -1}
+                    if(parseInt(a.rating) > parseInt(b.rating)) {return 1}
+                    return 0;
+        })
+        return {
+            ...state,
+            filteredMovies: orderMoviesRating
+        }
+        },
+        orderByPrice: (state, action) => {
+            const orderMoviesPrice = action.payload === "price_asc" ?
+                state.filteredMovies.slice().sort(function(a, b) {
+                    if(parseInt(a.price) < parseInt(b.price)) {return -1}
+                    if(parseInt(b.price < a.price)) {return 1}
+                    return 0;
+                }) : 
+                state.filteredMovies.slice().sort(function(a, b) {
+                    if(parseInt(a.price) > parseInt(b.price)) {return -1}
+                    if(parseInt(a.price) > parseInt(b.price)) {return 1}
+                    return 0;
+        })
+        return {
+            ...state,
+            filteredMovies: orderMoviesPrice
+        }
+        },
+        resultByTitle: (state, action) => {
+            const orderResultsTitle = action.payload === "title_asc" ?
+                state.filteredResults.slice().sort(function(a, b) {
+                    if(a.title.toLowerCase() < b.title.toLowerCase()) {return -1}
+                    if(b.title.toLowerCase() < a.title.toLowerCase()) {return 1}
+                    return 0;
+                }) : 
+                state.filteredResults.slice().sort(function(a, b) {
+                    if(a.title.toLowerCase() > b.title.toLowerCase()) {return -1}
+                    if(a.title.toLowerCase() > b.title.toLowerCase()) {return 1}
+                    return 0;
+        })
+        return {
+            ...state,
+            filteredResults: orderResultsTitle
+        }
+        },
+        resultByRating: (state, action) => {
+            const orderResultsRating = action.payload === "rating_asc" ?
+                state.filteredResults.slice().sort(function(a, b) {
+                    if(parseInt(a.rating) < parseInt(b.rating)) {return -1}
+                    if(parseInt(b.rating < a.rating)) {return 1}
+                    return 0;
+                }) : 
+                state.filteredResults.slice().sort(function(a, b) {
+                    if(parseInt(a.rating) > parseInt(b.rating)) {return -1}
+                    if(parseInt(a.rating) > parseInt(b.rating)) {return 1}
+                    return 0;
+        })
+        return {
+            ...state,
+            filteredResults: orderResultsRating
+        }
+        },
         clearMovie: (state) => {
-            state.details = {}
+            state.details = null
         },
         clearMovieAdmin: (state) => {
-            state.adminMovie = {}
+            state.adminMovie = null
         },
         clearPurchasedMovie: (state) => {
             state.purchasedMovie = {}
@@ -40,5 +133,5 @@ export const moviesSlice = createSlice({
     }
 })
 
-export const {getAllMovies, getMovieById, getPurchased, getVideos, getMovieDetails, clearMovie, clearMovieAdmin, clearPurchasedMovie, clearVideos} = moviesSlice.actions
+export const {getAllMovies, getMovieById, getPurchased, getVideos, getMovieDetails, orderByTitle, orderByRating, orderByPrice, resultByTitle, resultByRating, clearMovie, clearMovieAdmin, clearPurchasedMovie, clearVideos} = moviesSlice.actions
 export default moviesSlice.reducer

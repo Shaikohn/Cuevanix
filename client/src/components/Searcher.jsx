@@ -33,7 +33,7 @@ export default function Searcher() {
         <div>
             <form className="d-flex align-items-center" onSubmit={submitHandler}>
                 <label className="form-label mb-0">
-                    <input autoComplete="off" className="form-control" type='text' name='keyword' placeholder="Search a movie..."/>
+                    <input autoComplete="off" className="form-control" type='text' name='keyword' placeholder="Search other movies..."/>
                 </label>
                 <button className="btn btn-success" type='submit'>Search</button>
             </form>

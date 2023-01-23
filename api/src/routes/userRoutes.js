@@ -1,5 +1,5 @@
 const express = require('express')
-const { signin, signup, getUsers, getUser, getProfile, googleUser, updateUserStatus, updateUserRole } = require('../controllers/userControllers')
+const { signin, signup, getUsers, getUser, getProfile, googleUser, updateUserStatus, updateUserRole, updateUser } = require('../controllers/userControllers')
 
 const router = express.Router()
 
@@ -9,7 +9,8 @@ router.get('/users/all', getUsers)
 router.post('/googleUser', googleUser)
 router.post('/signin', signin)
 router.post('/signup', signup)
-router.patch('/user/status/:_id', updateUserStatus)
-router.patch('/user/role/:_id', updateUserRole)
+router.patch('/edit/:_id', updateUser)
+router.patch('/status/:_id', updateUserStatus)
+router.patch('/role/:_id', updateUserRole)
 
 module.exports = router 

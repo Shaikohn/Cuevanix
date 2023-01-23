@@ -15,6 +15,7 @@ const userSchema = mongoose.Schema({
             ref: 'Order',
         },
     ],
+    messages: {type: Array},
     owner: { type: Boolean, default: false },
     admin: { type: Boolean, default: false },
     banned: { type: Boolean, default: false },

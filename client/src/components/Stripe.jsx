@@ -1,7 +1,6 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import axios from 'axios'
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 import Swal from 'sweetalert2'
 import Loader from './Loader/Loader';
 import { useNavigate } from 'react-router-dom';
@@ -73,7 +72,11 @@ export default function Stripe({movie, closeModal, isOpenModal}) {
         <form onSubmit={handleSubmit}>
                 <CardElement style={{width: '300px'}} />
                 {loading ? 
-                <Loader />
+                <div className='text-center mt-3 mb-3'>
+                <div className="spinner-border text-primary" role="status">
+                    {/* <span className="sr-only">Loading...</span> */}
+                </div>
+                </div>
             : 
             <div className='text-center mt-3 mb-3'>
                 <button className="btn btn-success" type='submit'>
@@ -83,9 +86,9 @@ export default function Stripe({movie, closeModal, isOpenModal}) {
             }
         </form>
         <div className='text-center'>
-            <button className="btn btn-danger" onClick={closeModal}>
-                CLOSE
-            </button>
+            {
+                loading ? '' : <button className="btn btn-danger" onClick={closeModal}>CLOSE</button>
+            }
         </div>
         </div>
     )
