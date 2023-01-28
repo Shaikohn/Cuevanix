@@ -1,5 +1,6 @@
 const Inquirie = require ("../models/inquirie")
 const User = require("../models/user")
+const Message = require ("../models/message")
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -29,7 +30,6 @@ const postInquirie = async(req, res) => {
         })
         const emailPattern =  new RegExp('[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}')
         if(!emailPattern.test(email)) return res.status(404).json({message: "Write a valid email!"})
-        if(text.length < 20) return res.status(404).json({message: "The password needs to have a minimum of 20 characters!"})
         inquirie.save()
         let inquirieEmail = await transport.sendMail({
             from: MAIL_USER,
@@ -41,7 +41,7 @@ const postInquirie = async(req, res) => {
         })
         res.status(200).json(inquirie)
     } catch (error) {
-
+        console.log(error)
     }
 }
 
@@ -79,19 +79,16 @@ const deleteInquirie = async (req, res, next) => {
 
 const postInquirieAnswer = async(req, res) => {
     try {
-        const { name, subject, text, email } = req.body
-        const id = Math.ceil(Math.random()*(50 - 1))
-        const answer = {
+        const { name, subject, text, id } = req.body
+        const answer = new Message ({
             name,
             subject,
             text,
-            id,
-        }
-        const emailPattern =  new RegExp('[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}')
-        if(!emailPattern.test(email)) return res.status(404).json({message: "Write a valid email!"})
-        if(text.length < 10) return res.status(404).json({message: "The password needs to have a minimum of 10 characters!"})
-        const user = await User.findOne({email})
-        user.messages = user.messages.concat(answer)
+        })
+        if(text.length < 10) return res.status(404).json({message: "The message needs to have a minimum of 10 characters!"})
+        answer.save()
+        const user = await User.findById(id).populate("messages")
+        user.messages = user.messages.concat(answer._id)
         await user.save()
         res.status(200).json(answer)
     } catch (error) {
@@ -99,15 +96,20 @@ const postInquirieAnswer = async(req, res) => {
     }
 }
 
-const deleteInquirieAnswer = async(req, res) => {
+const deleteInquirieAnswer = async(req, res, next) => {
     try {
-        const { email, id } = req.body
-        const user = await User.findOne({email})
-        user.messages = user.messages.filter((m) => m.id !== id)
-        await user.save()
-        res.status(200).send({message: "Message deleted succesfully!"})
-    } catch (error) {
-        console.log(error)
+        const { _id, userId } = req.params
+        let message = await Message.findOne({_id})
+        const user = await User.findById(userId).populate("messages")
+        const id = message._id.toString()
+        user.messages = user.messages.filter((u) => u._id.toString() !== id)
+        await message.remove()
+        user.save() 
+        const userUpdated = await User.findById(userId).populate("messages")
+        return res.status(200).json(userUpdated)
+    }
+    catch(error) {
+        next(error)
     }
 }
 

@@ -5,13 +5,14 @@ import Modals from "./Modals/Modals"
 import { useModal } from "./Modals/useModal";
 
 
-export default function Inquirie() {
+export default function Inquiry() {
     
-    const {profile} = useSelector(state => state.user)
-    const userId = profile?._id
+    const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
+    const userId = localUser?.result?._id
     const initialState = { email: '', name: '', subject: '', text: '', userId: userId || null}
     const [isOpenModal, openedModal, closeModal] = useModal(false);
     const [inquirieData, setInquirieData] = useState(initialState)
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
@@ -20,14 +21,14 @@ export default function Inquirie() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(postInquirie(inquirieData, closeModal))
+        dispatch(postInquirie(inquirieData, closeModal, setLoading))
     }
 
     return (
         <div>
-            <button type="button" className="nav-link" onClick={openedModal}>Inquirie</button>
+            <button type="button" className="nav-link" onClick={openedModal}>Inquiry</button>
             <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
-        <h2> Send us a inquirie! </h2>
+        <h2> Send us a inquiry! </h2>
         <form className="container" onSubmit={handleSubmit} noValidate>
                     <div className='d-flex text-center'>
                         <div className="form-group col-md-4 ms-5 ">
@@ -50,11 +51,20 @@ export default function Inquirie() {
                 <label>Message</label>
                 <textarea style={{width: '270px'}} autoComplete='off' type="email" name="text" className="form-control" placeholder="Message" onChange={handleChange} />
             </div>
-            <div className='text-center mt-3'>
+            {
+                loading ? <div className='text-center mt-3 mb-3'>
+                <div className="spinner-border text-primary" role="status">
+                    {/* <span className="sr-only">Loading...</span> */}
+                </div>
+                </div> :
+                <div className='text-center mt-3'>
                 <button type="submit" className="btn btn-primary">Send</button>
             </div>
+            }
         </form>
-        <button type="button" className="btn btn-danger" onClick={closeModal}>Close</button>
+        {
+            loading ? '' : <button type="button" className="btn btn-danger" onClick={closeModal}>Close</button>
+        }
         </Modals>
         </div>
     )

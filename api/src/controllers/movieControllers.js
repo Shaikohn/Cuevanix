@@ -18,7 +18,7 @@ const getMovies = async(req, res, next) => {
 const getMovieById = async (req, res, next) => {
     const {id} = req.params
     try {
-        let movieDb = await Movie.findOne({id})
+        let movieDb = await Movie.findOne({id}).populate("comments")
             if (movieDb) {
                 res.status(200).send(movieDb)
             } else {
@@ -89,11 +89,10 @@ const getMovieVideo = async (req, res, next) => {
 
 const getResults = async (req, res, next) => {
 
-    const { keyword } = req.query
+    const { keyword } = req.params
 
     let results = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${APIKEY}&language=en-US&page=1&include_adult=false&query=${keyword}`)
-    console.log(results)
-    /* res.status(200).json(results.data.results) */
+    res.status(200).json(results.data.results)
 }
 
 const deleteMovie = async (req, res, next) => {

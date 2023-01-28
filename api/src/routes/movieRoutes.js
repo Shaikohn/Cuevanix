@@ -4,7 +4,7 @@ const { getMovies, getMovieById, getMovieVideo, deleteMovie, getMovieAdmin, getR
 const router = express.Router()
 
 router.get('/all', getMovies)
-router.get('/results?keyword=keyword', getResults)
+router.get('/results?/:keyword', getResults)
 router.get('/:id', getMovieById)
 router.get('/admin/:id', getMovieAdmin)
 router.get('/purchasedMovieVideo/:id', getMovieVideo)

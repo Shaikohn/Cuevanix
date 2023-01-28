@@ -7,6 +7,7 @@ export const moviesSlice = createSlice({
         filteredMovies: [],
         results: [],
         filteredResults: [],
+        resultPage: 1,
         details: null,
         purchasedMovie: {},
         adminMovie: null,
@@ -21,6 +22,15 @@ export const moviesSlice = createSlice({
             state.results = action.payload
             state.filteredResults = action.payload
         },
+        /* firstPage: (state) => {
+            state.resultPage = 1
+        },
+        previousResults: (state) => {
+            state.resultPage--
+        },
+        nextResults: (state) => {
+            state.resultPage++
+        }, */
         getMovieById: (state, action) => {
             state.details = action.payload
         },
@@ -104,19 +114,27 @@ export const moviesSlice = createSlice({
         resultByRating: (state, action) => {
             const orderResultsRating = action.payload === "rating_asc" ?
                 state.filteredResults.slice().sort(function(a, b) {
-                    if(parseInt(a.rating) < parseInt(b.rating)) {return -1}
-                    if(parseInt(b.rating < a.rating)) {return 1}
+                    if(parseInt(a.vote_average.toFixed(2)) < parseInt(b.vote_average.toFixed(2))) {return -1}
+                    if(parseInt(b.vote_average.toFixed(2) < a.vote_average.toFixed(2))) {return 1}
                     return 0;
                 }) : 
                 state.filteredResults.slice().sort(function(a, b) {
-                    if(parseInt(a.rating) > parseInt(b.rating)) {return -1}
-                    if(parseInt(a.rating) > parseInt(b.rating)) {return 1}
+                    if(parseInt(a.vote_average.toFixed(2)) > parseInt(b.vote_average.toFixed(2))) {return -1}
+                    if(parseInt(a.vote_average.toFixed(2)) > parseInt(b.vote_average.toFixed(2))) {return 1}
                     return 0;
         })
         return {
             ...state,
             filteredResults: orderResultsRating
         }
+        },
+        filterGenre: (state, action) => {
+            const movieFilter = state.filteredMovies
+            const filter = action.payload === 'All' ?  state.filteredMovies : movieFilter.filter((m) => m.genres.name.includes(action.payload));
+            return {
+                ...state,
+                filteredMovies: filter
+            }
         },
         clearMovie: (state) => {
             state.details = null
@@ -133,5 +151,5 @@ export const moviesSlice = createSlice({
     }
 })
 
-export const {getAllMovies, getMovieById, getPurchased, getVideos, getMovieDetails, orderByTitle, orderByRating, orderByPrice, resultByTitle, resultByRating, clearMovie, clearMovieAdmin, clearPurchasedMovie, clearVideos} = moviesSlice.actions
+export const {getAllMovies, getMovieById, getPurchased, getResults, getVideos, getMovieDetails, orderByTitle, orderByRating, orderByPrice, resultByTitle, resultByRating, clearMovie, clearMovieAdmin, clearPurchasedMovie, clearVideos} = moviesSlice.actions
 export default moviesSlice.reducer

@@ -12,10 +12,12 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-export const signIn = (formData, navigate, closeModal) => async(dispatch) => {
+export const signIn = (formData, navigate, closeModal, setLoading) => async(dispatch) => {
+    setLoading(true)
     try {
         const { data } = await API.post("/user/signin", formData);
         dispatch({ type: AUTH, data });
+        setLoading(false)
         closeModal()
         navigate('/catalog')
         Swal.fire({
@@ -25,6 +27,7 @@ export const signIn = (formData, navigate, closeModal) => async(dispatch) => {
             timer: 2000,
         });
     } catch (e) {
+        setLoading(false)
         Swal.fire({
             title: "Signed in failed",
             text: e.response.data.message,
@@ -35,10 +38,12 @@ export const signIn = (formData, navigate, closeModal) => async(dispatch) => {
     }
 }
 
-export const signUp = (formData, navigate, closeModal) => async(dispatch) => {
+export const signUp = (formData, navigate, closeModal, setLoading) => async(dispatch) => {
+    setLoading(true)
     try {
         const { data } = await API.post("/user/signup", formData);
         dispatch({ type: AUTH, data });
+        setLoading(false)
         closeModal()
         navigate('/catalog')
         Swal.fire({
@@ -48,6 +53,7 @@ export const signUp = (formData, navigate, closeModal) => async(dispatch) => {
             timer: 2000,
         });
     } catch (e) {
+        setLoading(false)
         Swal.fire({
             title: "Signed up failed",
             text: e.response.data.message,
@@ -57,10 +63,12 @@ export const signUp = (formData, navigate, closeModal) => async(dispatch) => {
     }
 }
 
-export const signGoogle = (googleUser, navigate, closeModal) => async(dispatch) => {
+export const signGoogle = (googleUser, navigate, closeModal, setLoading) => async(dispatch) => {
+    setLoading(true)
     try {
         const { data } = await API.post("/user/googleUser", googleUser);
         dispatch({ type: AUTH, data });
+        setLoading(false)
         closeModal()
         navigate('/catalog')
         Swal.fire({
@@ -70,6 +78,7 @@ export const signGoogle = (googleUser, navigate, closeModal) => async(dispatch) 
             timer: 2000,
         });
     } catch (e) {
+        setLoading(false)
         Swal.fire({
             title: "Signed in failed",
             text: e.response.data.message,

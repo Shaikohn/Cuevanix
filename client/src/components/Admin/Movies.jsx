@@ -49,11 +49,14 @@ export default function Movies() {
     return (
         <div>
             <NavBar />
-            <div className="nav justify-content-center mb-3">
-                <label className="form-label mb-0">
+            <div className="nav justify-content-center mb-2">
+                <Pagination page={page} setPage={setPage} max={max} />
+                <label className="form-label mt-2">
                     <input autoComplete="off" className="form-control" onChange={handleOnSearch} placeholder="Search movie" type="text" value={search} />
                 </label>
-                < SortMovies setPage={setPage} />
+                <div className="mt-2">
+                    < SortMovies setPage={setPage} />
+                </div>
             </div>
             {movies.length > 0 ? 
             filteredMovie()
@@ -67,7 +70,7 @@ export default function Movies() {
                                             </div>
                                         <div className="col-md-8">
                                             <div className="card-body">
-                                                <h5 className="card-title">{m.title}</h5>
+                                                <h5 className="card-title text-info">{m.title}</h5>
                                                 <p className="card-text">Rating: {m.rating}</p>
                                                 <p className="card-text">Release date: {m.release_date}</p>
                                                 <Link to={`/movieDetails/${m.id}`} className="btn btn-primary">Details</Link>

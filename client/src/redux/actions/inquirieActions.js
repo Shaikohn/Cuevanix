@@ -2,17 +2,20 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { getData, getInquiries } from "../slices/inquirieSlice";
 
-export const postInquirie = (inquirieData, closeModal) => async() => {
+export const postInquirie = (inquirieData, closeModal, setLoading) => async() => {
+    setLoading(true)
     try {
         await axios.post("http://localhost:3001/inquiries", inquirieData);
+        setLoading(false)
         closeModal()
         Swal.fire({
             title: "Success!",
-            text: "Inquirie sent!",
+            text: "Inquiry sent!",
             icon: "success",
             timer: 2000,
         });
     } catch (e) {
+        setLoading(false)
         Swal.fire({
             title: "Failed!",
             text: e.response.data.message,
@@ -22,9 +25,11 @@ export const postInquirie = (inquirieData, closeModal) => async() => {
     }
 }
 
-export const postInquirieAnswer = (answerData, closeModal) => async() => {
+export const postInquirieAnswer = (answerData, closeModal, setLoading) => async() => {
+    setLoading(true)
     try {
         await axios.post("http://localhost:3001/inquiries/answer", answerData);
+        setLoading(false)
         closeModal()
         Swal.fire({
             title: "Success!",
@@ -33,6 +38,7 @@ export const postInquirieAnswer = (answerData, closeModal) => async() => {
             timer: 2000,
         });
     } catch (e) {
+        setLoading(false)
         Swal.fire({
             title: "Failed!",
             text: e.response.data.message,
@@ -70,12 +76,12 @@ export const deleteInquirie = (_id, navigate) => () => {
     }
 }
 
-export const deleteInquirieAnswer = (id, email) => () => {
+export const deleteInquirieAnswer = (_id, userId) => () => {
     try {
-        axios.delete(`http://localhost:3001/inquiries/answer/${id}`, email)
+        axios.delete(`http://localhost:3001/inquiries/answer/${userId}/${_id}`)
         Swal.fire({
             title: "Deleted",
-            text: "Inquirie deleted succesfully!",
+            text: "Message deleted succesfully!",
             icon: "success",
             timer: 2000,
         });

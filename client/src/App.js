@@ -17,7 +17,7 @@ import Orders from './components/Admin/Orders';
 import Users from './components/Admin/Users';
 import Movies from './components/Admin/Movies';
 import MovieDetails from './components/Admin/MovieDetails';
-import InquirieDetails from './components/Admin/InquirieDetails';
+import InquiryDetails from './components/Admin/InquiryDetails';
 import { useSelector } from 'react-redux';
 import Messages from './components/Profile/Messages';
 
@@ -44,7 +44,7 @@ function App() {
         <Route exact path='/orders' element={/* profile?.admin === true || profile?.owner === true ? */ <Orders /> /* : <Navigate to="/" replace /> */} />
         <Route exact path='/movies' element={/* profile?.admin === true || profile?.owner === true ? */ <Movies /> /* : <Navigate to="/" replace /> */} />
         <Route exact path='/movieDetails/:id' element={/* profile?.admin === true || profile?.owner === true ? */ <MovieDetails /> /* : <Navigate to="/" replace /> */} />
-        <Route exact path='/adminPanel/inquirie/:_id' element={/* profile?.admin === true || profile?.owner === true ? */ <InquirieDetails /> /* : <Navigate to="/" replace /> */} />
+        <Route exact path='/adminPanel/inquiry/:_id' element={/* profile?.admin === true || profile?.owner === true ? */ <InquiryDetails /> /* : <Navigate to="/" replace /> */} />
       </Routes>
       <Footer />
     </ GoogleOAuthProvider>

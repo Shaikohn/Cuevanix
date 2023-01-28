@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getProfileById } from "../redux/actions/userActions"
 import { clearUser } from '../redux/slices/userSlice'
 import {FaUserShield} from 'react-icons/fa'
-import Inquirie from './Inquirie'
+import Inquiry from './Inquiry'
 
 export default function Header() {
 
@@ -51,7 +51,7 @@ export default function Header() {
                                 <Link className="nav-link" to='/catalog'>Catalog</Link>
                             </li>
                             <li>
-                                <Inquirie />
+                                <Inquiry />
                             </li>
                             {/* {
                                 user !== null || localUser !== null ? (
@@ -87,7 +87,7 @@ export default function Header() {
                                         <li><Link className="dropdown-item" to="/purchases">Purchases</Link></li>
                                         <li><Link className="dropdown-item" to="/messages">Messages</Link></li>
                                         <li><hr className="dropdown-divider" /></li>
-                                        <li><button className="dropdown-item" onClick={handleLogOut}>Log Out</button></li>
+                                        <li><button className="dropdown-item text-danger" onClick={handleLogOut}>Log Out</button></li>
                                     </ul>
                                 </div>
                             </>
@@ -100,7 +100,7 @@ export default function Header() {
                                 <FaUserShield size={30} />
                             </button>
                             <ul style={{left: 'auto', top: '50px'}} className="dropdown-menu ms-3">
-                                        <li><Link className="dropdown-item" to="/adminPanel">Admin Panel</Link></li>
+                                        <li><Link className="dropdown-item text-warning" to="/adminPanel">Admin Panel</Link></li>
                                     </ul>
                             </div>
                         ) : ''

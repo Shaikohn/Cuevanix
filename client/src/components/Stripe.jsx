@@ -2,7 +2,6 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import axios from 'axios'
 import { useState } from 'react';
 import Swal from 'sweetalert2'
-import Loader from './Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 
 export default function Stripe({movie, closeModal, isOpenModal}) {
@@ -44,7 +43,7 @@ export default function Stripe({movie, closeModal, isOpenModal}) {
             setLoading(false)
             elements.getElement(CardElement).clear()
             closeModal()
-            navigate("/catalog")
+            navigate("/purchases")
             Swal.fire({
                 title: 'Payment done', 
                 text: data.message, 
@@ -54,13 +53,12 @@ export default function Stripe({movie, closeModal, isOpenModal}) {
             }
             catch(error) {
                 elements.getElement(CardElement).clear()
-                console.log(error)
-                /* Swal.fire({
+                Swal.fire({
                     title: 'Payment failed', 
-                    text: 'Failed', 
+                    text: error.response.data, 
                     icon: 'error',
                     timer: 5000
-                }); */
+                })
                 setLoading(false)
             }
         }

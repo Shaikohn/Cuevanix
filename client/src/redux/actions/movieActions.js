@@ -1,6 +1,6 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import { getAllMovies, getMovieById, getMovieDetails, getPurchased, getVideos } from "../slices/movieSlice";
+import { getAllMovies, getMovieById, getMovieDetails, getPurchased, getResults, getVideos } from "../slices/movieSlice";
 
 export const getMovies = () => (dispatch) => {
     axios.get('http://localhost:3001/movies/all')
@@ -8,8 +8,8 @@ export const getMovies = () => (dispatch) => {
     .catch(e => console.log(e))
 }
 
-export const getResults = (keyword) => (dispatch) => {
-    axios.get(`http://localhost:3001/movies/results?keyword=${keyword}`)
+export const getAllResults = (keyword) => (dispatch) => {
+    axios.get(`http://localhost:3001/movies/results/${keyword}`)
     .then(res => dispatch(getResults(res.data)))
     .catch(e => console.log(e))
 }

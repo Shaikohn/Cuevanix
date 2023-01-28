@@ -1,15 +1,32 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { getMovieVideos, getPurchasedMovie } from "../../redux/actions/movieActions"
-import { clearPurchasedMovie, clearVideos } from "../../redux/slices/movieSlice"
+import { getDetails, getMovies, getMovieVideos, getPurchasedMovie } from "../../redux/actions/movieActions"
+import { clearMovie, clearPurchasedMovie, clearVideos } from "../../redux/slices/movieSlice"
+import { getProfileById } from "../../redux/actions/userActions"
 import ReactPlayer from 'react-player/lazy'
+import Spinner from '../Spinner/index'
+import { useModal } from "../Modals/useModal"
+import Modals from "../Modals/Modals"
+import { postComment } from "../../redux/actions/commentActions"
+import Swal from "sweetalert2"
 
 
 export default function PurchasedMovie() {
 
     let { id } = useParams()
+    const {movies} = useSelector(state => state.movies)
+    const {profile} = useSelector(state => state.user)
     const dispatch = useDispatch()
+    const [isOpenModal, openedModal, closeModal] = useModal(false);
+    const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
+    const userId = localUser.result._id
+    const userName = localUser.result.name
+    const initialState = { userName, movieId: id, userId, text: ''}
+    const [commentData, setCommentData] = useState(initialState)
+    const [loading, setLoading] = useState(false)
+    const exists = movies.find((v) => v.id.toString() === id.toString())
+    const alreadyCommented = profile?.comments.find((c) => c.movieId === id)
 
     const videos  = useSelector(state => state.movies.videos)
     const video = videos.find((v) => v.type === "Trailer")
@@ -17,35 +34,49 @@ export default function PurchasedMovie() {
     useEffect(() => {
         dispatch(clearVideos())
         dispatch(getMovieVideos(id))
+        dispatch(getMovies())
+        dispatch(getProfileById(userId))
     }, [dispatch, id])
 
-    /* let { id } = useParams()
-    const dispatch = useDispatch()
-    const purchasedMovie  = useSelector(state => state.movies.purchasedMovie)
-    const videos  = useSelector(state => state.movies.videos)
-    const video = videos.find((v) => v.type === "Trailer")
-    console.log('videos', videos)
+    const handleChange = (e) => {
+        setCommentData({ ...commentData, [e.target.name]: e.target.value, movieId: id})
+    }
 
-    useEffect(() => {
-        dispatch(clearPurchasedMovie())
-        dispatch(clearVideos())
-        dispatch(getPurchasedMovie(id))
-        dispatch(getMovieVideos(id))
-    }, [dispatch, id])
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(postComment(commentData, closeModal, setLoading))
+    }
 
     return (
-        <div className="bg-light">
-            <h1> {purchasedMovie?.title} </h1>
-            <div className="d-flex">
-                <img style={{height: '425px'}} src={purchasedMovie?.image} alt={purchasedMovie?.title} />
-                <div className="d-inline-block">
-                <ReactPlayer className="rounded mx-auto d-block" url={`https://www.youtube.com/watch?v=${video?.key}`}  />
-                <p className="ms-2">{purchasedMovie?.overview}</p>
+        <div>
+        {
+            video === undefined ? < Spinner /> : <ReactPlayer width='100%' className="rounded mx-auto d-block" url={`https://www.youtube.com/watch?v=${video?.key}`}  />
+        }
+        { exists !== undefined && alreadyCommented === undefined ? <button onClick={() => openedModal()}>Comment</button> : ''}
+        <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
+        <h2> Make a comment! </h2>
+        <form className="container" onSubmit={handleSubmit} noValidate>
+            <div className="form-group col-md-4 ms-5 text-center mt-2">
+                <label>Comment</label>
+                <textarea style={{width: '270px'}} autoComplete='off' type="email" name="text" className="form-control" placeholder="Message" onChange={handleChange} />
+            </div>{
+                loading ? 
+                <div className='text-center mt-3 mb-3'>
+                <div className="spinner-border text-primary" role="status">
+                    {/* <span className="sr-only">Loading...</span> */}
                 </div>
+                </div>
+            : 
+            <div className='text-center mt-3'>
+                <button type="submit" className="btn btn-primary">Send</button>
             </div>
+            }
+        </form>
+        {
+            loading ? '' : <button type="button" className="btn btn-danger" onClick={closeModal}>Close</button>
+        }
+        </Modals>
         </div>
-    ) */
-    return (
-        <ReactPlayer width='100%' className="rounded mx-auto d-block" url={`https://www.youtube.com/watch?v=${video?.key}`}  />
+        
     )
 }

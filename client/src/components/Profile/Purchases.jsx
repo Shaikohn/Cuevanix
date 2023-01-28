@@ -1,25 +1,15 @@
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { getProfileById } from "../../redux/actions/userActions"
 
 
 export default function Purchases() {
 
-    const {user} = useSelector(state => state.user)
     const {profile} = useSelector(state => state.user)
-    console.log(profile)
-    const _id = user?.result?._id
-    const dispatch = useDispatch()
-    
-    useEffect(() => {
-        dispatch(getProfileById(_id))
-    }, [dispatch, _id])
 
     return (
         <div>
             <h1> {profile?.name} purchases: </h1>
-            {
+            { profile?.orders?.length > 0 ?
                             profile?.orders?.map((o, i) => {
                                 return (
                                     <div className="card mb-3 ms-5 d-inline-flex align-items-center" style={{maxWidth: '400px'}} key={i}>
@@ -38,7 +28,7 @@ export default function Purchases() {
                                         </div>
                                     </div>
                                 )
-                            })
+                            }) : 'None'
                         }
         </div>
     )

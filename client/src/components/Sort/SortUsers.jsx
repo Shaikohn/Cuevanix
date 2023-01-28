@@ -20,8 +20,8 @@ export default function SortUsers(/* { setPage } */) {
 
     return (
         <div className="d-flex">
-            <select className="form-select ms-3" onChange={handleChange}>
-                <option selected disabled>Sort by</option>
+            <select className="form-select ms-3" onChange={handleChange} defaultValue="disabled">
+                <option value="disabled" disabled>Sort by</option>
                 <option value="name_asc"> Name (ASC) </option>
                 <option value="name_dsc" > Name (DSC) </option>
             </select>

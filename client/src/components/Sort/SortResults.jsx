@@ -19,8 +19,8 @@ export default function SortResults({ setPage }) {
 
     return (
         <div>
-            <select className="form-select ms-3 mt-2" onChange={handleChange}>
-                <option selected disabled>Sort by</option>
+            <select className="form-select ms-3 mt-2" defaultValue="disabled" onChange={handleChange}>
+                <option value="disabled" disabled>Sort by</option>
                 <option value="title_asc"> Title (ASC) </option>
                 <option value="title_dsc" > Title (DSC) </option>
                 <option value="rating_asc"> Rating (ASC) </option>

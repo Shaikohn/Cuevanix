@@ -23,8 +23,8 @@ export default function SortMovies({ setPage }) {
 
     return (
         <div>
-            <select className="form-select ms-3" onChange={handleChange}>
-                <option selected disabled>Sort by</option>
+            <select className="form-select ms-2" defaultValue="disabled" onChange={handleChange}>
+                <option value="disabled" disabled>Sort by</option>
                 <option value="title_asc"> Title (ASC) </option>
                 <option value="title_dsc" > Title (DSC) </option>
                 <option value="rating_asc"> Rating (ASC) </option>
@@ -32,6 +32,11 @@ export default function SortMovies({ setPage }) {
                 <option value="price_asc"> Price (ASC) </option>
                 <option value="price_dsc" > Price (DSC) </option>
             </select>
+            {/* <select className="form-select ms-3" onChange={handleFilter}>
+            <option defaultValue value="All">All users</option>
+                <option value="Users"> Users </option>
+                <option value="Admins" > Admins </option>
+            </select> */}
         </div>
     )
 }

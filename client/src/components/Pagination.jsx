@@ -1,24 +1,24 @@
-import { useState } from "react";
+/* import { useState } from "react"; */
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
 export default function Pagination({page, setPage, max}) {
 
-    const [input, setInput] = useState(1)
+    /* const [input, setInput] = useState(1) */
     const nextPage = () => {
         if(page < max) {
-            setInput(input + 1)
+            /* setInput(input + 1) */
             setPage(page + 1)
         }
     }
     const prevPage = () => {
         if(page > 1) {
-            setInput(input - 1)
+            /* setInput(input - 1) */
             setPage(page - 1)
         }
     }
 
-    const onKeyDown = e => {
+    /* const onKeyDown = e => {
         if (e.keyCode === 13) {
             setPage (parseInt (e.target.value));
             if (
@@ -32,12 +32,12 @@ export default function Pagination({page, setPage, max}) {
             setPage (parseInt (e.target.value));
             }
         }
-    };
+    }; */
     
-    const onChange = e => {
+    /* const onChange = e => {
         setInput (e.target.value);
     };
-
+ */
     return (
         <div className="d-flex align-items-center justify-content-center">
             <button disabled={page === 1} onClick={prevPage}> <BsFillArrowLeftCircleFill size={30} /> </button>

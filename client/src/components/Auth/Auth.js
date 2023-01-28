@@ -19,13 +19,14 @@ export default function Auth() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [isOpenModal, openedModal, closeModal] = useModal(false);
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if(isSignUp) {
-            dispatch(signUp(formData, navigate, closeModal))
+            dispatch(signUp(formData, navigate, closeModal, setLoading))
         } else {
-            dispatch(signIn(formData, navigate, closeModal))
+            dispatch(signIn(formData, navigate, closeModal, setLoading))
         }
     }
 
@@ -41,11 +42,10 @@ export default function Auth() {
         const token = res.credential
         const googleUser = (jwt_decode(token))
         try {
-            dispatch(signGoogle(googleUser, navigate, closeModal))
+            dispatch(signGoogle(googleUser, navigate, closeModal, setLoading))
         } catch (error) {
             console.log(error)
         }
-
     }
 
     return (
@@ -93,20 +93,37 @@ export default function Auth() {
                     </>
                 )
             }
-            <div className='text-center mt-3'>
-                <button type="submit" className="btn btn-primary">{isSignUp ? 'Sign Up' : 'Sign In'}</button>
-            </div>
+            {
+                loading ? 
+                <div className='text-center mt-3 mb-3'>
+                <div className="spinner-border text-primary" role="status">
+                </div>
+                </div>
+            : <div className='text-center mt-3'>
+            <button type="submit" className="btn btn-primary">{isSignUp ? 'Sign Up' : 'Sign In'}</button>
+        </div>
+            }
+            
         </form>
-        <GoogleLogin
+        {
+            loading ? '' :
+            <GoogleLogin
             client_id="569222121144-fap8qmrds81cqlvr1kcqdnbn58flam7b.apps.googleusercontent.com"
             onSuccess={googleSuccess}
             onError={() => {
                 console.log('Login Failed');
             }}
         />
+        }
         <div className='d-flex'>
-        <button className='btn btn-warning' onClick={switchMode}> { isSignUp ? 'Already signed up? Sign In' : "Don't have an account? Sign Up" } </button>
-        <button type="button" className="btn btn-danger ms-5" onClick={closeModal}>Close</button>
+        {
+            loading ? '' :  
+            <div>
+                <button className='btn btn-warning' onClick={switchMode}> { isSignUp ? 'Already signed up? Sign In' : "Don't have an account? Sign Up" } </button>
+                <button type="button" className="btn btn-danger ms-5" onClick={closeModal}>Close</button>
+            </div>
+        }
+
         </div>
         </Modals>
         </div>

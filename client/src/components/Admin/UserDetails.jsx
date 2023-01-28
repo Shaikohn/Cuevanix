@@ -45,7 +45,7 @@ export default function UserDetails() {
             {user?.orders?.length > 0 ?
                             (user.orders.map((o, i) => {
                                 return (
-                                    <div className="card d-inline-flex ms-4 mb-3" style={{width: '19rem'}} key={i}>
+                                    <div className="card d-inline-flex ms-4 mb-3" style={{width: '19rem', height: '200px'}} key={i}>
                                         <div className="card-body">
                                             <h5 className="card-title">{o?.purchased_Movie?.title}</h5>
                                             <p className="card-text">Order ID: {o?._id}</p>

@@ -4,7 +4,7 @@ export const inquirieSlice = createSlice({
     name: "inquiries",
     initialState: {
         inquiries: [],
-        data: {},
+        data: null,
     },
     reducers: {
         getInquiries: (state, action) => {
@@ -13,9 +13,12 @@ export const inquirieSlice = createSlice({
         getData: (state, action) => {
             state.data = action.payload
         },
+        clearData: (state) => {
+            state.data = null
+        },
     }
     }
 )
 
-export const { getInquiries, getData } = inquirieSlice.actions
+export const { getInquiries, getData, clearData } = inquirieSlice.actions
 export default inquirieSlice.reducer

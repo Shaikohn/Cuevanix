@@ -21,7 +21,19 @@ export const userSlice = createSlice({
             state.profile = action.payload
         },
         userByName: (state, action) => {
+            const all  = state.allUsers
             const orderUsersName = action.payload === "name_asc" ?
+                state.filteredUsers.slice().sort(function(a, b) {
+                    if(a.name.toLowerCase() < b.name.toLowerCase()) {return -1}
+                    if(b.name.toLowerCase() < a.name.toLowerCase()) {return 1}
+                    return 0;
+                }) : 
+                state.filteredUsers.slice().sort(function(a, b) {
+                    if(a.name.toLowerCase() > b.name.toLowerCase()) {return -1}
+                    if(a.name.toLowerCase() > b.name.toLowerCase()) {return 1}
+                    return 0;
+        })
+        const orderAllUsersName = action.payload === "name_asc" ?
                 state.allUsers.slice().sort(function(a, b) {
                     if(a.name.toLowerCase() < b.name.toLowerCase()) {return -1}
                     if(b.name.toLowerCase() < a.name.toLowerCase()) {return 1}
@@ -34,7 +46,8 @@ export const userSlice = createSlice({
         })
         return {
             ...state,
-            allUsers: orderUsersName
+            allUsers: orderAllUsersName,
+            filteredUsers: orderUsersName
         }
         },
         orderByUsername: (state, action) => {
@@ -55,11 +68,11 @@ export const userSlice = createSlice({
         }
         },
         filterUserRole: (state, action) => {
-            const usersFilter = state.filteredUsers
-            const createFilter = action.payload === 'Users' ?  usersFilter.filter(u => u.admin === false && u.owner === false) : usersFilter.filter(u => u.admin === true || u.owner === true);
+            const usersFilter = state.allUsers
+            const adminsFilter = state.allUsers
             return {
                 ...state,
-                allUsers: action.payload === "All" ? usersFilter : createFilter
+                filteredUsers: action.payload === "All" ? state.allUsers : action.payload === 'Users' ? usersFilter.filter(u => u.admin === false && u.owner === false) : adminsFilter.filter(u => u.admin === true || u.owner === true)
             }
         },
         clearUser: (state) => {

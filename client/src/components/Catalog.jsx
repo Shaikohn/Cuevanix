@@ -50,7 +50,9 @@ export default function Catalog() {
         <>    
         <div>
             <div className="nav justify-content-center">
-            <Pagination page={page} setPage={setPage} max={max} />
+                <div className="ms-2">
+                    <Pagination page={page} setPage={setPage} max={max} />
+                </div>
                 <label className="form-label mb-0 mt-2">
                     <input autoComplete="off" className="form-control" onChange={handleOnSearch} placeholder="Search in the catalog" type="text" value={search} />
                 </label>
@@ -65,13 +67,13 @@ export default function Catalog() {
             .map((m, i) => {
                 return (
                     <div className="col-3" key={i}>
-                        <div className="card my-3 mx-3">
+                        <div /* style={{height:'550px'}} */ className="card my-3 mx-3">
                             <img style={{height: '300px'}} className="card-img-top" src={m.image} alt="film" />
                             {/* {
                                 user !== null || localUser !== null ? <button className="favourite-btn" onClick={props.addOrRemoveFromFavs} data-movie-id={m.id}>🖤</button> : ''
                             } */}
                                 <div className="card-body">
-                                    <h5 className="card-title"> {m.title} </h5>
+                                    <h5 className="card-title text-info"> {m.title} </h5>
                                     <p className="card-text"> {m.overview.substring(0, 100)}... </p>
                                     <Link to={`/movie/${m.id}`} className="btn btn-primary">View details</Link>
                                 </div>

@@ -12,6 +12,12 @@ const movieSchema = mongoose.Schema({
     rating: { type: Number },
     release_date: { type: String, required: true },
     price: { type: Number, required: true },
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comment',
+        },
+    ],
 })
 
 module.exports = mongoose.model('Movie', movieSchema)
