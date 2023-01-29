@@ -37,7 +37,7 @@ const signin = async(req, res) => {
 
 const signup = async(req, res) => {
     try {
-        const { email, password, confirmPassword, firstName, lastName } = req.body
+        const { email, password, confirmPassword, firstName, lastName, picture } = req.body
 
     const existingUser = await User.findOne({email})
     if(existingUser) return res.status(404).json({message: "That email is already in use!"})
@@ -51,7 +51,7 @@ const signup = async(req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
-    const result = await User.create({email, password: hashedPassword, name: `${firstName} ${lastName}`})
+    const result = await User.create({email, picture, password: hashedPassword, name: `${firstName} ${lastName}`})
 
     const token = jwt.sign({email: result.email, id: result._id}, 'test', {expiresIn: '1h'})
     let signEmail = await transport.sendMail({

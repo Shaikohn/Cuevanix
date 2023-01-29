@@ -37,7 +37,7 @@ export default function Profile() {
     return (
         <div className="ms-3">
                 <div className="d-flex mb-3 mt-3 justify-content-center">
-                    {profile?.picture !== undefined ? <img style={{borderRadius: '50px'}} src={profile?.picture} alt={profile?.name} referrerPolicy="no-referrer" /> : ''}
+                    {profile?.picture !== undefined ? <img style={{borderRadius: '50px', width: '100px'}} src={profile?.picture} alt={profile?.name} referrerPolicy="no-referrer" /> : ''}
                     <div className="ms-2">
                       <h1> Welcome {profile?.name}! </h1>
                       {profile?.owner === true ? <h3 className="text-warning">Owner</h3> : profile?.admin === true ? <h3 className="text-warning">Admin</h3> : <h3>User</h3>}

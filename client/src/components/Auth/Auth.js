@@ -8,10 +8,11 @@ import { useNavigate } from 'react-router-dom';
 import { signGoogle, signIn, signUp } from '../../redux/actions/authActions';
 import Modals from '../Modals/Modals';
 import { useModal } from '../Modals/useModal';
+import userIcon from '../../assets/userIcon.png'
 
 export default function Auth() {
 
-    const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }
+    const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '', picture: userIcon }
 
     const [showPassword, setShowPassword] =  useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
