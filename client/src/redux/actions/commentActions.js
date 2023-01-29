@@ -9,7 +9,7 @@ export const postComment = (commentData, closeModal, setLoading) => async() => {
         closeModal()
         Swal.fire({
             title: "Success!",
-            text: "Comment aded!",
+            text: "Comment added!",
             icon: "success",
             timer: 2000,
         });

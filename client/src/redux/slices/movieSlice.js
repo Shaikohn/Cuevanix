@@ -139,6 +139,9 @@ export const moviesSlice = createSlice({
         clearMovie: (state) => {
             state.details = null
         },
+        clearResults: (state) => {
+            state.filteredResults = []
+        },
         clearMovieAdmin: (state) => {
             state.adminMovie = null
         },
@@ -151,5 +154,5 @@ export const moviesSlice = createSlice({
     }
 })
 
-export const {getAllMovies, getMovieById, getPurchased, getResults, getVideos, getMovieDetails, orderByTitle, orderByRating, orderByPrice, resultByTitle, resultByRating, clearMovie, clearMovieAdmin, clearPurchasedMovie, clearVideos} = moviesSlice.actions
+export const {getAllMovies, getMovieById, getPurchased, getResults, getVideos, getMovieDetails, orderByTitle, orderByRating, orderByPrice, resultByTitle, resultByRating, clearMovie, clearResults, clearMovieAdmin, clearPurchasedMovie, clearVideos} = moviesSlice.actions
 export default moviesSlice.reducer

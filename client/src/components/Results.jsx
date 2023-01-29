@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
 import sadFilm from '../assets/sadFilm.png'
 import { getAllResults } from "../redux/actions/movieActions"
+import { clearResults } from "../redux/slices/movieSlice"
 import Pagination from "./Pagination"
 import SortResults from "./Sort/SortResults"
 import Spinner from "./Spinner"
@@ -26,6 +27,7 @@ export default function Results() {
     console.log(resultPage)
 
     useEffect(() => {
+        dispatch(clearResults())
         dispatch(getAllResults(keyword))
     }, [dispatch, keyword])
 
