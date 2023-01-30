@@ -48,21 +48,29 @@ export const postInquirieAnswer = (answerData, closeModal, setLoading) => async(
     }
 }
 
-export const getAllInquiries = () => (dispatch) => {
-    axios.get('http://localhost:3001/inquiries/all')
-    .then(res => dispatch(getInquiries(res.data)))
-    .catch(e => console.log(e))
-}
-
-export const getInquirie = (_id) => (dispatch) => {
-    axios.get(`http://localhost:3001/inquiries/${_id}`)
-    .then(res => dispatch(getData(res.data)))
-    .catch(e => console.log(e))
-}
-
-export const deleteInquirie = (_id, navigate) => () => {
+export const getAllInquiries = () => async(dispatch) => {
     try {
-        axios.delete(`http://localhost:3001/inquiries/${_id}`)
+        const res = await axios.get('http://localhost:3001/inquiries/all')
+        dispatch(getInquiries(res.data))
+    }
+    catch(e) {
+        console.log(e)
+    }
+}
+
+export const getInquirie = (_id) => async(dispatch) => {
+    try {
+        const res = await axios.get(`http://localhost:3001/inquiries/${_id}`)
+        dispatch(getData(res.data))
+    }
+    catch(e) {
+        console.log(e)
+    }
+}
+
+export const deleteInquirie = (_id, navigate) => async() => {
+    try {
+        await axios.delete(`http://localhost:3001/inquiries/${_id}`)
         navigate('/adminPanel')
         Swal.fire({
             title: "Deleted",
@@ -76,9 +84,9 @@ export const deleteInquirie = (_id, navigate) => () => {
     }
 }
 
-export const deleteInquirieAnswer = (_id, userId) => () => {
+export const deleteInquirieAnswer = (_id, userId) => async() => {
     try {
-        axios.delete(`http://localhost:3001/inquiries/answer/${userId}/${_id}`)
+        await axios.delete(`http://localhost:3001/inquiries/answer/${userId}/${_id}`)
         Swal.fire({
             title: "Deleted",
             text: "Message deleted succesfully!",

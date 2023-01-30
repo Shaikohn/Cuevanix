@@ -17,17 +17,18 @@ export default function Profile() {
     const _id = localUser?.result?._id
     const dispatch = useDispatch()
     const [isOpenModal, openedModal, closeModal] = useModal(false);
+    const [loading, setLoading] = useState(false)
 
-    const initialState = { name: profile?.name, email: profile?.email, picture: profile?.picture }
+    const initialState = { name: profile?.name, picture: profile?.picture }
     const [editData, setEditData] = useState(initialState)
 
-    const handleChange = (e) => {
-        setEditData({ ...editData, [e.target.name]: e.target.value})
-    }
-
     const handleSubmit = (e) => {
-        e.preventDefault()
-        dispatch(patchUser(editData, _id))
+      e.preventDefault()
+      dispatch(patchUser(_id, editData, setLoading))
+  }
+
+    const handleChange = (e) => {
+        setEditData({ name: profile?.name, picture: profile?.picture, [e.target.name]: e.target.value})
     }
     
     useEffect(() => {
@@ -42,9 +43,8 @@ export default function Profile() {
                       <h1> Welcome {profile?.name}! </h1>
                       {profile?.owner === true ? <h3 className="text-warning">Owner</h3> : profile?.admin === true ? <h3 className="text-warning">Admin</h3> : <h3>User</h3>}
                     </div>
-                    {/* <button className="btn btn-warning" onClick={() => openedModal()}>Edit</button> */}
                 </div>
-                    {/* <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
+                    <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
         <h2> Edit your data! </h2>
         <form className="container" onSubmit={handleSubmit} noValidate>
                     <div className='d-flex text-center'>
@@ -52,22 +52,29 @@ export default function Profile() {
                             <label>Name</label>
                             <input defaultValue={profile?.name} autoComplete='off' type="text" name="name" className="form-control" placeholder="Name" onChange={handleChange}  />
                         </div>
-                    
-            <div className="form-group col-md-4 ms-5 text-center">
-                <label>Email</label>
-                <input defaultValue={profile?.email} autoComplete='off' type="email" name="email" className="form-control" placeholder="Email" onChange={handleChange} />
-            </div>
             </div>
             <div className="mb-3">
   <label htmlFor="formFile" className="form-label">Your profile picture</label>
-  <input defaultValue={profile?.picture} name="picture" className="form-control" type="file" id="formFile" />
+  <input defaultValue={profile?.picture} name="picture" className="form-control" id="formFile" />
 </div>
-            <div className='text-center mt-3'>
+{
+  loading ? 
+  <div className='text-center mt-3 mb-3'>
+  <div className="spinner-border text-primary" role="status">
+      {/* <span className="sr-only">Loading...</span> */}
+  </div>
+  </div>
+: 
+<div className='text-center mt-3'>
                 <button type="submit" className="btn btn-primary">Send</button>
             </div>
+}
+            
         </form>
-        <button type="button" className="btn btn-danger" onClick={closeModal}>Close</button>
-        </Modals> */}
+        {
+                loading ? '' : <button className="btn btn-danger" onClick={closeModal}>CLOSE</button>
+        }
+        </Modals>
             <div className="accordion mb-3 me-3" id="accordionExample">
   <div className="accordion-item bg-light">
     <h2 className="accordion-header" id="headingOne">
@@ -77,9 +84,10 @@ export default function Profile() {
     </h2>
     <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div className="accordion-body">
-      <h1> {profile?.name} </h1>
-                    <h2> {profile?.email} </h2>
-                    <p> Picture: {profile?.picture !== undefined ? `${profile?.picture}` : 'None'}</p>
+        <h1> {profile?.name} </h1>
+        <h2> {profile?.email} </h2>
+        <p> Picture: {profile?.picture !== undefined ? `${profile?.picture}` : 'None'}</p>
+        <button className="btn btn-warning" onClick={() => openedModal()}>Edit</button>
       </div>
     </div>
   </div>

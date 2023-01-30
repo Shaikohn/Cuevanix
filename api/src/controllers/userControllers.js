@@ -131,10 +131,8 @@ const getUsers = async(req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    const { _id  } = req.params
+    const { _id } = req.params
     const { name, email, picture } = req.body
-    console.log(name, email)
-    console.log('params', req.params)
     try {
         const user = await User.findById(_id).populate('orders').populate('messages')
         await user.updateOne({ 
