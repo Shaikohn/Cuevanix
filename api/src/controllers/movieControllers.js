@@ -49,17 +49,6 @@ const getMovieById = async (req, res, next) => {
     }
 } 
 
-const getMovieAdmin = async (req, res, next) => {
-    const { id } = req.params
-    try {
-            let movieDb = await Movie.findOne({id})
-            res.status(200).send(movieDb)
-        }
-    catch (error) {
-        next(error)
-    }
-}
-
 const getMovieVideo = async (req, res, next) => {
     const {id} = req.params
     try {
@@ -95,6 +84,23 @@ const getResults = async (req, res, next) => {
     res.status(200).json(results.data.results)
 }
 
+const updateMovie = async(req, res, next) => {
+    const { id } = req.params
+    const { price, overview } = req.body
+    try {
+        const movie = await Movie.findOne({id}).populate('comments')
+        await movie.updateOne({ 
+            price,
+            overview
+        })
+        movie.save()
+        const movieUpdated = await Movie.findOne({id}).populate('comments')
+        return res.status(200).json(movieUpdated)
+        } catch (error) {
+            console.log(error);
+        }
+}
+
 const deleteMovie = async (req, res, next) => {
     try {
         const {id} = req.params
@@ -110,8 +116,8 @@ const deleteMovie = async (req, res, next) => {
 module.exports = {
     getMovies,
     getMovieById,
-    getMovieAdmin,
     getMovieVideo,
     getResults,
+    updateMovie,
     deleteMovie
 }

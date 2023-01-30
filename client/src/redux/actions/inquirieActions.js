@@ -50,8 +50,8 @@ export const postInquirieAnswer = (answerData, closeModal, setLoading) => async(
 
 export const getAllInquiries = () => async(dispatch) => {
     try {
-        const res = await axios.get('http://localhost:3001/inquiries/all')
-        dispatch(getInquiries(res.data))
+        const { data } = await axios.get('http://localhost:3001/inquiries/all')
+        dispatch(getInquiries(data))
     }
     catch(e) {
         console.log(e)
@@ -60,8 +60,8 @@ export const getAllInquiries = () => async(dispatch) => {
 
 export const getInquirie = (_id) => async(dispatch) => {
     try {
-        const res = await axios.get(`http://localhost:3001/inquiries/${_id}`)
-        dispatch(getData(res.data))
+        const { data } = await axios.get(`http://localhost:3001/inquiries/${_id}`)
+        dispatch(getData(data))
     }
     catch(e) {
         console.log(e)

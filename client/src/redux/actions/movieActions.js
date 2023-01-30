@@ -4,8 +4,8 @@ import { getAllMovies, getMovieById, getMovieDetails, getPurchased, getResults, 
 
 export const getMovies = () => async(dispatch) => {
     try {
-        const res = await axios.get('http://localhost:3001/movies/all')
-        dispatch(getAllMovies(res.data))
+        const { data } = await axios.get('http://localhost:3001/movies/all')
+        dispatch(getAllMovies(data))
     }
     catch(e) {
         console.log(e)
@@ -14,8 +14,8 @@ export const getMovies = () => async(dispatch) => {
 
 export const getAllResults = (keyword) => async(dispatch) => {
     try {
-        const res = await axios.get(`http://localhost:3001/movies/results/${keyword}`)
-        dispatch(getResults(res.data))
+        const { data } = await axios.get(`http://localhost:3001/movies/results/${keyword}`)
+        dispatch(getResults(data))
     }
     catch(e) {
         console.log(e)
@@ -24,8 +24,8 @@ export const getAllResults = (keyword) => async(dispatch) => {
 
 export const getDetails = (id) => async(dispatch) => {
     try {
-        const res = await axios.get(`http://localhost:3001/movies/${id}`)
-        dispatch(getMovieById(res.data))
+        const { data } = await axios.get(`http://localhost:3001/movies/${id}`)
+        dispatch(getMovieById(data))
     }
     catch(e) {
         console.log(e)
@@ -34,38 +34,52 @@ export const getDetails = (id) => async(dispatch) => {
 
 export const getPurchasedMovie = (id) => async(dispatch) => {
     try {
-        const res = await axios.get(`http://localhost:3001/movies/${id}`)
-        dispatch(getPurchased(res.data))
+        const { data } = await axios.get(`http://localhost:3001/movies/${id}`)
+        dispatch(getPurchased(data))
     }
     catch(e) {
         console.log(e)
     }
 }
-
-export const getMovieAdmin = (id) =>async(dispatch) => {
-    try {
-        const res = await axios.get(`http://localhost:3001/movies/admin/${id}`)
-        dispatch(getMovieDetails(res.data))
-    }
-    catch(e) {
-        console.log(e)
-    }
-}
-
 
 export const getMovieVideos = (id) => async(dispatch) => {
     try {
-        const res = await axios.get(`http://localhost:3001/movies/purchasedMovieVideo/${id}`)
-        dispatch(getVideos(res.data))
+        const { data } = await axios.get(`http://localhost:3001/movies/purchasedMovieVideo/${id}`)
+        dispatch(getVideos(data))
+        
     }
     catch(e) {
         console.log(e)
     }
 }
 
-export const deleteMovie = (id, navigate) => () => {
+export const patchMovie = (id, editMovie, setLoading) => async(dispatch) => {
+    setLoading(true)
     try {
-        axios.delete(`http://localhost:3001/movies/${id}`)
+        const { data } = await axios.patch(`http://localhost:3001/movies/${id}`, editMovie)
+        dispatch(getMovieById(data))
+        Swal.fire({
+            title: "Edited",
+            text: "User updated!",
+            icon: "success",
+            timer: 2000,
+        })
+        setLoading(false)
+    }
+    catch(e) {
+        Swal.fire({
+            title: "Not edited",
+            text: "Something failed!",
+            icon: "error",
+            timer: 2000,
+        })
+        setLoading(false)
+    }
+}
+
+export const deleteMovie = (id, navigate) => async() => {
+    try {
+        await axios.delete(`http://localhost:3001/movies/${id}`)
         navigate('/movies')
         Swal.fire({
             title: "Deleted",

@@ -10,7 +10,6 @@ export const moviesSlice = createSlice({
         resultPage: 1,
         details: null,
         purchasedMovie: {},
-        adminMovie: null,
         videos: [],
     },
     reducers: {
@@ -36,9 +35,6 @@ export const moviesSlice = createSlice({
         },
         getPurchased: (state, action) => {
             state.purchasedMovie = action.payload
-        },
-        getMovieDetails: (state, action) => {
-            state.adminMovie = action.payload
         },
         getVideos: (state, action) => {
             state.videos = action.payload
@@ -142,9 +138,6 @@ export const moviesSlice = createSlice({
         clearResults: (state) => {
             state.filteredResults = []
         },
-        clearMovieAdmin: (state) => {
-            state.adminMovie = null
-        },
         clearPurchasedMovie: (state) => {
             state.purchasedMovie = {}
         },
@@ -154,5 +147,5 @@ export const moviesSlice = createSlice({
     }
 })
 
-export const {getAllMovies, getMovieById, getPurchased, getResults, getVideos, getMovieDetails, orderByTitle, orderByRating, orderByPrice, resultByTitle, resultByRating, clearMovie, clearResults, clearMovieAdmin, clearPurchasedMovie, clearVideos} = moviesSlice.actions
+export const {getAllMovies, getMovieById, getPurchased, getResults, getVideos, orderByTitle, orderByRating, orderByPrice, resultByTitle, resultByRating, clearMovie, clearResults, clearPurchasedMovie, clearVideos} = moviesSlice.actions
 export default moviesSlice.reducer

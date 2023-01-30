@@ -24,9 +24,9 @@ export const postComment = (commentData, closeModal, setLoading) => async() => {
     }
 }
 
-export const deleteComment = (_id, userId, movieId) => () => {
+export const deleteComment = (_id, userId, movieId) => async() => {
     try {
-        axios.delete(`http://localhost:3001/comments/${userId}/${movieId}/${_id}`)
+        await axios.delete(`http://localhost:3001/comments/${userId}/${movieId}/${_id}`)
         Swal.fire({
             title: "Deleted",
             text: "Comment deleted succesfully!",
