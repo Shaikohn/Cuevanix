@@ -22,13 +22,13 @@ export default function Results() {
     const [search, setSearch] = useState('')
     const filtered = results.filter(m => m.title.toLowerCase().includes(search.toLowerCase()))
     const max = Math.ceil(filtered?.length / perPage)
-    const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
-    console.log(resultPage)
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(clearResults())
-        dispatch(getAllResults(keyword))
+        dispatch(getAllResults(keyword, setLoading, navigate))
     }, [dispatch, keyword])
 
     function filteredResult() {
@@ -65,7 +65,7 @@ export default function Results() {
                 <SortResults setPage={setPage} />
             </div>
             {
-                filteredResult().slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+                loading ? <Spinner /> : filteredResult().slice((page - 1) * perPage, (page - 1) * perPage + perPage)
                 .map((m, i) => {
                     return (
                         <div className="col-4" key={i}>

@@ -2,11 +2,13 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { getData, getInquiries } from "../slices/inquirieSlice";
 
-export const postInquirie = (inquirieData, closeModal, setLoading) => async() => {
+export const postInquirie = (inquirieData, closeModal, setLoading, e, setInquirieData, initialState) => async() => {
     setLoading(true)
     try {
         await axios.post("http://localhost:3001/inquiries", inquirieData);
         setLoading(false)
+        e.target.reset()
+        setInquirieData(initialState)
         closeModal()
         Swal.fire({
             title: "Success!",
@@ -25,11 +27,13 @@ export const postInquirie = (inquirieData, closeModal, setLoading) => async() =>
     }
 }
 
-export const postInquirieAnswer = (answerData, closeModal, setLoading) => async() => {
+export const postInquirieAnswer = (answerData, closeModal, setLoading, e, setInquirieData, initialState) => async() => {
     setLoading(true)
     try {
         await axios.post("http://localhost:3001/inquiries/answer", answerData);
         setLoading(false)
+        e.target.reset()
+        setInquirieData(initialState)
         closeModal()
         Swal.fire({
             title: "Success!",
@@ -84,9 +88,10 @@ export const deleteInquirie = (_id, navigate) => async() => {
     }
 }
 
-export const deleteInquirieAnswer = (_id, userId) => async() => {
+export const deleteInquirieAnswer = (_id, userId, forceUpdate) => async() => {
     try {
         await axios.delete(`http://localhost:3001/inquiries/answer/${userId}/${_id}`)
+        forceUpdate()
         Swal.fire({
             title: "Deleted",
             text: "Message deleted succesfully!",

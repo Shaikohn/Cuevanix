@@ -20,10 +20,20 @@ import MovieDetails from './components/Admin/MovieDetails';
 import InquiryDetails from './components/Admin/InquiryDetails';
 import { useSelector } from 'react-redux';
 import Messages from './components/Profile/Messages';
+import Verification from './components/Verification';
+import PasswordChange from './components/PasswordChange';
+import { useReducer, useState } from 'react';
+import { useEffect } from 'react';
 
 function App() {
 
   const {profile} = useSelector(state => state.user)
+  const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
+
+  useEffect(() => {
+
+  }, [reducerValue])
 
   return (
     <GoogleOAuthProvider clientId="569222121144-fap8qmrds81cqlvr1kcqdnbn58flam7b.apps.googleusercontent.com">
@@ -33,10 +43,12 @@ function App() {
         <Route exact path='/catalog' element={<Catalog />} />
         <Route exact path='/movie/:id' element={<Details />} />
         <Route exact path='/results' element={<Results />} />
-        <Route exact path='/favourites' element={/* profile !== null ?  */<Favourites /> /* : <Navigate to="/" replace /> */} />
-        <Route exact path='/purchases' element={/* profile !== null ?  */<Purchases /> /* : <Navigate to="/" replace /> */} />
-        <Route exact path='/profile' element={/* profile !== null ?  */<Profile /> /* : <Navigate to="/" replace /> */} />
-        <Route exact path='/purchasedMovie/:id' element={/* profile !== null ?  */<PurchasedMovie /> /* : <Navigate to="/" replace /> */} />
+        <Route exact path='/verification/:_id' element={<Verification />} />
+        <Route exact path='/changePassword/:_id' element={<PasswordChange />} />
+        <Route exact path='/favourites' element={localUser !== null ? <Favourites /> : <Navigate to="/" replace /> } />
+        <Route exact path='/purchases' element={localUser !== null ?<Purchases /> : <Navigate to="/" replace /> } />
+        <Route exact path='/profile' element={localUser !== null ?<Profile /> : <Navigate to="/" replace /> } />
+        <Route exact path='/purchasedMovie/:id' element={localUser !== null ?<PurchasedMovie /> : <Navigate to="/" replace /> } />
         <Route exact path='/messages' element={<Messages />} />
         <Route exact path='/adminPanel' element={/* profile?.admin === true || profile?.owner === true ? */ <AdminPanel /> /* : <Navigate to="/" replace /> */} />
         <Route exact path='/users' element={/* profile?.admin === true || profile?.owner === true ? */ <Users /> /* : <Navigate to="/" replace /> */} />

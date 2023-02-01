@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useReducer } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { getDetails } from "../redux/actions/movieActions";
@@ -19,6 +19,7 @@ export default function Details() {
 
     let { id } = useParams()
     const movie = useSelector(state => state.movies.details)
+    const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const userId = localUser?.result?._id
     const movieId = movie?.id
@@ -33,7 +34,7 @@ export default function Details() {
     useEffect(() => {
         dispatch(clearMovie())
         dispatch(getDetails(id))
-    }, [dispatch, id])
+    }, [])
 
     return (
         <>
@@ -91,8 +92,7 @@ export default function Details() {
                 confirmButtonColor: "green",
               }).then((res) => {
                 if (res.isConfirmed) {
-                    dispatch(deleteComment(movieId, userId, _id))
-                    /* forceUpdate() */
+                    dispatch(deleteComment(movieId, userId, _id, forceUpdate))
                 }
               })}>< MdDeleteForever size={50} /></button> : ''}
                                         </div>

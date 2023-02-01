@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { postInquirie } from "../redux/actions/inquirieActions";
 import Modals from "./Modals/Modals"
 import { useModal } from "./Modals/useModal";
@@ -21,14 +21,14 @@ export default function Inquiry() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(postInquirie(inquirieData, closeModal, setLoading))
+        dispatch(postInquirie(inquirieData, closeModal, setLoading, e, setInquirieData, initialState))
     }
 
     return (
         <div>
             <button type="button" className="nav-link" onClick={openedModal}>Inquiry</button>
             <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
-        <h2> Send us a inquiry! </h2>
+        <h2> Send an inquiry! </h2>
         <form className="container" onSubmit={handleSubmit} noValidate>
                     <div className='d-flex text-center'>
                         <div className="form-group col-md-4 ms-5 ">

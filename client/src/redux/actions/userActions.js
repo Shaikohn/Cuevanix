@@ -32,7 +32,7 @@ export const getUserById = (_id) => async(dispatch) => {
     }
 }
 
-export const patchUser = (_id, editData, setLoading) => async(dispatch) => {
+export const patchUser = (_id, editData, setLoading, closeModal, forceUpdate) => async(dispatch) => {
     setLoading(true)
     try {
         const { data } = await axios.patch(`http://localhost:3001/user/edit/${_id}`, editData)
@@ -44,6 +44,8 @@ export const patchUser = (_id, editData, setLoading) => async(dispatch) => {
             timer: 2000,
         })
         setLoading(false)
+        forceUpdate()
+        closeModal()
     }
     catch(e) {
         Swal.fire({

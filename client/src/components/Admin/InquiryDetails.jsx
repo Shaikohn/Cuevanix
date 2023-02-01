@@ -22,7 +22,6 @@ export default function InquirieDetails() {
     const name = localUser.result.name
     const initialState = { name: name, subject: subject, text: '', id: id}
     const [answerData, setAnswerData] = useState(initialState)
-    console.log(answerData)
     const [loading, setLoading] = useState(false)
     const [isOpenModal, openedModal, closeModal] = useModal(false);
     const dispatch = useDispatch()
@@ -39,7 +38,8 @@ export default function InquirieDetails() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(postInquirieAnswer(answerData, closeModal, setLoading))
+        dispatch(postInquirieAnswer(answerData, closeModal, setLoading, e, answerData, initialState))
+        setAnswerData(initialState)
     }
 
     return (

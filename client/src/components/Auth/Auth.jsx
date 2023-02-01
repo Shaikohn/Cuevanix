@@ -1,14 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BsEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { GoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom';
-import { signGoogle, signIn, signUp } from '../../redux/actions/authActions';
+import { signGoogle, signIn, signUp, emailPassword } from '../../redux/actions/authActions';
 import Modals from '../Modals/Modals';
 import { useModal } from '../Modals/useModal';
 import userIcon from '../../assets/userIcon.png'
+import { useReducer } from 'react';
 
 export default function Auth() {
 
@@ -21,13 +22,21 @@ export default function Auth() {
     const navigate = useNavigate()
     const [isOpenModal, openedModal, closeModal] = useModal(false);
     const [loading, setLoading] = useState(false)
+    const [forgotPassword, setForgotPassword] = useState(false)
+    const initialEmail = {email: ''}
+    const [sendEmail, setSendEmail] = useState(initialEmail)
+    const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
+
+    useEffect(() => {
+        
+    }, [reducerValue]);
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if(isSignUp) {
-            dispatch(signUp(formData, navigate, closeModal, setLoading))
+            dispatch(signUp(formData, closeModal, setLoading, e, setFormData, initialState))
         } else {
-            dispatch(signIn(formData, navigate, closeModal, setLoading))
+            dispatch(signIn(formData, navigate, closeModal, setLoading, forceUpdate, setFormData, initialState))
         }
     }
 
@@ -37,17 +46,29 @@ export default function Auth() {
 
     const handleShowPassword = () => setShowPassword(!showPassword)
 
+    const switchForgot = () => setForgotPassword(!forgotPassword)
+
     const switchMode = () => setIsSignUp(!isSignUp)
+
+    const handlePasswordSubmit = (e) => {
+        e.preventDefault()
+        dispatch(emailPassword(sendEmail))
+    }
+
+    const handlePasswordChange = (e) => {
+        setSendEmail({ ...sendEmail, [e.target.name]: e.target.value})
+    }
 
     const googleSuccess = async(res) => {
         const token = res.credential
         const googleUser = (jwt_decode(token))
         try {
-            dispatch(signGoogle(googleUser, navigate, closeModal, setLoading))
+            dispatch(signGoogle(googleUser, navigate, closeModal, setLoading, forceUpdate))
         } catch (error) {
             console.log(error)
         }
     }
+
 
     return (
         <div>
@@ -116,6 +137,26 @@ export default function Auth() {
             }}
         />
         }
+        {
+                !isSignUp && (
+                    <>
+                        <button onClick={() => switchForgot()}>Forgot password?</button>
+                    </>
+                )
+            }
+            {
+                forgotPassword === true ? <div>
+                <form className="container" onSubmit={handlePasswordSubmit} noValidate>
+                <div className='d-flex mt-1 mx-auto text-center'>
+                <div className="form-group col-md-4 ms-5 text-center">
+                    <label>Email</label>
+                    <input autoComplete='off' type="email" name="email" className="form-control" placeholder="Email" onChange={handlePasswordChange} />
+                </div>
+                <button type="submit" className="btn btn-primary ms-3 mt-4" style={{height: '40px'}}>Send</button>
+            </div>
+            </form>
+            </div> : ''
+            }
         <div className='d-flex'>
         {
             loading ? '' :  

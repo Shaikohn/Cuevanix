@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useReducer, useState } from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
@@ -18,13 +18,14 @@ export default function Profile() {
     const dispatch = useDispatch()
     const [isOpenModal, openedModal, closeModal] = useModal(false);
     const [loading, setLoading] = useState(false)
+    const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
 
     const initialState = { name: profile?.name, picture: profile?.picture }
     const [editData, setEditData] = useState(initialState)
 
     const handleSubmit = (e) => {
       e.preventDefault()
-      dispatch(patchUser(_id, editData, setLoading))
+      dispatch(patchUser(_id, editData, setLoading, closeModal, forceUpdate))
   }
 
     const handleChange = (e) => {
@@ -33,7 +34,7 @@ export default function Profile() {
     
     useEffect(() => {
         dispatch(getProfileById(_id))
-    }, [dispatch, _id])
+    }, [dispatch, _id, reducerValue])
 
     return (
         <div className="ms-3">

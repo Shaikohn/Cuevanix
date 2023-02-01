@@ -12,6 +12,7 @@ import Inquiry from './Inquiry'
 export default function Header() {
 
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
+    const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
     const navigateTo = useNavigate()
     const location = useLocation()
     const dispatch = useDispatch()
@@ -20,6 +21,7 @@ export default function Header() {
         dispatch(clearUser())
         localStorage.removeItem('profile')
         navigateTo('/catalog')
+        forceUpdate()
     }
 
     useEffect(() => {

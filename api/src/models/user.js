@@ -7,8 +7,8 @@ const userSchema = mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String },
     id: { type: String },
-    picture: {type: String},
-    favourites: {type: Array},
+    picture: { type: String },
+    favourites: { type: Array },
     orders: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -30,5 +30,6 @@ const userSchema = mongoose.Schema({
     owner: { type: Boolean, default: false },
     admin: { type: Boolean, default: false },
     banned: { type: Boolean, default: false },
+    verified: { type: Boolean, default: false },
 })
 module.exports = mongoose.model('User', userSchema)

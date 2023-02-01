@@ -27,6 +27,7 @@ const signin = async(req, res) => {
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password)
         if(!isPasswordCorrect) return res.status(400).json({message: "Invalid credentials!"})
         if(existingUser.banned === true) return res.status(400).json({message: "You are banned!"})
+        if(existingUser.verified === false) return res.status(400).json({message: "You have to verify!"})
 
         const token = jwt.sign({email: existingUser.email, id: existingUser._id}, 'test', {expiresIn: '1h'})
         res.status(200).json({result: existingUser, token})
@@ -53,20 +54,36 @@ const signup = async(req, res) => {
 
     const result = await User.create({email, picture, password: hashedPassword, name: `${firstName} ${lastName}`})
 
-    const token = jwt.sign({email: result.email, id: result._id}, 'test', {expiresIn: '1h'})
     let signEmail = await transport.sendMail({
         from: MAIL_USER,
         to: result.email,
         subject: "Welcome to Cuevanix!",
         html: `<h1> Hello ${result.name}! </h1>
-            <p> We hope that you enjoy our website filled with the best movies! </p>
+            <p> Verify your account by clicking the link! </p>
+            <a target="_blank" rel="noopener noreferrer" href=http://localhost:3000/verification/${result._id}> Click here</a>
             </div>`,
     })
-    res.status(200).json({result: result, token})
+    res.status(200).json(result)
     } catch(error) {
         console.log(error)
         res.status(500).json({message: 'Something went wrong.'})
     }
+}
+
+const verifyUser = async(req, res) => {
+    const { _id } = req.params;
+    try {
+        const user = await User.findById(_id).populate('orders').populate('messages')
+        if(user.verified === true) {
+            return res.status(400).json({message: "This user is already verified!"})
+        } 
+        await user.updateOne({ verified: true });
+        user.save()
+        const userUpdated = await User.findOne({_id}).populate('orders').populate('messages')
+        return res.status(200).json(userUpdated);
+        } catch (error) {
+            res.status(400).json(error);
+        }
 }
 
 const googleUser = async(req, res) => {
@@ -81,7 +98,7 @@ const googleUser = async(req, res) => {
                 res.status(200).json({result: existingUser, token})
             }
         } else {
-            const result = await User.create({email, name: `${given_name} ${family_name}`, picture})
+            const result = await User.create({email, name: `${given_name} ${family_name}`, picture, verified: true})
             const token = jwt.sign({email: result.email, id: result._id}, 'test', {expiresIn: '1h'})
             let signEmail = await transport.sendMail({
                 from: MAIL_USER,
@@ -181,6 +198,45 @@ const updateUserRole = async (req, res) => {
         }
     };
 
+    const passwordEmail = async (req, res) => {
+        const { email } = req.body
+        const user = await User.findOne({email}).populate('orders').populate('messages').populate('comments')
+        try {
+            await transport.sendMail({
+                from: MAIL_USER,
+                to: email,
+                subject: "Forgotten password at Cuevanix!",
+                html: `<h1> Hello ${email}! </h1>
+                    <p> You want to change your password? Then click the link! </p>
+                    <a target="_blank" rel="noopener noreferrer" href=http://localhost:3000/changePassword/${user._id}> Click here</a>
+                    </div>`,
+            })
+            return res.status(200)
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({ error: error });
+        }
+    };
+
+    const updatePassword = async (req, res) => {
+        const { _id } = req.params;
+        const { password } = req.body
+        try {
+            const user = await User.findById(_id).populate('orders').populate('messages')
+            if(password.length < 6) return res.status(404).json({message: "The password needs to have a minimum of 6 characters!"})
+            const hashedPassword = await bcrypt.hash(password, 12)
+            await user.updateOne({ 
+                password: hashedPassword,
+            })
+            user.save()
+            const userUpdated = await User.findOne({_id}).populate('orders').populate('messages')
+            return res.status(200).json(userUpdated);
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({ error: error });
+        }
+    };
+
 module.exports = {
     signin, 
     signup,
@@ -191,4 +247,7 @@ module.exports = {
     updateUser,
     updateUserRole,
     updateUserStatus,
+    verifyUser,
+    updatePassword,
+    passwordEmail
 }

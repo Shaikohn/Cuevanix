@@ -29,27 +29,26 @@ export default function Messages() {
                 const _id = m?._id
                 return (
                     <div className="col-3" key={i}>
-                    <div style={{width: '500px'}} className="card my-4 ms-5">
-                    <div className="card-body">
-                        <h2>Admin {m?.name} answered you!</h2>
-                        <h3>Subject: {m?.subject} </h3>
-                        <p className="justify-content-center"> {m?.text} </p>
-                        <button className="text-danger" onClick={() => Swal.fire({
-                title: "Warning",
-                text: "Are you sure you want to remove this inquirie?",
-                icon: "warning",
-                showDenyButton: true,
-                denyButtonText: "Cancel",
-                confirmButtonText: "Confirm",
-                confirmButtonColor: "green",
-              }).then((res) => {
-                if (res.isConfirmed) {
-                    dispatch(deleteInquirieAnswer(_id, userId))
-                    forceUpdate()
-                }
-              })}>< MdDeleteForever size={50} /></button>
+                        <div style={{width: '500px'}} className="card my-4 ms-5">
+                            <div className="card-body">
+                                <h2>Admin {m?.name} answered you!</h2>
+                                <h3>Subject: {m?.subject} </h3>
+                                <p className="justify-content-center"> {m?.text} </p>
+                                <button className="text-danger" onClick={() => Swal.fire({
+                                    title: "Warning",
+                                    text: "Are you sure you want to remove this inquirie?",
+                                    icon: "warning",
+                                    showDenyButton: true,
+                                    denyButtonText: "Cancel",
+                                    confirmButtonText: "Confirm",
+                                    confirmButtonColor: "green",
+                                }).then((res) => {
+                                    if (res.isConfirmed) {
+                                        dispatch(deleteInquirieAnswer(_id, userId, forceUpdate))
+                                    }
+                                })}>< MdDeleteForever size={50} /></button>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 )
             }) : <img style={{height: '500px', margin: 'auto', display: 'block'}} src={NoMessages} alt="No messages" /> 

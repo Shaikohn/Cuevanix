@@ -1,10 +1,10 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import axios from 'axios'
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom';
 
-export default function Stripe({movie, closeModal, isOpenModal}) {
+export default function Stripe({movie, closeModal}) {
 
     const stripe = useStripe()
     const elements = useElements()
@@ -42,8 +42,8 @@ export default function Stripe({movie, closeModal, isOpenModal}) {
             saveOrder()
             setLoading(false)
             elements.getElement(CardElement).clear()
+            navigate("/catalog")
             closeModal()
-            navigate("/purchases")
             Swal.fire({
                 title: 'Payment done', 
                 text: data.message, 

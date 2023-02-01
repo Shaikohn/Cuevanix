@@ -12,13 +12,25 @@ export const getMovies = () => async(dispatch) => {
     }
 }
 
-export const getAllResults = (keyword) => async(dispatch) => {
+export const getAllResults = (keyword, setLoading, navigate) => async(dispatch) => {
+    setLoading(true)
     try {
         const { data } = await axios.get(`http://localhost:3001/movies/results/${keyword}`)
         dispatch(getResults(data))
+        setLoading(false)
+        if(data.length < 1) {
+            navigate("/catalog")
+            Swal.fire({
+                title: "Not Found",
+                text: "Movie not found!",
+                icon: "error",
+                timer: 2000,
+            })
+        }
     }
     catch(e) {
         console.log(e)
+        setLoading(false)
     }
 }
 
