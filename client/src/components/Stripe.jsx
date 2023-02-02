@@ -67,27 +67,26 @@ export default function Stripe({movie, closeModal}) {
 
     return (
         <div>
-        <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <CardElement style={{width: '300px'}} />
                 {loading ? 
+                    <div className='text-center mt-3 mb-3'>
+                        <div className="spinner-border text-primary" role="status">
+                        </div>
+                        </div>
+                : 
                 <div className='text-center mt-3 mb-3'>
-                <div className="spinner-border text-primary" role="status">
-                    {/* <span className="sr-only">Loading...</span> */}
+                    <button className="btn btn-success" type='submit'>
+                        CONFIRM
+                    </button>
                 </div>
-                </div>
-            : 
-            <div className='text-center mt-3 mb-3'>
-                <button className="btn btn-success" type='submit'>
-                    CONFIRM
-                </button>
-            </div>
-            }
-        </form>
-        <div className='text-center'>
+                }
+            </form>
+            <div className='text-center'>
             {
                 loading ? '' : <button className="btn btn-danger" onClick={closeModal}>CLOSE</button>
             }
-        </div>
+            </div>
         </div>
     )
 }

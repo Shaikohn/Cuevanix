@@ -48,7 +48,6 @@ export default function Catalog() {
 
     return (
         <>    
-        <div>
             <div className="nav justify-content-center">
                 <div className="ms-2">
                     <Pagination page={page} setPage={setPage} max={max} />
@@ -67,23 +66,22 @@ export default function Catalog() {
             .map((m, i) => {
                 return (
                     <div className="col-3" key={i}>
-                        <div /* style={{height:'550px'}} */ className="card my-3 mx-3">
+                        <div className="card my-3 mx-3">
                             <img style={{height: '300px'}} className="card-img-top" src={m.image} alt="film" />
                             {/* {
                                 user !== null || localUser !== null ? <button className="favourite-btn" onClick={props.addOrRemoveFromFavs} data-movie-id={m.id}>🖤</button> : ''
                             } */}
-                                <div className="card-body">
-                                    <h5 className="card-title text-info"> {m.title} </h5>
-                                    <p className="card-text"> {m.overview.substring(0, 100)}... </p>
-                                    <Link to={`/movie/${m.id}`} className="btn btn-primary">View details</Link>
-                                </div>
+                            <div className="card-body">
+                                <h5 className="card-title text-info"> {m.title} </h5>
+                                <p className="card-text"> {m.overview.substring(0, 100)}... </p>
+                                <Link to={`/movie/${m.id}`} className="btn btn-primary">View details</Link>
+                            </div>
                         </div>
                     </div>
                 )
             }) : <Spinner />}
             </div>
             <Pagination page={page} setPage={setPage} max={max} />
-        </div>
         </>
     )
 }

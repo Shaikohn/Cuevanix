@@ -51,33 +51,33 @@ export default function PurchasedMovie() {
 
     return (
         <div>
-        {
-            video === undefined ? < Spinner /> : <ReactPlayer width='100%' className="rounded mx-auto d-block" url={`https://www.youtube.com/watch?v=${video?.key}`}  />
-        }
-        { exists !== undefined && alreadyCommented === undefined ? <div className="text-center"> <button className="btn btn-success mt-3 mb-3" onClick={() => openedModal()}>Comment</button> </div> : ''}
-        <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
-        <h2> Make a comment! </h2>
-        <form className="container" onSubmit={handleSubmit} noValidate>
-            <div className="form-group col-md-4 ms-5 text-center mt-2">
-                <label>Comment</label>
-                <textarea style={{width: '270px'}} autoComplete='off' type="email" name="text" className="form-control" placeholder="Message" onChange={handleChange} />
-            </div>{
-                loading ? 
-                <div className='text-center mt-3 mb-3'>
-                    <div className="spinner-border text-primary" role="status">
-                    </div>
-                </div>
-            : 
-            <div className='text-center mt-3'>
-                <button type="submit" className="btn btn-primary">Send</button>
-            </div>
+            {
+                video === undefined ? < Spinner /> : <ReactPlayer width='100%' className="rounded mx-auto d-block" url={`https://www.youtube.com/watch?v=${video?.key}`}  />
             }
-        </form>
-        {
-            loading ? '' : <button type="button" className="btn btn-danger" onClick={closeModal}>Close</button>
-        }
-        </Modals>
+            { exists !== undefined && alreadyCommented === undefined ? <div className="text-center"> <button className="btn btn-success mt-3 mb-3" onClick={() => openedModal()}>Comment</button> </div> : ''}
+            <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
+            <h2> Make a comment! </h2>
+            <form className="container" onSubmit={handleSubmit} noValidate>
+                <div className="form-group col-md-4 ms-5 text-center mt-2">
+                    <label>Comment</label>
+                    <textarea style={{width: '270px'}} autoComplete='off' type="email" name="text" className="form-control" placeholder="Message" onChange={handleChange} />
+                </div>
+                {
+                loading ? 
+                    <div className='text-center mt-3 mb-3'>
+                        <div className="spinner-border text-primary" role="status">
+                        </div>
+                    </div>
+                : 
+                    <div className='text-center mt-3'>
+                        <button type="submit" className="btn btn-primary">Send</button>
+                    </div>
+                }
+            </form>
+            {
+                loading ? '' : <button type="button" className="btn btn-danger" onClick={closeModal}>Close</button>
+            }
+            </Modals>
         </div>
-        
     )
 }

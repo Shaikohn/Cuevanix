@@ -32,27 +32,27 @@ export default function PasswordChange(){
     return (
         <div className="d-flex ms-2">
             <div>
-            <h1>Forgot your password?</h1>
-            <h2>Change it here now!</h2>
-            <form className="container" onSubmit={handleSubmit} noValidate>
-            <div className="form-group col-md-4">
-                <label>Password</label>
-                <div className='d-flex'>
-                    <input type={showPassword ? "text" : "password"} name="password" className="form-control" placeholder="Password" onChange={handleChange} />
-                    <button type='button' style={{background:'none', border: 'none'}} onClick={handleShowPassword}>{showPassword ? <BsFillEyeSlashFill /> : <BsEyeFill />}</button>
-                </div>
+                <h1>Forgot your password?</h1>
+                <h2>Change it here now!</h2>
+                <form className="container" onSubmit={handleSubmit} noValidate>
+                    <div className="form-group col-md-4">
+                        <label>Password</label>
+                        <div className='d-flex'>
+                            <input type={showPassword ? "text" : "password"} name="password" className="form-control" placeholder="Password" onChange={handleChange} />
+                            <button type='button' style={{background:'none', border: 'none'}} onClick={handleShowPassword}>{showPassword ? <BsFillEyeSlashFill /> : <BsEyeFill />}</button>
+                        </div>
+                    </div>
+                    <div className="form-group col-md-4 mt-2">
+                        <label>Repeat password</label>
+                        <div className='d-flex'>
+                            <input type={showRepeatPassword ? "text" : "password"} name="repeatPassword" className="form-control" placeholder="Password" onChange={handleChange} />
+                            <button type='button' style={{background:'none', border: 'none'}} onClick={handleShowRepeatPassword}>{showRepeatPassword ? <BsFillEyeSlashFill /> : <BsEyeFill />}</button>
+                        </div>
+                    </div>
+                    <button type="submit" className="btn btn-primary mt-2">Send</button>
+                </form>
             </div>
-            <div className="form-group col-md-4 mt-2">
-                <label>Repeat password</label>
-                <div className='d-flex'>
-                    <input type={showRepeatPassword ? "text" : "password"} name="repeatPassword" className="form-control" placeholder="Password" onChange={handleChange} />
-                    <button type='button' style={{background:'none', border: 'none'}} onClick={handleShowRepeatPassword}>{showRepeatPassword ? <BsFillEyeSlashFill /> : <BsEyeFill />}</button>
-                </div>
-            </div>
-            <button type="submit" className="btn btn-primary mt-2">Send</button>
-        </form>
-        </div>
-        <img style={{float: 'right'}} src={ChangePassword} alt="Password change" />
+            <img style={{float: 'right'}} src={ChangePassword} alt="Password change" />
         </div>
     )
 }

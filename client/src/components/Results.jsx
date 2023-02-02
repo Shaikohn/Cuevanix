@@ -58,7 +58,7 @@ export default function Results() {
         <div style={{width: '100%'}} className="row" >
             <h1> Results of: {keyword} </h1>
             <div className="nav justify-content-center">
-            <Pagination page={page} setPage={setPage} max={max} />
+                <Pagination page={page} setPage={setPage} max={max} />
                 <label className="form-label mb-0 mt-2">
                     <input autoComplete="off" className="form-control" onChange={handleOnSearch} placeholder="Search in the results" type="text" value={search} />
                 </label>

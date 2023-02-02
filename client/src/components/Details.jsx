@@ -38,20 +38,21 @@ export default function Details() {
 
     return (
         <>
-        {movie !== null ? <div>
-            <h2 className="ms-5 text-info"> {movie?.title} </h2>
-            <div className="d-flex">
-                <div className="ms-5 mb-2">
-                    <img style={{height: '400px', borderRadius: '10px'}} className="img-fluid" src={`https://image.tmdb.org/t/p/w500/${movie?.image}`} alt="film" />
-                </div>
-                <div className="col-7 ms-3">
-                    <h5> {movie?.release_date} </h5>
-                    <h5> Overview: </h5>
-                    <p> {movie?.overview} </p>
-                    <h5>Rating: {movie?.rating === 0 ? 'None (This movie was not rated by critics!)' : `${movie?.rating}`} </h5>
-                    <h5>Price: ${movie?.price?.toFixed()} </h5>
-                    <h5>Genres:</h5>
-                    <ul>
+        {movie !== null ? 
+            <div>
+                <h2 className="ms-5 text-info"> {movie?.title} </h2>
+                <div className="d-flex">
+                    <div className="ms-5 mb-2">
+                        <img style={{height: '400px', borderRadius: '10px'}} className="img-fluid" src={`https://image.tmdb.org/t/p/w500/${movie?.image}`} alt="film" />
+                    </div>
+                    <div className="col-7 ms-3">
+                        <h5> {movie?.release_date} </h5>
+                        <h5> Overview: </h5>
+                        <p> {movie?.overview} </p>
+                        <h5>Rating: {movie?.rating === 0 ? 'None (This movie was not rated by critics!)' : `${movie?.rating}`} </h5>
+                        <h5>Price: ${movie?.price?.toFixed()} </h5>
+                        <h5>Genres:</h5>
+                        <ul>
                         {
                             movie?.genres?.map((g, i) => {
                                 return (
@@ -61,46 +62,46 @@ export default function Details() {
                                 )
                             })
                         }
-                    </ul>
-                    {localUser !== null && alreadyBought === undefined ? <button onClick={() => openedModal()} type="button" className="text-success">< BsFillBagPlusFill size={50} /></button> : ''}  
-                </div>
-            </div>
-            <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
-                <Elements stripe={stripePromise}>
-                    <div>
-                        <h2 className="mb-5">Make your purchase!</h2>
-                        <img className="mb-2 ms-5 rounded-start rounded-end" style={{width: '14rem', height: '14rem'}} src={`https://image.tmdb.org/t/p/w500/${movie?.image}`} alt={movie?.title} />
-                    <Stripe movie={movie} closeModal={closeModal} isOpenModal={isOpenModal} />
+                        </ul>
+                        {localUser !== null && alreadyBought === undefined ? <button onClick={() => openedModal()} type="button" className="text-success">< BsFillBagPlusFill size={50} /></button> : ''}  
                     </div>
-                </Elements>
-            </Modals>
-                        {
-                            movie?.comments?.map((c, i) => {
-                                const _id = c._id
-                                return (
-                                    <div className="card d-inline-flex ms-4 mb-3 mt-2" style={{width: '19rem'}} key={i}>
-                                        <div className="card-body">
-                                            <h5 className="card-title">{c.userName}</h5>
-                                            <p className="card-text">{c.text}</p>
-                                            {c.userId === userId ? <button className="text-danger" onClick={() => Swal.fire({
-                title: "Warning",
-                text: "Are you sure you want to remove this comment?",
-                icon: "warning",
-                showDenyButton: true,
-                denyButtonText: "Cancel",
-                confirmButtonText: "Confirm",
-                confirmButtonColor: "green",
-              }).then((res) => {
-                if (res.isConfirmed) {
-                    dispatch(deleteComment(movieId, userId, _id, forceUpdate))
-                }
-              })}>< MdDeleteForever size={50} /></button> : ''}
-                                        </div>
-                                    </div>
-                                )
+                </div>
+                <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
+                    <Elements stripe={stripePromise}>
+                        <div>
+                            <h2 className="mb-5">Make your purchase!</h2>
+                            <img className="mb-2 ms-5 rounded-start rounded-end" style={{width: '14rem', height: '14rem'}} src={`https://image.tmdb.org/t/p/w500/${movie?.image}`} alt={movie?.title} />
+                            <Stripe movie={movie} closeModal={closeModal} isOpenModal={isOpenModal} />
+                        </div>
+                    </Elements>
+                </Modals>
+                {
+                    movie?.comments?.map((c, i) => {
+                        const _id = c._id
+                        return (
+                            <div className="card d-inline-flex ms-4 mb-3 mt-2" style={{width: '19rem'}} key={i}>
+                                <div className="card-body">
+                                    <h5 className="card-title">{c.userName}</h5>
+                                    <p className="card-text">{c.text}</p>
+                                    {c.userId === userId ? <button className="text-danger" onClick={() => Swal.fire({
+                                        title: "Warning",
+                                        text: "Are you sure you want to remove this comment?",
+                                        icon: "warning",
+                                        showDenyButton: true,
+                                        denyButtonText: "Cancel",
+                                        confirmButtonText: "Confirm",
+                                        confirmButtonColor: "green",
+                                        }).then((res) => {
+                                            if (res.isConfirmed) {
+                                                dispatch(deleteComment(movieId, userId, _id, forceUpdate))
+                                            }
+                                        })}>< MdDeleteForever size={50} /></button> : ''}
+                                </div>
+                            </div>
+                            )
                             })
                         }
-        </div> : <Spinner />}
+            </div> : <Spinner />}
         </>
     )
 }

@@ -19,9 +19,9 @@ export default function Verification() {
         <div className="d-flex">
             <img style={{height: '500px'}} src={KeepCalm} alt="verified" />
             <div className="ms-5">
-            <h1 >Click on the button to verify your account!</h1>
-            <button className="btn btn-success" onClick={() => verify(_id)}>Verify Account</button> 
-            <img src={Verified} alt="verified" />
+                <h1>Click on the button to verify your account!</h1>
+                <button className="btn btn-success" onClick={() => verify(_id)}>Verify Account</button> 
+                <img src={Verified} alt="verified" />
             </div>
         </div>
     )

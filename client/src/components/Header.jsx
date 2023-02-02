@@ -98,12 +98,12 @@ export default function Header() {
                     {
                         localUser?.result?.owner === true || localUser?.result?.admin === true ? (
                             <div>
-                            <button type='button' className="btn btn-light ms-3" data-bs-toggle="dropdown" aria-expanded="false">
-                                <FaUserShield size={30} />
-                            </button>
-                            <ul style={{left: 'auto', top: '50px'}} className="dropdown-menu ms-3">
-                                        <li><Link className="dropdown-item text-warning" to="/adminPanel">Admin Panel</Link></li>
-                                    </ul>
+                                <button type='button' className="btn btn-light ms-3" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <FaUserShield size={30} />
+                                </button>
+                                <ul style={{left: 'auto', top: '50px'}} className="dropdown-menu ms-3">
+                                    <li><Link className="dropdown-item text-warning" to="/adminPanel">Admin Panel</Link></li>
+                                </ul>
                             </div>
                         ) : ''
                     }

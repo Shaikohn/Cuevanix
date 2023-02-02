@@ -28,38 +28,37 @@ export default function Inquiry() {
         <div>
             <button type="button" className="nav-link" onClick={openedModal}>Inquiry</button>
             <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
-        <h2> Send an inquiry! </h2>
-        <form className="container" onSubmit={handleSubmit} noValidate>
-                    <div className='d-flex text-center'>
-                        <div className="form-group col-md-4 ms-5 ">
-                            <label>Name</label>
-                            <input autoComplete='off' type="text" name="name" className="form-control" placeholder="Name" onChange={handleChange}  />
-                        </div>
-                    
-            <div className="form-group col-md-4 ms-5 text-center">
-                <label>Email</label>
-                <input autoComplete='off' type="email" name="email" className="form-control" placeholder="Email" onChange={handleChange} />
-            </div>
-            </div>
-            <div className="form-group col-md-4 mx-auto text-center mt-2">
-                            <label>Subject</label>
-                            <div className='d-flex'>
-                            <input autoComplete='off' type="text" name="subject" className="form-control" placeholder="Subject" onChange={handleChange}  />
-                            </div>
-                        </div>
-            <div className="form-group col-md-4 ms-5 text-center mt-2">
-                <label>Message</label>
-                <textarea style={{width: '270px'}} autoComplete='off' type="email" name="text" className="form-control" placeholder="Message" onChange={handleChange} />
-            </div>
-            {
-                loading ? <div className='text-center mt-3 mb-3'>
-                <div className="spinner-border text-primary" role="status">
-                    {/* <span className="sr-only">Loading...</span> */}
+            <h2> Send an inquiry! </h2>
+            <form className="container" onSubmit={handleSubmit} noValidate>
+                <div className='d-flex text-center'>
+                    <div className="form-group col-md-4 ms-5 ">
+                        <label>Name</label>
+                        <input autoComplete='off' type="text" name="name" className="form-control" placeholder="Name" onChange={handleChange}  />
+                    </div>
+                    <div className="form-group col-md-4 ms-5 text-center">
+                        <label>Email</label>
+                        <input autoComplete='off' type="email" name="email" className="form-control" placeholder="Email" onChange={handleChange} />
+                    </div>
                 </div>
+                <div className="form-group col-md-4 mx-auto text-center mt-2">
+                    <label>Subject</label>
+                    <div className='d-flex'>
+                        <input autoComplete='off' type="text" name="subject" className="form-control" placeholder="Subject" onChange={handleChange}  />
+                    </div>
+                </div>
+                <div className="form-group col-md-4 ms-5 text-center mt-2">
+                    <label>Message</label>
+                    <textarea style={{width: '270px'}} autoComplete='off' type="email" name="text" className="form-control" placeholder="Message" onChange={handleChange} />
+                </div>
+            {
+                loading ? 
+                <div className='text-center mt-3 mb-3'>
+                    <div className="spinner-border text-primary" role="status">
+                    </div>
                 </div> :
                 <div className='text-center mt-3'>
-                <button type="submit" className="btn btn-primary">Send</button>
-            </div>
+                    <button type="submit" className="btn btn-primary">Send</button>
+                </div>
             }
         </form>
         {
