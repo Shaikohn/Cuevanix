@@ -23,7 +23,6 @@ export default function MovieDetails() {
 
     const initialState = { price: movie?.price, overview: movie?.overview }
     const [editMovie, setEditMovie] = useState(initialState)
-    console.log(editMovie)
 
     useEffect(() => {
         dispatch(clearMovie())
@@ -78,14 +77,14 @@ export default function MovieDetails() {
                     <h2> Edit movie's data! </h2>
                     <form className="container" onSubmit={handleSubmit} noValidate>
                         <div className='d-flex text-center'>
-                            <div className="form-group col-md-4 ms-5 ">
+                            <div className="form-group mx-auto">
                                 <label>Overview</label>
-                                <textarea defaultValue={movie?.overview} autoComplete='off' type="text" name="overview" className="form-control" placeholder="Name" onChange={handleChange}  />
+                                <textarea style={{width: '300px'}} defaultValue={movie?.overview} autoComplete='off' type="text" name="overview" className="form-control" placeholder="Name" onChange={handleChange}  />
                             </div>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="formFile" className="form-label">Price in dollars</label>
-                            <input type="number" defaultValue={movie?.price} name="price" className="form-control" id="formFile" onChange={handleChange} />
+                        <div className="form-group col-md-4 mx-auto text-center mt-2">
+                            <label>Price in US$</label>
+                            <input style={{width: '80px'}} type="number" defaultValue={movie?.price} name="price" className="form-control" onChange={handleChange} />
                         </div>
                         {
                         loading ? 
