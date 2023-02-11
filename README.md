@@ -28,11 +28,11 @@ This project consists of a movie e-commerce, in which the user can buy movies, s
 
 # Project Screens
 
-<img height="300" src="./src/assets/Readme/landingPage.png" />
-<img height="300" src="./src/assets/Readme/catalog.png" />
-<img height="300" src="./src/assets/Readme/profile.png" />
-<img height="300" src="./src/assets/Readme/purchases.png" />
-<img height="300" src="./src/assets/Readme/messages.png" />
-<img height="300" src="./src/assets/Readme/adminPanel.png" />
-<img height="300" src="./src/assets/Readme/users.png" />
-<img height="300" src="./src/assets/Readme/orders.png" />
+<img height="300" src="./client/src/assets/Readme/landingPage.png" />
+<img height="300" src="./client/src/assets/Readme/catalog.png" />
+<img height="300" src="./client/src/assets/Readme/profile.png" />
+<img height="300" src="./client/src/assets/Readme/purchases.png" />
+<img height="300" src="./client/src/assets/Readme/messages.png" />
+<img height="300" src="./client/src/assets/Readme/adminPanel.png" />
+<img height="300" src="./client/src/assets/Readme/users.png" />
+<img height="300" src="./client/src/assets/Readme/orders.png" />
