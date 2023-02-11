@@ -30,6 +30,7 @@ const postInquirie = async(req, res) => {
         })
         const emailPattern =  new RegExp('[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}')
         if(!emailPattern.test(email)) return res.status(404).json({message: "Write a valid email!"})
+        if(text.length < 15) return res.status(404).json({message: "The message needs to have a minimum of 15 characters!"})
         inquirie.save()
         let inquirieEmail = await transport.sendMail({
             from: MAIL_USER,
@@ -85,7 +86,7 @@ const postInquirieAnswer = async(req, res) => {
             subject,
             text,
         })
-        if(text.length < 10) return res.status(404).json({message: "The message needs to have a minimum of 10 characters!"})
+        if(text.length < 15) return res.status(404).json({message: "The message needs to have a minimum of 15 characters!"})
         answer.save()
         const user = await User.findById(id).populate("messages")
         user.messages = user.messages.concat(answer._id)

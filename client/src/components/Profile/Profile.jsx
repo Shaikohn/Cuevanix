@@ -20,13 +20,13 @@ export default function Profile() {
     const [loading, setLoading] = useState(false)
     const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
 
-    const initialState = { name: profile?.name, picture: profile?.picture }
+    const initialState = { name: localUser.result.name, picture: localUser.result.picture }
     const [editData, setEditData] = useState(initialState)
 
     const handleSubmit = (e) => {
-      e.preventDefault()
-      dispatch(patchUser(_id, editData, setLoading, closeModal, forceUpdate))
-  }
+        e.preventDefault()
+        dispatch(patchUser(_id, editData, setLoading, closeModal, forceUpdate))
+    }
 
     const handleChange = (e) => {
         setEditData({ name: profile?.name, picture: profile?.picture, [e.target.name]: e.target.value})
@@ -39,25 +39,29 @@ export default function Profile() {
     return (
         <div className="ms-3">
             <div className="d-flex mb-3 mt-3 justify-content-center">
-              {profile?.picture !== undefined ? <img style={{borderRadius: '50px', width: '100px'}} src={profile?.picture} alt={profile?.name} referrerPolicy="no-referrer" /> : ''}
-              <div className="ms-2">
-                <h1> Welcome {profile?.name}! </h1>
+                {profile?.picture !== undefined ? <img style={{borderRadius: '50px', width: '100px'}} src={profile?.picture} alt={profile?.name} referrerPolicy="no-referrer" /> : ''}
+                <div className="ms-2">
+                    <h1> Welcome {profile?.name}! </h1>
                 {profile?.owner === true ? <h3 className="text-warning">Owner</h3> : profile?.admin === true ? <h3 className="text-warning">Admin</h3> : <h3>User</h3>}
-              </div>
+                </div>
             </div>
             <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
                 <h2> Edit your data! </h2>
                 <form className="container" onSubmit={handleSubmit} noValidate>
                     <div className='d-flex text-center'>
-                        <div className="form-group col-md-4 ms-5 ">
+                        <div className="form-group col-md-4 ms-5">
                             <label>Name</label>
                             <input defaultValue={profile?.name} autoComplete='off' type="text" name="name" className="form-control" placeholder="Name" onChange={handleChange}  />
                         </div>
+                        <div className="form-group col-md-4 ms-5">
+                        <label>Picture</label>
+                        <input defaultValue={profile?.picture} name="picture" className="form-control" id="formFile" onChange={handleChange} />
                     </div>
-                    <div className="mb-3">
+                    </div>
+                    {/* <div className="mb-3">
                         <label htmlFor="formFile" className="form-label">Your profile picture</label>
-                        <input defaultValue={profile?.picture} name="picture" className="form-control" id="formFile" />
-                    </div>
+                        <input defaultValue={profile?.picture} name="picture" className="form-control" id="formFile" onChange={handleChange} />
+                    </div> */}
                     {
                     loading ? 
                         <div className='text-center mt-3 mb-3'>
@@ -66,7 +70,7 @@ export default function Profile() {
                         </div>
                         : 
                         <div className='text-center mt-3'>
-                            <button type="submit" className="btn btn-primary">Send</button>
+                            <button type="submit" className="btn btn-primary" disabled={editData.name === initialState.name && editData.picture === initialState.picture}>Send</button>
                         </div>
                     }
                 </form>

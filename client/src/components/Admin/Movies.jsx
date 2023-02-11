@@ -49,15 +49,18 @@ export default function Movies() {
     return (
         <div>
             <NavBar />
-            <div className="nav justify-content-center mb-2">
-                <Pagination page={page} setPage={setPage} max={max} />
-                <label className="form-label mt-2">
-                    <input autoComplete="off" className="form-control" onChange={handleOnSearch} placeholder="Search movie" type="text" value={search} />
-                </label>
-                <div className="mt-2">
-                    < SortMovies setPage={setPage} />
-                </div>
-            </div>
+            {
+                movies?.length > 0 ? 
+                    <div className="nav justify-content-center mb-2">
+                        <Pagination page={page} setPage={setPage} max={max} />
+                        <label className="form-label mt-2">
+                            <input autoComplete="off" className="form-control" onChange={handleOnSearch} placeholder="Search movie" type="text" value={search} />
+                        </label>
+                        <div className="mt-2">
+                            < SortMovies setPage={setPage} />
+                        </div>
+                    </div> : ''
+            }
             {movies.length > 0 ? 
             filteredMovie()
             .slice((page - 1) * perPage, (page - 1) * perPage + perPage)
@@ -80,7 +83,9 @@ export default function Movies() {
                     </div>
                 )
             }) : <Spinner />}
-            <Pagination page={page} setPage={setPage} max={max} />
+            {
+                movies.length > 0 ? <Pagination page={page} setPage={setPage} max={max} /> : ''
+            }
         </div>
     )
 }

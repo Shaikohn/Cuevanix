@@ -144,7 +144,7 @@ export default function Auth() {
                 )
                 }
                 {
-                forgotPassword === true ? 
+                forgotPassword === true && !isSignUp ? 
                     <div>
                         <form className="container" onSubmit={handlePasswordSubmit} noValidate>
                             <div className='d-flex mt-1 mx-auto text-center'>

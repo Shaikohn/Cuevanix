@@ -52,18 +52,21 @@ export default function Orders() {
     return (
         <div>
             <NavBar />
-            <div className="nav justify-content-center mb-3">
-                <Pagination page={page} setPage={setPage} max={max} />
-                <label className="form-label mt-2">
-                    <input autoComplete="off" className="form-control" onChange={handleOnSearch} placeholder="Search by order ID" type="text" value={search} />
-                </label>
-                <label className="form-label ms-2 mt-2">
-                    <input autoComplete="off" className="form-control" onChange={handleOnSearchByName} placeholder="Search by Username" type="text" value={nameSearch} />
-                </label>
-                <label className="form-label mt-2">
-                    < SortOrders />
-                </label>
-            </div>
+            {
+                orders?.length > 0 ? 
+                <div className="nav justify-content-center mb-3">
+                    <Pagination page={page} setPage={setPage} max={max} />
+                    <label className="form-label mt-2">
+                        <input autoComplete="off" className="form-control" onChange={handleOnSearch} placeholder="Search by order ID" type="text" value={search} />
+                    </label>
+                    <label className="form-label ms-2 mt-2">
+                        <input autoComplete="off" className="form-control" onChange={handleOnSearchByName} placeholder="Search by Username" type="text" value={nameSearch} />
+                    </label>
+                    <label className="form-label mt-2">
+                        < SortOrders />
+                    </label>
+                </div> : ''
+            }
             { 
             orders.length > 0 ?
             filteredOrder()
@@ -80,7 +83,9 @@ export default function Orders() {
                     </div>
                 )
             }) : <Spinner /> }
-            <Pagination page={page} setPage={setPage} max={max} />
+            { 
+                orders.length > 0 ? <Pagination page={page} setPage={setPage} max={max} /> : ''
+            }
         </div>
     )
 }

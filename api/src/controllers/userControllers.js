@@ -44,11 +44,12 @@ const signup = async(req, res) => {
     if(existingUser) return res.status(404).json({message: "That email is already in use!"})
     const pattern = new RegExp('^[A-Z]+$', 'i');
     const emailPattern =  new RegExp('[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}')
+    const passwordPattern = new RegExp(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/)
     if(!pattern.test(firstName)) return res.status(404).json({message: "You only can use letters for the name!"})
     if(!pattern.test(lastName)) return res.status(404).json({message: "You only can use letters for the lastname!"})
     if(!emailPattern.test(email)) return res.status(404).json({message: "Write a valid email!"})
-    if(password.length < 6) return res.status(404).json({message: "The password needs to have a minimum of 6 characters!"})
-    if(!password === confirmPassword) return res.status(404).json({message: "Passwords don't match!"})
+    if(!passwordPattern.test(password)) return res.status(404).json({message: "The password needs at least 6 characters, including 1 number and 1 special character!"})
+    if(password !== confirmPassword) return res.status(404).json({message: "Passwords don't match!"})
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
@@ -149,12 +150,16 @@ const getUsers = async(req, res) => {
 
 const updateUser = async (req, res) => {
     const { _id } = req.params
-    const { name, email, picture } = req.body
+    const { name, picture } = req.body
+
     try {
         const user = await User.findById(_id).populate('orders').populate('messages')
+
+        const picturePattern = new RegExp(/.(gif|jpeg|jpg|png)$/i);
+        if(!picturePattern.test(picture) && user.picture !== picture) return res.status(404).json({message: "Write a valid URL for the image!"})
+        
         await user.updateOne({ 
             name,
-            email,
             picture,
         })
         user.save()

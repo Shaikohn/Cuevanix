@@ -50,8 +50,8 @@ export const patchUser = (_id, editData, setLoading, closeModal, forceUpdate) =>
     catch(e) {
         Swal.fire({
             title: "Not edited",
-            text: "Something failed!",
-            icon: "success",
+            text: e.response.data.message,
+            icon: "error",
             timer: 2000,
         })
         setLoading(false)

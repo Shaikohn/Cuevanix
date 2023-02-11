@@ -24,9 +24,9 @@
 
 .modal-container {
     margin: auto;
-    width: 90%;
+    width: auto;
     max-width: 450px;
-    height: 90%;
+    height: auto;
     max-height: 500px;
     background-color: #fff;
     border-radius: 6px;

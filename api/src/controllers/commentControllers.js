@@ -17,7 +17,7 @@ const postComment = async(req, res) => {
             movieId,
             movieName
         })
-        if(text.length < 10) return res.status(404).json({message: "The message needs to have a minimum of 10 characters!"})
+        if(text.length < 15) return res.status(404).json({message: "The message needs to have a minimum of 15 characters!"})
         comment.save()
         user.comments = user.comments.concat(comment._id)
         user.save() 
@@ -37,7 +37,7 @@ const deleteComment = async(req, res, next) => {
         const user = await User.findById(userId).populate("comments")
         const movie = await Movie.findOne({id}).populate("comments")
         const CommentId = comment._id.toString()
-       user.comments = user.comments.filter((u) => u._id.toString() !== CommentId)
+        user.comments = user.comments.filter((u) => u._id.toString() !== CommentId)
         movie.comments = movie.comments.filter((m) => m._id.toString() !== CommentId)
         await comment.remove()
         movie.save()
