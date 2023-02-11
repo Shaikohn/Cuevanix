@@ -15,6 +15,7 @@ export default function Results() {
 
     let query = new URLSearchParams(window.location.search)
     let keyword = query.get('keyword')
+    const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
     const results = useSelector(state => state.movies.filteredResults)
     const { resultPage } = useSelector(state => state.movies)
     const [page, setPage] = useState(resultPage)
@@ -29,7 +30,7 @@ export default function Results() {
     useEffect(() => {
         dispatch(clearResults())
         dispatch(getAllResults(keyword, setLoading, navigate))
-    }, [dispatch, keyword])
+    }, [keyword])
 
     function filteredResult() {
         if(search.length === 0) {

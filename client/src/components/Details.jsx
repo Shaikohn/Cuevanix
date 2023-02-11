@@ -14,6 +14,7 @@ import { useState } from "react";
 import { BsFillBagPlusFill } from 'react-icons/bs'
 import { deleteComment } from "../redux/actions/commentActions";
 import { MdDeleteForever } from "react-icons/md";
+import { getProfileById } from "../redux/actions/userActions";
 
 export default function Details() {
 
@@ -34,6 +35,9 @@ export default function Details() {
     useEffect(() => {
         dispatch(clearMovie())
         dispatch(getDetails(id))
+        if(localUser) {
+            dispatch(getProfileById(localUser.result._id))
+        }
     }, [])
 
     return (

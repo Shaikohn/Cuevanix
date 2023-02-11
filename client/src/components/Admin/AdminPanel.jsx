@@ -1,18 +1,23 @@
 import NavBar from "./NavBar";
 import Admin from '../../assets/Admin.png'
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllInquiries } from "../../redux/actions/inquirieActions";
 import { Link } from "react-router-dom";
+import { getProfileById } from "../../redux/actions/userActions";
 
 export default function AdminPanel() {
 
     const {profile} = useSelector(state => state.user)
+    const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const { inquiries } = useSelector(state => state.inquirie)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getAllInquiries())
+        if(localUser) {
+            dispatch(getProfileById(localUser.result._id))
+        }
     }, [dispatch])
 
     return (

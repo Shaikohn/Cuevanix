@@ -1,18 +1,28 @@
+import { useEffect } from "react"
 import { useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Swal from "sweetalert2"
+import { getProfileById } from "../../redux/actions/userActions"
 import Pagination from "../Pagination"
 
 
 export default function Purchases() {
 
     const {profile} = useSelector(state => state.user)
+    const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
+    const dispatch = useDispatch()
     const [page, setPage] = useState(1)
     const [perPage, setPerPage] = useState(6)
     const [search, setSearch] = useState('')
     const filtered = profile?.orders?.filter(o => o?.purchased_Movie?.title.toLowerCase().includes(search.toLowerCase()))
     const max = Math.ceil(filtered?.length / perPage)
+
+    useEffect(() => {
+        if(localUser) {
+            dispatch(getProfileById(localUser.result._id))
+        }
+    }, [])
 
     function filteredOrder() {
         if(search.length === 0) {

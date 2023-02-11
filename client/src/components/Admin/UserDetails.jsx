@@ -1,10 +1,11 @@
+import { useState } from "react"
 import { useEffect } from "react"
 import { BiPurchaseTagAlt } from "react-icons/bi"
 import { CgComment } from "react-icons/cg"
 import { ImProfile } from "react-icons/im"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { getUserById, patchUserRole, patchUserStatus } from "../../redux/actions/userActions"
+import { getProfileById, getUserById, patchUserRole, patchUserStatus } from "../../redux/actions/userActions"
 import { clearUserDetails } from "../../redux/slices/userSlice"
 import NavBar from "./NavBar";
 
@@ -14,12 +15,15 @@ export default function UserDetails() {
     const { _id } = useParams()
     const { user } = useSelector(state => state.user)
     const {profile} = useSelector(state => state.user)
-
+    const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(clearUserDetails())
         dispatch(getUserById(_id))
+        if(localUser) {
+            dispatch(getProfileById(localUser.result._id))
+        }
     }, [dispatch, _id])
 
 

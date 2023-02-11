@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { getAllMovies, getMovieById, getMovieDetails, getPurchased, getResults, getVideos } from "../slices/movieSlice";
 

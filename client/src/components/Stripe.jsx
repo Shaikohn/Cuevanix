@@ -1,6 +1,6 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import axios from 'axios'
-import { useReducer, useState } from 'react';
+import { useState } from 'react';
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom';
 

@@ -68,9 +68,6 @@ export default function Catalog() {
                     <div className="col-3" key={i}>
                         <div className="card my-3 mx-3">
                             <img style={{height: '300px'}} className="card-img-top" src={m.image} alt="film" />
-                            {/* {
-                                user !== null || localUser !== null ? <button className="favourite-btn" onClick={props.addOrRemoveFromFavs} data-movie-id={m.id}>🖤</button> : ''
-                            } */}
                             <div className="card-body">
                                 <h5 className="card-title text-info"> {m.title} </h5>
                                 <p className="card-text"> {m.overview.substring(0, 100)}... </p>

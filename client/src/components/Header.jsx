@@ -32,9 +32,9 @@ export default function Header() {
                 handleLogOut()
             }
         }
-        if(localUser) {
+        /* if(localUser) {
             dispatch(getProfileById(localUser.result._id))
-        }
+        } */
         setLocalUser(JSON.parse(localStorage.getItem('profile')))
     }, [location])
 
