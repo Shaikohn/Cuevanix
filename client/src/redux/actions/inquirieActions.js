@@ -5,7 +5,7 @@ import { getData, getInquiries } from "../slices/inquirieSlice";
 export const postInquirie = (inquirieData, closeModal, setLoading, e, setInquirieData, initialState) => async() => {
     setLoading(true)
     try {
-        await axios.post("http://localhost:3001/inquiries", inquirieData);
+        await axios.post("/inquiries", inquirieData);
         setLoading(false)
         e.target.reset()
         setInquirieData(initialState)
@@ -30,7 +30,7 @@ export const postInquirie = (inquirieData, closeModal, setLoading, e, setInquiri
 export const postInquirieAnswer = (answerData, closeModal, setLoading, e, setInquirieData, initialState) => async() => {
     setLoading(true)
     try {
-        await axios.post("http://localhost:3001/inquiries/answer", answerData);
+        await axios.post("/inquiries/answer", answerData);
         setLoading(false)
         e.target.reset()
         setInquirieData(initialState)
@@ -54,7 +54,7 @@ export const postInquirieAnswer = (answerData, closeModal, setLoading, e, setInq
 
 export const getAllInquiries = () => async(dispatch) => {
     try {
-        const { data } = await axios.get('http://localhost:3001/inquiries/all')
+        const { data } = await axios.get('/inquiries/all')
         dispatch(getInquiries(data))
     }
     catch(e) {
@@ -64,7 +64,7 @@ export const getAllInquiries = () => async(dispatch) => {
 
 export const getInquirie = (_id) => async(dispatch) => {
     try {
-        const { data } = await axios.get(`http://localhost:3001/inquiries/${_id}`)
+        const { data } = await axios.get(`/inquiries/${_id}`)
         dispatch(getData(data))
     }
     catch(e) {
@@ -74,7 +74,7 @@ export const getInquirie = (_id) => async(dispatch) => {
 
 export const deleteInquirie = (_id, navigate) => async() => {
     try {
-        await axios.delete(`http://localhost:3001/inquiries/${_id}`)
+        await axios.delete(`/inquiries/${_id}`)
         navigate('/adminPanel')
         Swal.fire({
             title: "Deleted",
@@ -90,7 +90,7 @@ export const deleteInquirie = (_id, navigate) => async() => {
 
 export const deleteInquirieAnswer = (_id, userId, forceUpdate) => async() => {
     try {
-        await axios.delete(`http://localhost:3001/inquiries/answer/${userId}/${_id}`)
+        await axios.delete(`/inquiries/answer/${userId}/${_id}`)
         forceUpdate()
         Swal.fire({
             title: "Deleted",

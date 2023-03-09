@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 export const postComment = (commentData, closeModal, setLoading, forceUpdate) => async() => {
     setLoading(true)
     try {
-        await axios.post("http://localhost:3001/comments/add", commentData);
+        await axios.post("/comments/add", commentData);
         setLoading(false)
         forceUpdate()
         closeModal()
@@ -27,7 +27,7 @@ export const postComment = (commentData, closeModal, setLoading, forceUpdate) =>
 
 export const deleteComment = (_id, userId, movieId, forceUpdate) => async() => {
     try {
-        await axios.delete(`http://localhost:3001/comments/${userId}/${movieId}/${_id}`)
+        await axios.delete(`/comments/${userId}/${movieId}/${_id}`)
         forceUpdate()
         Swal.fire({
             title: "Deleted",

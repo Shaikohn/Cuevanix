@@ -5,7 +5,7 @@ import { getAllMovies, getMovieById, getMovieDetails, getPurchased, getResults, 
 
 export const getMovies = () => async(dispatch) => {
     try {
-        const { data } = await axios.get('http://localhost:3001/movies/all')
+        const { data } = await axios.get('/movies/all')
         dispatch(getAllMovies(data))
     }
     catch(e) {
@@ -16,7 +16,7 @@ export const getMovies = () => async(dispatch) => {
 export const getAllResults = (keyword, setLoading, navigate) => async(dispatch) => {
     setLoading(true)
     try {
-        const { data } = await axios.get(`http://localhost:3001/movies/results/${keyword}`)
+        const { data } = await axios.get(`/movies/results/${keyword}`)
         dispatch(getResults(data))
         setLoading(false)
         if(data.length < 1) {
@@ -37,7 +37,7 @@ export const getAllResults = (keyword, setLoading, navigate) => async(dispatch) 
 
 export const getDetails = (id) => async(dispatch) => {
     try {
-        const { data } = await axios.get(`http://localhost:3001/movies/${id}`)
+        const { data } = await axios.get(`/movies/${id}`)
         dispatch(getMovieById(data))
     }
     catch(e) {
@@ -47,7 +47,7 @@ export const getDetails = (id) => async(dispatch) => {
 
 export const getPurchasedMovie = (id) => async(dispatch) => {
     try {
-        const { data } = await axios.get(`http://localhost:3001/movies/${id}`)
+        const { data } = await axios.get(`/movies/${id}`)
         dispatch(getPurchased(data))
     }
     catch(e) {
@@ -57,7 +57,7 @@ export const getPurchasedMovie = (id) => async(dispatch) => {
 
 export const getMovieVideos = (id) => async(dispatch) => {
     try {
-        const { data } = await axios.get(`http://localhost:3001/movies/purchasedMovieVideo/${id}`)
+        const { data } = await axios.get(`/movies/purchasedMovieVideo/${id}`)
         dispatch(getVideos(data))
         
     }
@@ -69,7 +69,7 @@ export const getMovieVideos = (id) => async(dispatch) => {
 export const patchMovie = (id, editMovie, setLoading) => async(dispatch) => {
     setLoading(true)
     try {
-        const { data } = await axios.patch(`http://localhost:3001/movies/${id}`, editMovie)
+        const { data } = await axios.patch(`/movies/${id}`, editMovie)
         dispatch(getMovieById(data))
         Swal.fire({
             title: "Edited",
@@ -92,7 +92,7 @@ export const patchMovie = (id, editMovie, setLoading) => async(dispatch) => {
 
 export const deleteMovie = (id, navigate) => async() => {
     try {
-        await axios.delete(`http://localhost:3001/movies/${id}`)
+        await axios.delete(`/movies/${id}`)
         navigate('/movies')
         Swal.fire({
             title: "Deleted",
