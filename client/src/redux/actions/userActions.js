@@ -4,7 +4,7 @@ import { getOrders, getProfile, getUser, getUsers } from "../slices/userSlice";
 
 export const getAllUsers = () => async(dispatch) => {
     try {
-        const { data } = await axios.get('/user/users/all')
+        const { data } = await axios.get('https://cuevanix-backend-production.up.railway.app/user/users/all')
         dispatch(getUsers(data))
     }
     catch(e) {
@@ -14,7 +14,7 @@ export const getAllUsers = () => async(dispatch) => {
 
 export const getProfileById = (_id) => async(dispatch) => {
     try {
-        const { data } = await axios.get(`/user/${_id}`)
+        const { data } = await axios.get(`https://cuevanix-backend-production.up.railway.app/user/${_id}`)
         dispatch(getProfile(data))
     }
     catch(e) {
@@ -24,7 +24,7 @@ export const getProfileById = (_id) => async(dispatch) => {
 
 export const getUserById = (_id) => async(dispatch) => {
     try {
-        const { data } = await axios.get(`/user/user/${_id}`)
+        const { data } = await axios.get(`https://cuevanix-backend-production.up.railway.app/user/user/${_id}`)
         dispatch(getUser(data))
     }
     catch(e) {
@@ -35,7 +35,7 @@ export const getUserById = (_id) => async(dispatch) => {
 export const patchUser = (_id, editData, setLoading, closeModal, forceUpdate) => async(dispatch) => {
     setLoading(true)
     try {
-        const { data } = await axios.patch(`/user/edit/${_id}`, editData)
+        const { data } = await axios.patch(`https://cuevanix-backend-production.up.railway.app/user/edit/${_id}`, editData)
         dispatch(getUser(data))
         Swal.fire({
             title: "Edited",
@@ -60,7 +60,7 @@ export const patchUser = (_id, editData, setLoading, closeModal, forceUpdate) =>
 
 export const patchUserRole = (_id) => async(dispatch) => {
     try {
-        const { data } = await axios.patch(`/user/role/${_id}`)
+        const { data } = await axios.patch(`https://cuevanix-backend-production.up.railway.app/user/role/${_id}`)
         dispatch(getUser(data))
     }
     catch(e) {
@@ -70,7 +70,7 @@ export const patchUserRole = (_id) => async(dispatch) => {
 
 export const patchUserStatus = (_id) => async(dispatch) => {
     try {
-        const { data } = await axios.patch(`/user/status/${_id}`)
+        const { data } = await axios.patch(`https://cuevanix-backend-production.up.railway.app/user/status/${_id}`)
         dispatch(getUser(data))
     }
     catch(e) {
@@ -79,7 +79,7 @@ export const patchUserStatus = (_id) => async(dispatch) => {
 }
 export const getAllOrders = () => async(dispatch) => {
     try {
-        const { data } = await axios.get('/order/all')
+        const { data } = await axios.get('https://cuevanix-backend-production.up.railway.app/order/all')
         dispatch(getOrders(data))
     }
     catch(e) {

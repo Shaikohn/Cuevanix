@@ -15,7 +15,7 @@ export const getMovies = () => async(dispatch) => {
 export const getAllResults = (keyword, setLoading, navigate) => async(dispatch) => {
     setLoading(true)
     try {
-        const { data } = await axios.get(`https://cuevanix-backend-production.up.railway.app/movies/results/${keyword}`)
+        const { data } = await axios.get(`/movies/results/${keyword}`)
         dispatch(getResults(data))
         setLoading(false)
         if(data.length < 1) {
