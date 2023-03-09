@@ -61,7 +61,7 @@ const signup = async(req, res) => {
         subject: "Welcome to Cuevanix!",
         html: `<h1> Hello ${result.name}! </h1>
             <p> Verify your account by clicking the link! </p>
-            <a target="_blank" rel="noopener noreferrer" href=http://localhost:3000/verification/${result._id}> Click here</a>
+            <a target="_blank" rel="noopener noreferrer" href=https://cuevanix-shaikohn.vercel.app/verification/${result._id}> Click here</a>
             </div>`,
     })
     res.status(200).json(result)
@@ -213,7 +213,7 @@ const updateUserRole = async (req, res) => {
                 subject: "Forgotten password at Cuevanix!",
                 html: `<h1> Hello ${email}! </h1>
                     <p> You want to change your password? Then click the link! </p>
-                    <a target="_blank" rel="noopener noreferrer" href=http://localhost:3000/changePassword/${user._id}> Click here</a>
+                    <a target="_blank" rel="noopener noreferrer" href=https://cuevanix-shaikohn.vercel.app/changePassword/${user._id}> Click here</a>
                     </div>`,
             })
             return res.status(200)
