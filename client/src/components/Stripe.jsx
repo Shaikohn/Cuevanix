@@ -17,7 +17,7 @@ export default function Stripe({movie, closeModal}) {
         const userId = localUser.result._id
         const purchased_Movie = movie
 
-        await axios.post("https://cuevanix-shaikohn.vercel.app/order", {
+        await axios.post("/order", {
             userId,
             purchased_Movie: purchased_Movie,
         })
@@ -34,7 +34,7 @@ export default function Stripe({movie, closeModal}) {
         if(!error) {
             const { id } = paymentMethod
             try {
-                const {data} = await axios.post("https://cuevanix-shaikohn.vercel.app/payment", {
+                const {data} = await axios.post("/payment", {
                 id,
                 amount: price * 100,
                 description: movie.title,
