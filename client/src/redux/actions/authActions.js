@@ -67,7 +67,7 @@ export const signUp = ( formData, closeModal, setLoading, e, setFormData, initia
 
 export const verifyUser = (_id) => async() => {
     try {
-        await axios.patch(`http://localhost:3001/user/verification/${_id}`)
+        await axios.patch(`/user/verification/${_id}`)
     }
     catch(e) {
         console.log(e)
@@ -103,7 +103,7 @@ export const signGoogle = (googleUser, navigate, closeModal, setLoading, forceUp
 
 export const emailPassword = (sendEmail) => () => {
     try {
-        axios.post(`http://localhost:3001/user/forgotPassword`, sendEmail)
+        axios.post(`/user/forgotPassword`, sendEmail)
         Swal.fire({
             title: "Mail sent",
             text: "Check your inbox!",
@@ -124,7 +124,7 @@ export const emailPassword = (sendEmail) => () => {
 export const changePassword = (_id, newPassword, e) => async() => {
     /* setLoading(true) */
     try {
-        await axios.patch(`http://localhost:3001/user/changePassword/${_id}`, newPassword)
+        await axios.patch(`/user/changePassword/${_id}`, newPassword)
         e.target.reset()
         Swal.fire({
             title: "Success",
