@@ -33,7 +33,7 @@ export default function UserDetails() {
             <div className="d-flex mb-3 mt-3 justify-content-center">
                 {user?.picture !== undefined ? <img style={{borderRadius: '50px', width: '100px'}} src={user?.picture} alt={user?.name} referrerPolicy="no-referrer" /> : ''}
                 <div className="ms-2">
-                    <h1> Welcome {user?.name}! </h1>
+                    <h1 className="text-align-center"> {user?.name} </h1>
                     <div className='d-flex mt-3'>
                         {user?.owner === true ? <h3 className="text-warning">Role: Owner</h3> : user?.admin === true ? <h3 className="text-warning">Role: Admin</h3> : <h3>Role: User</h3>}
                         {profile?.owner === true && profile?._id !== _id && user?.banned === false && user?.admin === false ? <button onClick={() => dispatch(patchUserRole(_id))} type="button" className="btn btn-success ms-3">Promote</button> :''}
