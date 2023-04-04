@@ -4,14 +4,6 @@
 
 This is a personal project done with the objetive of practice React and Node JS, while learning MongoDB.
 
-
-## Project Objetives
-
-- Build a JavaScript App from scratch
-- Afirm and conect all the learned concepts in the Carreer 
-- Learn and practice GIT workflow / team work
-- Use scrum agile methodology
-
 ## Stack of Technologies
 
 ### Front End:
