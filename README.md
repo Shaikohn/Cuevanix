@@ -16,7 +16,7 @@ Node.js, Express, Json web token authentication, Courier, Sequelize.
 MongoDB
 
 ## Resume
-This project consists of a movie e-commerce, in which the user can buy movies, search movies, make inquiries, leave comments, view the trailers of my purchased movies. For their part, administrators can review and respond to user inquiries, edit and delete movies, review purchase orders, view all users and their details. Finally, the owner can do all of the above, plus the ability to promote and demote users, and ban and unban users.
+This project consists of a movie e-commerce, in which the user can buy movies, search movies, make inquiries, leave comments, view the trailers of their purchased movies. For their part, administrators can review and respond to user inquiries, edit and delete movies, review purchase orders, view all users and their details. Finally, the owner can do all of the above, plus the ability to promote and demote users, and ban and unban users.
 
 # Project Screens
 
