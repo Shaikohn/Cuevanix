@@ -73,8 +73,12 @@ export default function Details() {
                 <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
                     <Elements stripe={stripePromise}>
                         <div>
-                            <h2 className="mb-5">Make your purchase!</h2>
-                            <img className="mb-2 ms-5 rounded-start rounded-end" style={{width: '14rem', height: '14rem'}} src={`https://image.tmdb.org/t/p/w500/${movie?.image}`} alt={movie?.title} />
+                            <h2 className="ms-4">Make your purchase!</h2>
+                            <div className="ms-4" style={{display: 'flex'}}>
+              <p style={{color: 'green'}}>Correct test card: 4242424242424242</p>
+              <p style={{color: 'red'}}>Declined test card: 4000000000000002</p>
+            </div>
+                            <img className="mb-2 rounded-start rounded-end" style={{width: '14rem', height: '12rem', marginLeft: '70px'}} src={`https://image.tmdb.org/t/p/w500/${movie?.image}`} alt={movie?.title} />
                             <Stripe movie={movie} closeModal={closeModal} isOpenModal={isOpenModal} />
                         </div>
                     </Elements>
