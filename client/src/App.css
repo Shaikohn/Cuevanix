@@ -17,3 +17,13 @@ button {
     background: none;
     border: none;
 }
+
+.onlyDisplayInPC {
+    display: block;
+}
+
+@media (max-width: 480px) {
+    .onlyDisplayInPC {
+        display: none;
+    }
+}

@@ -75,3 +75,19 @@
     color: green;
     margin-top: -20px;
 }
+
+.marginForm {
+    margin-left: 50px;
+}
+
+@media (max-width: 480px) {
+    .changeSign {
+        margin-left: 30px;
+    }
+    .modal-container {
+        margin-top: 30px;
+    }
+    .marginForm {
+        margin-left: 0;
+    }
+}

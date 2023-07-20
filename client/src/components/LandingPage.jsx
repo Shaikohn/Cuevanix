@@ -14,9 +14,9 @@ export default function LandingPage() {
         <>
         <div className="bg-light d-flex">
             <img src={Cinema} alt="cinema" style={{height: '450px', width: '100%'}} />
-            <img src={Popcorn} alt="popcorn" />
+            <img className="onlyDisplayInPC" src={Popcorn} alt="popcorn" />
         </div>
-        <div className="card d-inline-flex ms-4 mb-3 mt-3 align-items-center" style={{width: '19rem', height: '160px'}}>
+        {/* <div className="card d-inline-flex ms-4 mb-3 mt-3 align-items-center" style={{width: '19rem', height: '160px'}}>
                 <div className="card-body">
                     <h5 className="card-title text-align-center ms-3">Sign Up</h5>
                     < AiOutlineUserAdd size={100} />
@@ -63,7 +63,7 @@ export default function LandingPage() {
                     <h5 className="card-title">Watch movies</h5>
                     <MdMovie  className="ms-3" size={100} />
                 </div>
-        </div>
+        </div> */}
         </>
     )
 }

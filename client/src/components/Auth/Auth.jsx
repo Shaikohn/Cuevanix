@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { signGoogle, signIn, signUp, emailPassword } from '../../redux/actions/authActions';
 import Modals from '../Modals/Modals';
 import { useModal } from '../Modals/useModal';
+import '../Modals/Modals.css';
 import userIcon from '../../assets/userIcon.png'
 import { useReducer } from 'react';
 
@@ -72,14 +73,14 @@ export default function Auth() {
 
     return (
         <div>
-            <button type="button" className="btn btn-lg btn-primary ms-4" onClick={openedModal}>Sign In</button>
+            <button type="button" className="btn btn-lg btn-primary ms-4 mt-2" onClick={openedModal}>Sign In</button>
             <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
                 <h2> {isSignUp ? 'Sign Up' : 'Sign In'} </h2>
                 <form className="container" onSubmit={handleSubmit} noValidate>
                     {
                     isSignUp && (
                         <div className='d-flex text-center'>
-                            <div className="form-group col-md-4 ms-5 ">
+                            <div className="form-group col-md-4 marginForm ">
                                 <label>Name</label>
                                 <input autoComplete='off' type="text" name="firstName" className="form-control" placeholder="Name" onChange={handleChange}  />
                             </div>
@@ -91,7 +92,7 @@ export default function Auth() {
                         )
                     }
                     <div className='d-flex mt-1 mx-auto text-center'>
-                        <div className="form-group col-md-4 ms-5 text-center">
+                        <div className="form-group col-md-4 marginForm text-center">
                             <label>Email</label>
                             <input autoComplete='off' type="email" name="email" className="form-control" placeholder="Email" onChange={handleChange} />
                         </div>
@@ -148,7 +149,7 @@ export default function Auth() {
                     <div>
                         <form className="container" onSubmit={handlePasswordSubmit} noValidate>
                             <div className='d-flex mt-1 mx-auto text-center'>
-                                <div className="form-group col-md-4 ms-5 text-center">
+                                <div className="form-group col-md-4 marginForm text-center">
                                     <label>Email</label>
                                     <input autoComplete='off' type="email" name="email" className="form-control" placeholder="Email" onChange={handlePasswordChange} />
                                 </div>
@@ -160,9 +161,13 @@ export default function Auth() {
                 <div className='d-flex'>
                 {
                 loading ? '' :  
-                    <div>
-                        <button className='btn btn-warning' onClick={switchMode}> { isSignUp ? 'Already signed up? Sign In' : "Don't have an account? Sign Up" } </button>
-                        <button type="button" className="btn btn-danger ms-5" onClick={closeModal}>Close</button>
+                    <div className='d-flex'>
+                        {
+                            isSignUp ?
+                            <button className='btn btn-warning changeSign' onClick={switchMode}> Already signed up? Sign In </button>
+                            : <button className='btn btn-warning' onClick={switchMode}> Don't have an account? Sign Up </button>
+                        }
+                        <button type="button" className="btn btn-danger closeAuth" onClick={closeModal}>Close</button>
                     </div>
                 }
                 </div>
