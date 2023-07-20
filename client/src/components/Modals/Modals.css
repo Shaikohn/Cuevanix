@@ -88,6 +88,6 @@
         margin-top: 30px;
     }
     .marginForm {
-        margin-left: 0;
+        margin-left: 0 !important;
     }
 }

@@ -32,4 +32,7 @@ button {
     .imageMaxWidth {
         max-width: 120px;
     }
+    .textArea {
+        width: 310px !important;
+    }
 }

@@ -31,11 +31,11 @@ export default function Inquiry() {
             <h2> Send an inquiry! </h2>
             <form className="container" onSubmit={handleSubmit} noValidate>
                 <div className='d-flex text-center'>
-                    <div className="form-group col-md-4 ms-5 ">
+                    <div className="form-group col-md-4 ms-5 marginForm">
                         <label>Name</label>
                         <input autoComplete='off' type="text" name="name" className="form-control" placeholder="Name" onChange={handleChange}  />
                     </div>
-                    <div className="form-group col-md-4 ms-5 text-center">
+                    <div className="form-group col-md-4 ms-5 text-center marginForm">
                         <label>Email</label>
                         <input autoComplete='off' type="email" name="email" className="form-control" placeholder="Email" onChange={handleChange} />
                     </div>
@@ -46,9 +46,9 @@ export default function Inquiry() {
                         <input autoComplete='off' type="text" name="subject" className="form-control" placeholder="Subject" onChange={handleChange}  />
                     </div>
                 </div>
-                <div className="form-group col-md-4 ms-5 text-center mt-2">
+                <div className="form-group col-md-4 ms-5 text-center mt-2 marginForm">
                     <label>Message</label>
-                    <textarea style={{width: '270px'}} autoComplete='off' type="email" name="text" className="form-control" placeholder="Message" onChange={handleChange} />
+                    <textarea style={{width: '270px'}} autoComplete='off' type="email" name="text" className="form-control textArea" placeholder="Message" onChange={handleChange} />
                 </div>
             {
                 loading ? 
