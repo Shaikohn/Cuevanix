@@ -46,8 +46,8 @@ export default function Details() {
             <div>
                 <h2 className="ms-5 text-info"> {movie?.title} </h2>
                 <div className="d-flex">
-                    <div className="ms-5 mb-2">
-                        <img style={{height: '400px', borderRadius: '10px'}} className="img-fluid" src={`https://image.tmdb.org/t/p/w500/${movie?.image}`} alt="film" />
+                    <div className="ms-3 mb-2">
+                        <img style={{height: '400px', borderRadius: '10px'}} className="img-fluid imageMaxWidth" src={`https://image.tmdb.org/t/p/w500/${movie?.image}`} alt="film" />
                     </div>
                     <div className="col-7 ms-3">
                         <h5> {movie?.release_date} </h5>

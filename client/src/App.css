@@ -29,4 +29,7 @@ button {
     .cardWidth {
         width: auto;
     }
+    .imageMaxWidth {
+        max-width: 120px;
+    }
 }
