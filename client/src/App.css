@@ -26,4 +26,7 @@ button {
     .onlyDisplayInPC {
         display: none;
     }
+    .cardWidth {
+        width: auto;
+    }
 }

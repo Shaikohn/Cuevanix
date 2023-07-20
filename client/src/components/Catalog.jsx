@@ -49,7 +49,7 @@ export default function Catalog() {
     return (
         <>    
             <div className="nav justify-content-center">
-                <div className="ms-2">
+                <div>
                     <Pagination page={page} setPage={setPage} max={max} />
                 </div>
                 <label className="form-label mb-0 mt-2">
@@ -65,7 +65,7 @@ export default function Catalog() {
             .slice((page - 1) * perPage, (page - 1) * perPage + perPage)
             .map((m, i) => {
                 return (
-                    <div className="col-3" key={i}>
+                    <div className="col-3 cardWidth" key={i}>
                         <div className="card my-3 mx-3">
                             <img style={{height: '300px'}} className="card-img-top" src={m.image} alt="film" />
                             <div className="card-body">
