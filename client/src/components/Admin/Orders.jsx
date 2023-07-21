@@ -19,7 +19,6 @@ export default function Orders() {
     const [perPage, setPerPage] = useState(8)
     const max = Math.ceil(filtered.length / perPage)
     const dispatch = useDispatch()
-    console.log(filtered)
 
     useEffect(() => {
         dispatch(getAllOrders())

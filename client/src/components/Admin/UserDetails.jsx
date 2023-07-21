@@ -31,14 +31,14 @@ export default function UserDetails() {
         <div className="ms-3">
             <NavBar />
             <div className="d-flex mb-3 mt-3 justify-content-center">
-                {user?.picture !== undefined ? <img style={{borderRadius: '50px', width: '100px'}} src={user?.picture} alt={user?.name} referrerPolicy="no-referrer" /> : ''}
+                {user?.picture !== undefined ? <img style={{borderRadius: '50px', width: '150px'}} src={user?.picture} alt={user?.name} referrerPolicy="no-referrer" /> : ''}
                 <div className="ms-2">
                     <h1 className="text-align-center"> {user?.name} </h1>
-                    <div className='d-flex mt-3'>
+                    <div className='displayFlexInPC mt-3'>
                         {user?.owner === true ? <h3 className="text-warning">Role: Owner</h3> : user?.admin === true ? <h3 className="text-warning">Role: Admin</h3> : <h3>Role: User</h3>}
                         {profile?.owner === true && profile?._id !== _id && user?.banned === false && user?.admin === false ? <button onClick={() => dispatch(patchUserRole(_id))} type="button" className="btn btn-success ms-3">Promote</button> :''}
                         {profile?.owner === true && profile?._id !== _id && user?.banned === false && user?.admin === true ? <button onClick={() => dispatch(patchUserRole(_id))} type="button" className="btn btn-danger ms-3">Downgrade</button> :''}
-                        <h3 className="ms-5"> Status: {user?.banned === true ? 'Banned' : 'Active'} </h3> 
+                        <h3 className="marginProfileDetails"> Status: {user?.banned === true ? 'Banned' : 'Active'} </h3> 
                         {user?.owner === false && profile?._id !== user?._id && user?.banned === false ? <button onClick={() => dispatch(patchUserStatus(_id))} type="button" className="btn btn-danger ms-3">Ban</button> :''}
                         {user?.owner === false && profile?._id !== user?._id && user?.banned === true ? <button onClick={() => dispatch(patchUserStatus(_id))} type="button" className="btn btn-secondary ms-3">Unban</button> :''}
                     </div>
@@ -55,7 +55,7 @@ export default function UserDetails() {
                         <div className="accordion-body">
                             <h1> {user?.name} </h1>
                             <h2> {user?.email} </h2>
-                            <p> Picture: {user?.picture !== undefined ? `${user?.picture}` : 'None'}</p>
+                            <p style={{wordWrap: 'break-word', width: '350px'}}> Picture: {profile?.picture !== undefined ? `${profile?.picture}` : 'None'}</p>
                         </div>
                     </div>
                 </div>

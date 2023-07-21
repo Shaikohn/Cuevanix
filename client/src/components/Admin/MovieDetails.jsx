@@ -45,8 +45,8 @@ export default function MovieDetails() {
                 <div>
                     <h2 className="ms-5 text-info"> {movie?.title} </h2>
                     <div className="d-flex">
-                        <div className="ms-5 mb-2">
-                            <img style={{height: '400px', borderRadius: '10px'}} className="img-fluid" src={`https://image.tmdb.org/t/p/w500/${movie?.image}`} alt="film" />
+                        <div className="ms-3 mb-2">
+                        <img style={{height: '400px', borderRadius: '10px'}} className="img-fluid" src={`https://image.tmdb.org/t/p/w500/${movie?.image}`} alt="film" />
                         </div>
                         <div className="col-7 ms-3">
                             <h5> {movie?.release_date} </h5>
@@ -55,8 +55,8 @@ export default function MovieDetails() {
                             <h5>Rating: {movie?.rating === 0 ? 'None (This movie was not rated by critics!)' : `${movie?.rating}`} </h5>
                             <h5>Price: ${movie?.price?.toFixed()} </h5>
                             <div className="d-flex">
-                                <button className="btn btn-warning" onClick={() => openedModal()}>Edit</button>
-                                <button type="button" className="text-danger" onClick={() => Swal.fire({
+                                <button className="btn btn-warning mb-2" onClick={() => openedModal()}>Edit</button>
+                                <button type="button" className="text-danger mb-2" onClick={() => Swal.fire({
                                     title: "Warning",
                                     text: "Are you sure you want to remove this movie?",
                                     icon: "warning",

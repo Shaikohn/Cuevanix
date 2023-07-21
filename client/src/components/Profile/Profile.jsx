@@ -89,7 +89,7 @@ export default function Profile() {
                         <div className="accordion-body">
                             <h1> {profile?.name} </h1>
                             <h2> {profile?.email} </h2>
-                            <p> Picture: {profile?.picture !== undefined ? `${profile?.picture}` : 'None'}</p>
+                            <p style={{wordWrap: 'break-word', width: '350px'}}> Picture: {profile?.picture !== undefined ? `${profile?.picture}` : 'None'}</p>
                             <button className="btn btn-warning" onClick={() => openedModal()}>Edit</button>
                         </div>
                     </div>

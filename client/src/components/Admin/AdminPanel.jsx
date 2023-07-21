@@ -23,8 +23,8 @@ export default function AdminPanel() {
     return (
         <div>
             <NavBar />
-            <img style={{width: '600px', marginLeft: '50px', marginBottom: '50px', marginTop: '50px'}} src={Admin} alt='background' />
-            <div style={{float: 'right', marginRight: '50px'}}>
+            <img className="adminPanelImage" src={Admin} alt='background' />
+            <div className="viewInquiries">
                 <h1>Welcome {profile?.name}! </h1>
                 <div className="list-group">
                 { 
@@ -32,7 +32,7 @@ export default function AdminPanel() {
             .map((inq, i) => {
                 return (
                     <div key={i}>
-                        <Link className="list-group-item list-group-item-action" to={`inquiry/${inq._id}`}>{inq?.name} has sent an inquiry!</Link>
+                        <Link style={{width: 'fit-content', maxWidth: '300px', marginBottom: '10px'}} className="list-group-item list-group-item-action rounded" to={`inquiry/${inq._id}`}>{inq?.name} has sent an inquiry!</Link>
                     </div>
                 )
             }) }
