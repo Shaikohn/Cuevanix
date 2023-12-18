@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 export const AUTH = "AUTH";
 export const LOGOUT = "LOGOUT";
 
-const API = axios.create({baseURL: "https://cuevanix-hesi-dev.fl0.io/"})
+const API = axios.create({baseURL: "https://cuevanix-backend.onrender.com/"})
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem('profile')) {

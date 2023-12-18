@@ -8,7 +8,7 @@ import axios from "axios"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-axios.defaults.baseURL = "https://cuevanix-backend-dev-gqjk.3.us-1.fl0.io"
+axios.defaults.baseURL = "https://cuevanix-backend.onrender.com"
 
 
 root.render(
