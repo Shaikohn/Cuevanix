@@ -19,7 +19,7 @@ export default function LandingPage() {
                         <p className="lead mb-4">
                             Your ultimate destination for movies and series. Discover, explore and enjoy cinematic experiences — all in one place.
                         </p>
-                        <a href="/home" className="btn btn-danger btn-lg">Enter the App</a>
+                        <a href="/catalog" className="btn btn-danger btn-lg">Enter the App</a>
                     </div>
                 </div>
             </div>
