@@ -8,7 +8,8 @@ import axios from "axios"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-axios.defaults.baseURL = "https://cuevanix-backend.onrender.com"
+/* axios.defaults.baseURL = "https://cuevanix-backend.onrender.com" */
+axios.defaults.baseURL = "http://localhost:3001"
 
 
 root.render(

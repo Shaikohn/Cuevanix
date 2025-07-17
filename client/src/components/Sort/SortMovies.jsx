@@ -23,7 +23,7 @@ export default function SortMovies({ setPage }) {
 
     return (
         <div>
-            <select className="form-select ms-2" defaultValue="disabled" onChange={handleChange}>
+            <select className="form-select bg-dark text-light border-secondary ms-2" defaultValue="disabled" onChange={handleChange}>
                 <option value="disabled" disabled>Sort by</option>
                 <option value="title_asc"> Title (ASC) </option>
                 <option value="title_dsc" > Title (DSC) </option>
