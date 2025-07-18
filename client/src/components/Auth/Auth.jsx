@@ -73,7 +73,16 @@ export default function Auth() {
 
     return (
         <div>
-            <button type="button" className="btn btn-lg btn-primary ms-4 mt-2" onClick={openedModal}>Sign In</button>
+         <button
+  type="button"
+  className="btn btn-outline-info ms-3 px-4 py-2 rounded-pill fw-semibold"
+  onClick={openedModal}
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="Log in to access your account"
+>
+  Sign In
+</button>
             <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
                 <h2> {isSignUp ? 'Sign Up' : 'Sign In'} </h2>
                 <form className="container" onSubmit={handleSubmit} noValidate>

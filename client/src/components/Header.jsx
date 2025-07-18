@@ -39,81 +39,57 @@ export default function Header() {
     }, [location])
 
     return (
-        <header>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div className="container">
-                    <Link className="navbar-brand" to='/'>Cuevanix</Link>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" 
-                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <header className="shadow-sm">
+            <nav className="navbar navbar-expand-lg navbar-dark" style={{ background: 'linear-gradient(90deg, #1f1f1f, #2d2d2d)' }}>
+                <div className="container-fluid px-4">
+                    <Link className="navbar-brand fw-bold fs-4 text-info" to='/'>Cuevanix</Link>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav">
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link" to='/catalog'>Catalog</Link>
+                                <Link className="nav-link text-light hover-underline" to='/catalog'>Catalog</Link>
                             </li>
-                            <li>
+                            <li className="nav-item">
                                 <Inquiry />
                             </li>
-                            {/* {
-                                user !== null || localUser !== null ? (
-                                    <>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to='/favourites'>Favourites</Link>
-                                        </li>
-                                    </>
-                                ) : ''
-                            }
-                            {favsArray?.length > 0 ? 
-                                <li className="nav-item  d-flex align-items-center">
-                                    <span className="text-success">
-                                        {favsArray?.length}
-                                    </span>
-                                </li> : ''
-                            }
-                            <li className="nav-item">
-                                <Link className="nav-link" to='/contact'>Contact</Link>
-                            </li> */}
                         </ul>
-                    </div>
-                    <Searcher />
-                    {
-                        localUser !== null ? (
-                            <>
-                                <div className="btn-group ms-4">
-                                    <button type="button" className="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {localUser.result.name}
+                        <div className="d-flex flex-column flex-lg-row align-items-center gap-2 ms-lg-3 mt-lg-0 mt-2">
+                            <Searcher />
+                            {localUser !== null && (
+                                <>
+                                    <div className="btn-group ms-3">
+                                        <button type="button" className="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {localUser.result.name}
+                                        </button>
+                                        <ul className="dropdown-menu dropdown-menu-end">
+                                            <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
+                                            <li><Link className="dropdown-item" to="/purchases">Purchases</Link></li>
+                                            <li><Link className="dropdown-item" to="/messages">Messages</Link></li>
+                                            <li><hr className="dropdown-divider" /></li>
+                                            <li><button className="dropdown-item text-danger" onClick={handleLogOut}>Log Out</button></li>
+                                        </ul>
+                                    </div>
+                                </>
+                            )}
+                            {localUser?.result?.owner || localUser?.result?.admin ? (
+                                <div className="dropdown ms-3">
+                                    <button type='button' className="btn btn-outline-warning" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <FaUserShield size={22} />
                                     </button>
-                                    <ul className="dropdown-menu">
-                                        <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
-                                        <li><Link className="dropdown-item" to="/purchases">Purchases</Link></li>
-                                        <li><Link className="dropdown-item" to="/messages">Messages</Link></li>
-                                        <li><hr className="dropdown-divider" /></li>
-                                        <li><button className="dropdown-item text-danger" onClick={handleLogOut}>Log Out</button></li>
+                                    <ul className="dropdown-menu dropdown-menu-end">
+                                        <li><Link className="dropdown-item text-warning" to="/adminPanel">Admin Panel</Link></li>
                                     </ul>
                                 </div>
-                            </>
-                        ) : ''
-                    }
-                    {
-                        localUser?.result?.owner === true || localUser?.result?.admin === true ? (
-                            <div>
-                                <button type='button' className="btn btn-light ms-3" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <FaUserShield size={30} />
-                                </button>
-                                <ul style={{left: 'auto', top: '50px'}} className="dropdown-menu ms-3">
-                                    <li><Link className="dropdown-item text-warning" to="/adminPanel">Admin Panel</Link></li>
-                                </ul>
-                            </div>
-                        ) : ''
-                    }
-                    {
-                        localUser === null ? (
-                            <>
-                                <Auth />
-                            </> 
-                        ) : ''
-                    }
+                            ) : null}
+                            {localUser === null && (
+                                <div className="ms-3">
+                                    <Auth />
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </nav>
         </header>
