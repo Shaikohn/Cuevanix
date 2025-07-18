@@ -1,93 +1,110 @@
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #111111bd;
-    display: flex;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .6s .9s;
-    --transform: translateY(-100vh);
-    --transition: transform .8s;
-    z-index: 1 !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85); /* Más oscuro, tipo overlay */
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s 0.9s;
+  --transform: translateY(-100vh);
+  --transition: transform 0.8s;
+  z-index: 1050 !important;
 }
 
 .modal.is-open {
-    opacity: 1;
-    pointer-events: unset;
-    transition: opacity .6s;
-    --transform: translateY(0);
-    --transition: transform .8s .8s;
+  opacity: 1;
+  pointer-events: unset;
+  transition: opacity 0.6s;
+  --transform: translateY(0);
+  --transition: transform 0.8s 0.8s;
 }
 
 .modal-container {
-    margin: auto;
-    width: auto;
-    max-width: 450px;
-    height: auto;
-    max-height: 500px;
-    background-color: #fff;
-    border-radius: 6px;
-    padding: 3em 2.5em;
-    display: grid;
-    gap: 1em;
-    place-items: center;
-    grid-auto-columns: 100%;
-    transform: var(--transform);
-    transition: var(--transition);
+  margin: auto;
+  width: 90%;
+  max-width: 450px;
+  background-color: #212529; /* fondo oscuro */
+  color: #f8f9fa; /* texto claro */
+  border-radius: 1rem;
+  padding: 2em;
+  display: grid;
+  gap: 1em;
+  place-items: center;
+  grid-auto-columns: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transform: var(--transform);
+  transition: var(--transition);
 }
 
+/* Botones confirm/cancel con estilo actualizado */
+
 .modalConfirm {
-    text-decoration: none;
-    color: #fff;
-    cursor: pointer;
-    background-color: rgb(31, 202, 31);
-    padding: 1em 3em;
-    border: 1px solid;
-    border-radius: 6px;
-    display: inline-block;
-    font-weight: 300;
-    transition: background-color .3s;
-    width: 150px;
-} 
+  color: #fff;
+  background-color: #198754; /* bootstrap green */
+  border: none;
+  padding: 0.75em 2em;
+  border-radius: 2rem;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  width: 150px;
+}
+
+.modalConfirm:hover {
+  background-color: #157347;
+}
 
 .modalClose {
-    text-decoration: none;
-    color: #fff;
-    cursor: pointer;
-    background-color: rgb(224, 11, 11);
-    padding: 1em 3em;
-    border: 1px solid;
-    border-radius: 6px;
-    display: inline-block;
-    font-weight: 300;
-    transition: background-color .3s;
-    width: 150px;
-} 
+  color: #fff;
+  background-color: #dc3545; /* bootstrap red */
+  border: none;
+  padding: 0.75em 2em;
+  border-radius: 2rem;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  width: 150px;
+}
+
+.modalClose:hover {
+  background-color: #bb2d3b;
+}
+
+/* Estilo adicional para textos */
 
 .modalTitle {
-    margin-top: -20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f8f9fa;
+  text-align: center;
+  margin-bottom: -10px;
 }
 
 .modalPrice {
-    color: green;
-    margin-top: -20px;
+  color: #28a745; /* verde tipo "éxito" */
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-top: -10px;
 }
 
+/* Ajustes móviles */
+
 .marginForm {
-    margin-left: 50px;
+  margin-left: 50px;
 }
 
 @media (max-width: 480px) {
-    .changeSign {
-        margin-left: 30px;
-    }
-    .modal-container {
-        margin-top: 30px;
-    }
-    .marginForm {
-        margin-left: 0 !important;
-    }
+  .modal-container {
+    margin-top: 30px;
+    padding: 1.5em;
+  }
+
+  .marginForm {
+    margin-left: 0 !important;
+  }
+
+  .changeSign {
+    margin-left: 20px;
+  }
 }
