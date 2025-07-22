@@ -5,10 +5,6 @@ import { Link } from "react-router-dom"
 import { getProfileById, patchUser } from "../../redux/actions/userActions"
 import Modals from "../Modals/Modals"
 import { useModal } from "../Modals/useModal";
-import { CgComment } from "react-icons/cg"
-import { ImProfile } from 'react-icons/im'
-import { BiPurchaseTagAlt } from 'react-icons/bi'
-
 
 export default function Profile() {
 
@@ -37,111 +33,85 @@ export default function Profile() {
     }, [dispatch, _id, reducerValue])
 
     return (
-        <div className="ms-3">
-            <div className="d-flex mb-3 mt-3 justify-content-center">
-                {profile?.picture !== undefined ? <img style={{borderRadius: '50px', width: '100px'}} src={profile?.picture} alt={profile?.name} referrerPolicy="no-referrer" /> : ''}
-                <div className="ms-2">
-                    <h1> Welcome {profile?.name}! </h1>
-                {profile?.owner === true ? <h3 className="text-warning">Owner</h3> : profile?.admin === true ? <h3 className="text-warning">Admin</h3> : <h3>User</h3>}
+        <div className="bg-dark text-light min-vh-100 py-5">
+            <div className="container">
+                <div className="d-flex flex-column flex-md-row align-items-center p-4 rounded shadow mb-5" style={{ backgroundColor: '#1e1e1e', gap: '2rem', border: '1px solid #333' }}>
+                    <div className="text-center">
+                        <img
+                            src={profile?.picture}
+                            alt={profile?.name}
+                            className="rounded-circle border shadow profile-img"
+                            style={{
+                                width: '150px',
+                                height: '150px',
+                                objectFit: 'cover',
+                                transition: 'box-shadow 0.7s ease'
+                            }}
+                        />
+                    </div>
+                    <div className="flex-grow-1">
+                        <h2 className="mb-1 text-light">{profile?.name}</h2>
+                        <span className={`badge rounded-pill px-3 py-2 fs-6 ${profile?.owner ? 'bg-warning text-dark' : profile?.admin ? 'bg-info text-dark' : 'bg-secondary'}`}>
+                            {profile?.owner ? 'Owner' : profile?.admin ? 'Admin' : 'User'}
+                        </span>
+                        <p className="mt-3 text-muted">
+                            In this section, you can view and edit your personal information, review your purchase orders, and see your published movie reviews.
+                        </p>
+                        <button className="btn btn-outline-light mt-2" onClick={openedModal}>
+                            Edit Profile
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
-                <h2> Edit your data! </h2>
-                <form className="container" onSubmit={handleSubmit} noValidate>
-                    <div className='d-flex text-center'>
-                        <div className="form-group col-md-4 ms-5">
-                            <label>Name</label>
-                            <input defaultValue={profile?.name} autoComplete='off' type="text" name="name" className="form-control" placeholder="Name" onChange={handleChange}  />
-                        </div>
-                        <div className="form-group col-md-4 ms-5">
-                        <label>Picture</label>
-                        <input defaultValue={profile?.picture} name="picture" className="form-control" id="formFile" onChange={handleChange} />
-                    </div>
-                    </div>
-                    {/* <div className="mb-3">
-                        <label htmlFor="formFile" className="form-label">Your profile picture</label>
-                        <input defaultValue={profile?.picture} name="picture" className="form-control" id="formFile" onChange={handleChange} />
-                    </div> */}
-                    {
-                    loading ? 
-                        <div className='text-center mt-3 mb-3'>
-                            <div className="spinner-border text-primary" role="status">
+                <section className="mb-5 p-4 rounded" style={{ backgroundColor: '#1e1e1e' }}>
+                    <h5 className="mb-3 border-bottom pb-2">📄 Personal Information</h5>
+                    <p><strong>Email:</strong> <span className="text-muted">{profile?.email}</span></p>
+                    <p><strong>Picture URL:</strong> <span className="text-muted">{profile?.picture || 'None'}</span></p>
+                </section>
+                <section className="mb-5">
+                    <h5 className="mb-3">🛒 Your Orders</h5>
+                    <div className="d-flex flex-wrap gap-4">
+                        {profile?.orders?.length ? profile.orders.map((o, i) => (
+                            <div key={i} className="p-3 text-light" style={{ backgroundColor: '#1e1e1e', borderRadius: '0.5rem', width: '18rem' }}>
+                                <h5 className="mb-2">{o?.purchased_Movie?.title}</h5>
+                                <p className="mb-1 text-muted"><strong>Order ID:</strong> {o?._id}</p>
+                                <p className="mb-2 text-muted"><strong>Price:</strong> ${o?.purchased_Movie?.price?.toFixed()}</p>
+                                <Link to={`/purchasedMovie/${o?.purchased_Movie?.id}`} className="btn btn-outline-light btn-sm w-100">
+                                    View
+                                </Link>
                             </div>
-                        </div>
-                        : 
-                        <div className='text-center mt-3'>
-                            <button type="submit" className="btn btn-primary" disabled={editData.name === initialState.name && editData.picture === initialState.picture}>Send</button>
-                        </div>
-                    }
-                </form>
-                {
-                    loading ? '' : <button className="btn btn-danger" onClick={closeModal}>CLOSE</button>
-                }
-            </Modals>
-            <div className="accordion mb-3 me-3" id="accordionExample">
-                <div className="accordion-item bg-light">
-                    <h2 className="accordion-header" id="headingOne">
-                        <button className="accordion-button collapsed bg-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <ImProfile size={30} className="me-2" /> Personal data
-                        </button>
-                    </h2>
-                    <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div className="accordion-body">
-                            <h1> {profile?.name} </h1>
-                            <h2> {profile?.email} </h2>
-                            <p style={{wordWrap: 'break-word', width: '350px'}}> Picture: {profile?.picture !== undefined ? `${profile?.picture}` : 'None'}</p>
-                            <button className="btn btn-warning" onClick={() => openedModal()}>Edit</button>
-                        </div>
+                        )) : <p className="text-muted">You have no orders.</p>}
                     </div>
-                </div>
-                <div className="accordion-item bg-light">
-                    <h2 className="accordion-header" id="headingTwo">
-                        <button className="accordion-button collapsed bg-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <BiPurchaseTagAlt size={30} className="me-2" />  Orders
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div className="accordion-body">
-                            {profile?.orders?.length > 0 ?
-                                profile?.orders?.map((o, i) => {
-                                    return (
-                                        <div className="card d-inline-flex ms-4 mb-3" style={{width: '18rem', height: '230px'}} key={i}>
-                                            <div className="card-body">
-                                                <h5 className="card-title">{o?.purchased_Movie?.title}</h5>
-                                                <p className="card-text">Order ID: {o?._id}</p>
-                                                <p className="card-text">Money spent: ${o?.purchased_Movie?.price?.toFixed()}</p>
-                                                <Link to={`/purchasedMovie/${o?.purchased_Movie?.id}`} className="btn btn-primary">View</Link>
-                                            </div>
-                                        </div>
-                                      )
-                                    }) : 'None'
-                                  }
-                        </div>
+                </section>
+                <section>
+                    <h5 className="mb-3">💬 Your Comments</h5>
+                    <div className="d-flex flex-wrap gap-4">
+                        {profile?.comments?.length ? profile.comments.map((o, i) => (
+                            <div key={i} className="p-3 text-light" style={{ backgroundColor: '#1e1e1e', borderRadius: '0.5rem', width: '18rem' }}>
+                                <h6 className="mb-1">{o?.movieName}</h6>
+                                <p className="mb-0 text-muted">{o?.text}</p>
+                            </div>
+                        )) : <p className="text-muted">You haven’t commented on any movie yet.</p>}
                     </div>
-                </div>
-                <div className="accordion-item bg-light">
-                    <h2 className="accordion-header" id="headingThree">
-                        <button className="accordion-button collapsed bg-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            <CgComment size={30} className="me-2" /> Comments
-                        </button>
-                    </h2>
-                    <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                        <div className="accordion-body">
-                            {profile?.comments?.length > 0 ?
-                                profile?.comments?.map((o, i) => {
-                                    return (
-                                        <div className="card d-inline-flex ms-4 mb-3" style={{width: '19rem'}} key={i}>
-                                            <div className="card-body">
-                                                <h5 className="card-title">{o?.movieName}</h5>
-                                                <p className="card-text">{o?.text}</p>
-                                            </div>
-                                        </div>
-                                      )
-                                    }) : 'None'
-                                  }
+                </section>
+                <Modals isOpenModal={isOpenModal} closeModal={closeModal}>
+                    <h4>Edit Your Profile</h4>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <label>Name</label>
+                            <input type="text" name="name" defaultValue={profile?.name} onChange={handleChange} className="form-control" />
                         </div>
-                    </div>
-                </div>
+                        <div className="mb-3">
+                            <label>Picture URL</label>
+                            <input type="text" name="picture" defaultValue={profile?.picture} onChange={handleChange} className="form-control" />
+                        </div>
+                        <div className="d-flex justify-content-between">
+                            <button type="submit" className="btn btn-success" disabled={editData.name === initialState.name && editData.picture === initialState.picture}>
+                                {loading ? <span className="spinner-border spinner-border-sm" /> : 'Save'}
+                            </button>
+                            <button type="button" className="btn btn-outline-danger" onClick={closeModal}>Cancel</button>
+                        </div>
+                    </form>
+                </Modals>
             </div>
         </div>
     )
