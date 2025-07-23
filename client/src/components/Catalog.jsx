@@ -65,7 +65,7 @@ export default function Catalog() {
                                 backgroundColor: "#1e1e2f",
                                 color: "#ffffff",
                                 fontWeight: "500",
-                                width: "300px",
+                                width: "30dvh",
                         }}
                         />
                         <span className="input-group-text bg-primary text-white">

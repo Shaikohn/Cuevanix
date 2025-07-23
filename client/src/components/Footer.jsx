@@ -5,17 +5,15 @@ import CV from '../assets/Shai Kohn CV.pdf';
 
 export default function Footer() {
     return (
-        <footer className="bg-dark text-light pt-5 pb-3">
+        <footer className="text-light pt-5 pb-3 mt-3" style={{backgroundColor: '#1e1e1e'}}>
             <div className="container">
                 <div className="row text-center text-md-start">
-                    {/* About */}
                     <div className="col-md-6 mb-4">
                         <h5 className="text-uppercase fw-bold mb-3 text-warning">About Cuevanix</h5>
                         <p>
                             Cuevanix is a fullstack project developed to simulate a complete movie platform experience. It uses React for the frontend, Bootstrap for responsive design, and MongoDB on the backend. The Movie Database API is integrated to manage the visual and technical information of each title.
                         </p>
                     </div>
-                    {/* Technologies */}
                     <div className="col-md-3 mb-4">
                         <h5 className="text-uppercase fw-bold mb-3 text-warning">Technologies</h5>
                         <div className="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start">
@@ -25,7 +23,6 @@ export default function Footer() {
                             <a href="https://getbootstrap.com/" target="_blank" rel="noopener noreferrer"><BsFillBootstrapFill size={28} className="text-primary" /></a>
                         </div>
                     </div>
-                    {/* Contact Info */}
                     <div className="col-md-3 mb-4">
                         <h5 className="text-uppercase fw-bold mb-3 text-warning">Contact</h5>
                         <div className="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start">
@@ -37,7 +34,6 @@ export default function Footer() {
                     </div>
                 </div>
                 <hr className="border-top border-secondary" />
-                {/* Copyright */}
                 <div className="text-center text-muted mt-3 small">
                     © {new Date().getFullYear()} Cuevanix | Developed by Shai Kohn
                 </div>

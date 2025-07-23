@@ -1,14 +1,13 @@
 import { useDispatch } from "react-redux";
 import { filterUserRole, userByName } from "../../redux/slices/userSlice";
 
-export default function SortUsers(/* { setPage } */) {
+export default function SortUsers() {
 
     let dispatch = useDispatch()
 
     function handleChange(e){
         const value = e.target.value;
         if(value === "name_asc" || value === "name_dsc") {
-            /* setPage(1) */
             dispatch(userByName(value))
         } 
     } 

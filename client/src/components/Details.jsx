@@ -48,7 +48,7 @@ export default function Details() {
                                     src={`https://image.tmdb.org/t/p/w500/${movie?.image}`}
                                     alt={movie?.title}
                                     className="img-fluid rounded shadow mb-3"
-                                    style={{height:"400px", width: "100%", maxWidth: "300px"}}
+                                    style={{height:"40dh", width: "100%", maxWidth: "30dvh"}}
                                 />
                                 {localUser !== null && alreadyBought === undefined && (
                                     <button onClick={openedModal} type="button" className="btn btn-outline-success w-100">
@@ -143,7 +143,7 @@ export default function Details() {
                                 {movie?.image && (
                                     <img
                                         className="mb-3 rounded shadow"
-                                        style={{ width: "100%", maxWidth: "250px" }}
+                                        style={{ width: "100%", maxWidth: "25dvh" }}
                                         src={`https://image.tmdb.org/t/p/w500/${movie.image}`}
                                         alt={movie.title}
                                     />

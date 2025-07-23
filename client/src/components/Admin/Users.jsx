@@ -68,7 +68,7 @@ export default function Users() {
                         backgroundColor: "#1e1e2f",
                         color: "#ffffff",
                         fontWeight: "500",
-                        width: "300px",
+                        width: "30dvh",
                     }}
                 />
                 <input
@@ -76,13 +76,13 @@ export default function Users() {
                     className="form-control border-0 rounded-pill px-4 py-2"
                     value={idSearch}
                     onChange={handleOnSearchById}
-                    placeholder="Search by id..."
+                    placeholder="Search by ID..."
                     type="text"
                     style={{
                         backgroundColor: "#1e1e2f",
                         color: "#ffffff",
                         fontWeight: "500",
-                        width: "300px",
+                        width: "30dvh",
                     }}
                 />
                 <SortUsers />
@@ -91,7 +91,7 @@ export default function Users() {
                 {filteredUsers.length > 0 ? (
                     <table className="table table-dark table-hover align-middle border border-secondary rounded overflow-hidden">
                         <thead style={{ backgroundColor: '#1f1f1f' }}>
-                            <tr>
+                            <tr className="text-info">
                                 <th>Name</th>
                                 <th>ID</th>
                                 <th>Role</th>

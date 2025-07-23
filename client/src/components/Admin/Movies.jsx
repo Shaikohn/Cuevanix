@@ -67,7 +67,7 @@ export default function Movies() {
                             backgroundColor: "#1e1e2f",
                             color: "#ffffff",
                             fontWeight: "500",
-                            width: "300px",
+                            width: "30dvh",
                         }}
                     />
                     <div className="mt-2">
@@ -82,7 +82,7 @@ export default function Movies() {
                         .map((m, i) => (
                             <div
                                 className="card text-light shadow-sm"
-                                style={{ width: '400px', maxWidth: '90%', backgroundColor: "#2c2f33", }}
+                                style={{ width: '40dvh', maxWidth: '90%', backgroundColor: "#2c2f33", }}
                                 key={i}
                             >
                                 <div className="row g-0">

@@ -49,42 +49,76 @@ export default function Orders() {
     }
 
     return (
-        <div>
+        <div className="container-fluid bg-dark text-light min-vh-100">
             <NavBar />
-            {
-                orders?.length > 0 ? 
-                <div className="nav justify-content-center mb-3">
+            <div className="text-center mb-4">
+                <h1 className="text-info">Orders Panel</h1>
+                <p className="text-secondary">Check and manage all the purchases made on the platform.</p>
+            </div>
+            {orders?.length > 0 && (
+                <div className="d-flex flex-wrap justify-content-center gap-3 mb-4">
                     <Pagination page={page} setPage={setPage} max={max} />
-                    <label className="form-label mt-2">
-                        <input autoComplete="off" className="form-control" onChange={handleOnSearch} placeholder="Search by order ID" type="text" value={search} />
-                    </label>
-                    <label className="form-label ms-2 mt-2">
-                        <input autoComplete="off" className="form-control" onChange={handleOnSearchByName} placeholder="Search by Username" type="text" value={nameSearch} />
-                    </label>
-                    <label className="form-label mt-2">
-                        < SortOrders />
-                    </label>
-                </div> : ''
-            }
-            { 
-            orders.length > 0 ?
-            filteredOrder()
-            .slice((page - 1) * perPage, (page - 1) * perPage + perPage)
-            ?.map((o, i) => {
-                return (
-                    <div className="card d-inline-flex ms-4 mb-3" style={{width: '19rem', height: '210px'}} key={i}>
-                        <div className="card-body">
-                            <h5 className="card-title">{o?.purchased_Movie?.title}</h5>
-                            <p className="card-text">Order ID: {o?._id}</p>
-                            <p> Username: {o?.userName}  </p>
-                            <p> Income: ${o.purchased_Movie?.price?.toFixed()} </p>
-                        </div>
-                    </div>
-                )
-            }) : <Spinner /> }
-            { 
-                orders.length > 0 ? <Pagination page={page} setPage={setPage} max={max} /> : ''
-            }
+                    <input
+                        autoComplete="off"
+                        className="form-control border-0 rounded-pill px-4 py-2"
+                        onChange={handleOnSearch}
+                        placeholder="Search by title..."
+                        type="text"
+                        value={search}
+                        style={{
+                            backgroundColor: "#1e1e2f",
+                            color: "#ffffff",
+                            fontWeight: "500",
+                            width: "30dvh",
+                        }}
+                    />
+                    <input
+                        autoComplete="off"
+                        placeholder="Search by ID..."
+                        className="form-control border-0 rounded-pill px-4 py-2"
+                        type="text"
+                        value={nameSearch}
+                        onChange={handleOnSearchByName}
+                        style={{
+                            backgroundColor: "#1e1e2f",
+                            color: "#ffffff",
+                            fontWeight: "500",
+                            width: "30dvh",
+                        }}
+                    />
+                    <SortOrders />
+                </div>
+            )}
+            {orders.length > 0 ? (
+                <div className="table-responsive px-3">
+                    <table className="table table-dark table-hover align-middle border border-secondary rounded overflow-hidden">
+                        <thead style={{ backgroundColor: '#1f1f1f' }}>
+                            <tr className="text-info">
+                                <th>Movie Title</th>
+                                <th>Order ID</th>
+                                <th>Username</th>
+                                <th>Income</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredOrder()
+                                .slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+                                .map((o, i) => (
+                                    <tr key={i}>
+                                        <td>{o?.purchased_Movie?.title}</td>
+                                        <td style={{ fontSize: '0.9rem' }}>{o?._id}</td>
+                                        <td>{o?.userName}</td>
+                                        <td>${o.purchased_Movie?.price?.toFixed()}</td>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </table>
+                </div>
+            ) : (
+            <div className="text-center mt-5">
+                <Spinner />
+            </div>
+        )}
         </div>
     )
 }

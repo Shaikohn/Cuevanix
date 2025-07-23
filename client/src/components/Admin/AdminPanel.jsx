@@ -38,7 +38,7 @@ export default function AdminPanel() {
                                 key={i}
                                 to={`inquiry/${inq._id}`}
                                 className="text-decoration-none w-100"
-                                style={{ maxWidth: '600px' }}
+                                style={{ maxWidth: '60dvh' }}
                             >
                                 <div
                                     className="card p-3 border-0 shadow-sm"

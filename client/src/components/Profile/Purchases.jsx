@@ -71,7 +71,7 @@ export default function Purchases() {
                                 backgroundColor: "#1e1e2f",
                                 color: "#ffffff",
                                 fontWeight: "500",
-                                width: "300px",
+                                width: "30dvh",
                             }}
                         />
                     </div>
@@ -86,14 +86,14 @@ export default function Purchases() {
                                         backgroundColor: "#2c2f33",
                                         border: "1px solid #444",
                                         transition: "transform 0.2s",
-                                        width: "300px",
+                                        width: "30dvh",
                                     }}
                                 >
                                     <img
                                         src={o?.purchased_Movie?.image}
                                         className="card-img-top"
                                         alt={o?.purchased_Movie?.title}
-                                        style={{ height: "400px", objectFit: "cover" }}
+                                        style={{ height: "40dvh", objectFit: "cover" }}
                                     />
                                     <div className="card-body">
                                         <h5 className="card-title">{o?.purchased_Movie?.title}</h5>
