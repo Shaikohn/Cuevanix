@@ -1,75 +1,7 @@
-.favourite-btn {
-    align-items: center;
-    background-color: #f2f2f2;
-    border: none;
-    border-radius: 30px;
-    display: flex;
-    font-size: 13px;
-    height: 30px;
-    justify-content: center;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 30px;
-}
 
 button {
     background: none;
     border: none;
-}
-
-.onlyDisplayInPC {
-    display: block;
-}
-
-.purchaseCard {
-    max-width: 400px;
-}
-
-.displayFlexInPC {
-    display: flex;
-}
-
-.adminPanelImage {
-    margin-bottom: 50px;
-    margin-top: 50px;
-    width: 600px;
-    float: left;
-    margin-right: 200px;
-}
-
-.marginProfileDetails {
-    margin-left: 10px;
-}
-
-@media (max-width: 480px) {
-    .onlyDisplayInPC {
-        display: none;
-    }
-    .cardWidth {
-        width: auto;
-    }
-    .imageMaxWidth {
-        max-width: 120px;
-    }
-    .textArea {
-        width: 310px !important;
-    }
-    .purchaseCard {
-        max-width: 300px;
-    }
-    .viewInquiries {
-        margin-left: 50px;
-    }
-    .adminPanelImage {
-        display: none;
-    }
-    .displayFlexInPC {
-        display: block;
-    }
-    .marginProfileDetails {
-        margin-left: 0;
-    }
 }
 
 .card:hover {

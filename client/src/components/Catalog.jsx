@@ -48,12 +48,10 @@ export default function Catalog() {
     return (
         <div className="container-fluid bg-dark text-light min-vh-100 py-4">
             <h1 className="text-center mb-4 fw-bold">🎬 Explore the Movie Catalog</h1>
-
             <div className="row justify-content-center mb-4 gy-2 gx-2 align-items-center">
                 <div className="col-md-3">
                     <Pagination page={page} setPage={setPage} max={max} />
                 </div>
-
                 <div className="col-md-5">
                     <div className="input-group">
                         <input
@@ -69,19 +67,17 @@ export default function Catalog() {
                         </span>
                     </div>
                 </div>
-
                 <div className="col-md-3">
                     <SortMovies setPage={setPage} />
                 </div>
             </div>
-
             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
                 {movies.length > 0 ? (
                     filteredMovie()
                         .slice((page - 1) * perPage, (page - 1) * perPage + perPage)
                         .map((m, i) => (
                             <div className="col" key={i}>
-                                <div className="card bg-secondary text-light shadow-sm h-100 border-0" style={{ transition: 'transform 0.2s' }}>
+                                <div className="card text-light shadow-sm h-100 border-0" style={{ transition: 'transform 0.2s', backgroundColor: '#1e1e1e' }} >
                                     <img src={m.image} className="card-img-top" alt={m.title} />
                                     <div className="card-body">
                                         <h5 className="card-title">{m.title}</h5>
@@ -99,7 +95,6 @@ export default function Catalog() {
                                             >
                                                 View Details
                                             </Link>
-                                            {/* Rating */}
                                             <div
                                                 className="d-flex align-items-center rounded-pill px-3 py-1"
                                                 style={{
@@ -112,7 +107,6 @@ export default function Catalog() {
                                                 <i className="bi bi-star-fill text-warning fs-5 me-2"></i>
                                                 <span className="text-white fw-semibold"> {m.rating} </span>
                                             </div>
-                                            {/* Precio */}
                                             <div
                                                 className="d-flex align-items-center rounded-pill px-3 py-1"
                                                 style={{
