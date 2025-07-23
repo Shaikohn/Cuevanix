@@ -14,7 +14,7 @@ export default function Movies() {
     const {movies} = useSelector(state => state.movies)
     const {filteredMovies} = useSelector(state => state.movies)
     const [page, setPage] = useState(1)
-    const [perPage, setPerPage] = useState(6)
+    const [perPage, setPerPage] = useState(8)
     const [search, setSearch] = useState('')
     const filtered = filteredMovies.filter(m => m.title.toLowerCase().includes(search.toLowerCase()))
     const max = Math.ceil(filtered?.length / perPage)
@@ -47,45 +47,77 @@ export default function Movies() {
     }
 
     return (
-        <div>
+        <div className="container-fluid bg-dark min-vh-100 text-light py-4">
             <NavBar />
-            {
-                movies?.length > 0 ? 
-                    <div className="nav justify-content-center mb-2">
-                        <Pagination page={page} setPage={setPage} max={max} />
-                        <label className="form-label mt-2">
-                            <input autoComplete="off" className="form-control" onChange={handleOnSearch} placeholder="Search movie" type="text" value={search} />
-                        </label>
-                        <div className="mt-2">
-                            < SortMovies setPage={setPage} />
-                        </div>
-                    </div> : ''
-            }
-            {movies.length > 0 ? 
-            filteredMovie()
-            .slice((page - 1) * perPage, (page - 1) * perPage + perPage)
-            .map((m, i) => {
-                return (
-                    <div className="card mb-3 ms-5 d-inline-flex align-items-center purchaseCard" key={i}>
-                        <div className="row g-0">
-                            <div className="col-md-4">
-                                <img src={m.image} className="img-fluid rounded-start" style={{height: '100%'}} alt={m.title} />
-                            </div>
-                            <div className="col-md-8">
-                                <div className="card-body">
-                                    <h5 className="card-title text-info">{m.title}</h5>
-                                    <p className="card-text">Rating: {m.rating}</p>
-                                    <p className="card-text">Release date: {m.release_date}</p>
-                                    <Link to={`/movieDetails/${m.id}`} className="btn btn-primary">Details</Link>
+            <h2 className="text-center text-info mb-4">
+                Manage all the movies currently available on the platform.
+            </h2>
+            {movies?.length > 0 && (
+                <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 mb-4">
+                    <Pagination page={page} setPage={setPage} max={max} />
+                    <input
+                        autoComplete="off"
+                        className="form-control border-0 rounded-pill px-4 py-2"
+                        onChange={handleOnSearch}
+                        placeholder="Search movies..."
+                        type="text"
+                        value={search}
+                        style={{
+                            backgroundColor: "#1e1e2f",
+                            color: "#ffffff",
+                            fontWeight: "500",
+                            width: "300px",
+                        }}
+                    />
+                    <div className="mt-2">
+                        <SortMovies setPage={setPage} />
+                    </div>
+                </div>
+            )}
+            <div className="d-flex flex-wrap justify-content-center gap-4">
+                {movies?.length > 0 ? (
+                    filteredMovie()
+                        .slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+                        .map((m, i) => (
+                            <div
+                                className="card text-light shadow-sm"
+                                style={{ width: '400px', maxWidth: '90%', backgroundColor: "#2c2f33", }}
+                                key={i}
+                            >
+                                <div className="row g-0">
+                                    <div className="col-4">
+                                        <img
+                                            src={m.image}
+                                            className="img-fluid rounded-start"
+                                            style={{ height: '100%', objectFit: 'cover' }}
+                                            alt={m.title}
+                                        />
+                                    </div>
+                                    <div className="col-8">
+                                        <div className="card-body py-3 px-3">
+                                            <h5 className="card-title text-info mb-2">{m.title}</h5>
+                                            <p className="card-text mb-1">
+                                                <i className="bi bi-star-fill text-warning fs-5 me-2"></i>
+                                                {m.rating}
+                                            </p>
+                                            <p className="card-text mb-3">Release: {m.release_date}</p>
+                                            <Link to={`/movieDetails/${m.id}`} className="btn btn-outline-info btn-sm">
+                                                Details
+                                            </Link>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                )
-            }) : <Spinner />}
-            {
-                movies.length > 0 ? <Pagination page={page} setPage={setPage} max={max} /> : ''
-            }
+                        ))
+                    ) : (
+                        <Spinner />
+                )}
+            </div>
+            {movies?.length > 0 && (
+                <div className="d-flex justify-content-center mt-4">
+                    <Pagination page={page} setPage={setPage} max={max} />
+                </div>
+            )}
         </div>
     )
 }
