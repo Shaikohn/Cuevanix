@@ -21,10 +21,10 @@ export default function AdminPanel() {
     return (
         <div className="bg-dark">
             <NavBar />
-            <div className="container  text-light py-5">
+            <div className="container text-light">
                 <div className="text-center mb-4">
-                    <h1 className="fw-bold">Admin Panel</h1>
-                    <p className="text-muted">
+                    <h1 className="text-info">Admin Panel</h1>
+                    <p className="text-secondary">
                         Here you can view and manage all the inquiries sent by users.
                     </p>
                     <p className="text-info fw-semibold mt-2">

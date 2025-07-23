@@ -12,7 +12,6 @@ export default function Users() {
 
     const dispatch = useDispatch()
     const { filteredUsers } = useSelector(state => state.user)
-    console.log(filteredUsers)
     const [search, setSearch] = useState('')
     const [idSearch, setIdSearch] = useState('')
     const filtered = filteredUsers.filter(u => u.name.toLowerCase().includes(search.toLowerCase()) && u._id.toLowerCase().includes(idSearch.toLowerCase()))
@@ -50,38 +49,89 @@ export default function Users() {
     }
 
     return ( 
-        <div>
+        <div className="container-fluid bg-dark text-light min-vh-100">
             <NavBar />
-            <div className="nav justify-content-center">
-                <Pagination page={page} setPage={setPage} max={max} />
-                <label className="form-label mt-2">
-                    <input autoComplete="off" className="form-control" onChange={handleOnSearch} placeholder="Search by username" type="text" value={search} />
-                </label>
-                <label className="form-label ms-2 mt-2">
-                    <input autoComplete="off" className="form-control" onChange={handleOnSearchById} placeholder="Search by ID" type="text" value={idSearch} />
-                </label>
-                <label className="form-label mt-2">
-                    <SortUsers />
-                </label>
+            <div className="text-center mb-4">
+                <h1 className="text-info">Users Panel</h1>
+                <p className="text-secondary">Here you can see and manage all registered users on the platform.</p>
             </div>
-            { 
-            filteredUsers.length > 0 ?
-            filteredUser()
-            .slice((page - 1) * perPage, (page - 1) * perPage + perPage)
-            .map((u, i) => {
-                return (
-                    <Link style={{textDecoration: 'none', color: 'black'}} to={`/user/${u._id}`} key={i}>
-                    <div className="card d-inline-flex ms-4 mb-2 mt-3" style={{width: '19rem'}}>
-                        <div className="card-body">
-                            {u.admin === true || u.owner === true ?  <h5 className="card-title text-warning"> {u?.name} </h5> : u.banned === true ? <h5 className="card-title text-danger"> {u?.name} </h5> : <h5 className="card-title"> {u?.name} </h5> } 
-                            <p className="card-text">User ID: {u?._id}</p>
-                        </div>
+            <div className="d-flex flex-wrap justify-content-center gap-3 mb-4">
+                <Pagination page={page} setPage={setPage} max={max} />
+                <input
+                    autoComplete="off"
+                    className="form-control border-0 rounded-pill px-4 py-2"
+                    onChange={handleOnSearch}
+                    placeholder="Search by username..."
+                    type="text"
+                    value={search}
+                    style={{
+                        backgroundColor: "#1e1e2f",
+                        color: "#ffffff",
+                        fontWeight: "500",
+                        width: "300px",
+                    }}
+                />
+                <input
+                    autoComplete="off"
+                    className="form-control border-0 rounded-pill px-4 py-2"
+                    value={idSearch}
+                    onChange={handleOnSearchById}
+                    placeholder="Search by id..."
+                    type="text"
+                    style={{
+                        backgroundColor: "#1e1e2f",
+                        color: "#ffffff",
+                        fontWeight: "500",
+                        width: "300px",
+                    }}
+                />
+                <SortUsers />
+            </div>
+            <div className="table-responsive px-3">
+                {filteredUsers.length > 0 ? (
+                    <table className="table table-dark table-hover align-middle border border-secondary rounded overflow-hidden">
+                        <thead style={{ backgroundColor: '#1f1f1f' }}>
+                            <tr>
+                                <th>Name</th>
+                                <th>ID</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredUser()
+                                .slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+                                .map((u, i) => (
+                                    <tr key={i}>
+                                        <td className={u.admin || u.owner ? "text-warning fw-bold" : u.banned ? "text-danger fw-bold" : ""}>
+                                            {u?.name}
+                                        </td>
+                                        <td style={{ fontSize: "0.9rem" }}>{u?._id}</td>
+                                        <td>
+                                            {u.owner ? "Owner" : u.admin ? "Admin" : "User"}
+                                        </td>
+                                        <td>
+                                            {u.banned ? "Banned" : "Active"}
+                                        </td>
+                                        <td>
+                                            <Link
+                                                to={`/user/${u._id}`}
+                                                className="btn btn-sm btn-outline-info"
+                                            >
+                                                View
+                                            </Link>
+                                        </td>
+                                    </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <div className="text-center mt-5">
+                        <Spinner />
                     </div>
-                    </Link>
-                )
-            }) : <Spinner /> }
-            <Pagination page={page} setPage={setPage} max={max} />
+                )}
+            </div>
         </div>
-
     )
 }

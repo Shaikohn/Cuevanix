@@ -47,11 +47,12 @@ export default function Movies() {
     }
 
     return (
-        <div className="container-fluid bg-dark min-vh-100 text-light py-4">
+        <div className="container-fluid bg-dark min-vh-100 text-light">
             <NavBar />
-            <h2 className="text-center text-info mb-4">
-                Manage all the movies currently available on the platform.
-            </h2>
+            <div className="text-center mb-4">
+                <h1 className="text-info">Movies Panel</h1>
+                <p className="text-secondary">Manage all the movies currently available on the platform.</p>
+            </div>
             {movies?.length > 0 && (
                 <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 mb-4">
                     <Pagination page={page} setPage={setPage} max={max} />

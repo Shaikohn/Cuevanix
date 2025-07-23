@@ -32,11 +32,6 @@ export default function SortMovies({ setPage }) {
                 <option value="price_asc"> Price (ASC) </option>
                 <option value="price_dsc" > Price (DSC) </option>
             </select>
-            {/* <select className="form-select ms-3" onChange={handleFilter}>
-            <option defaultValue value="All">All users</option>
-                <option value="Users"> Users </option>
-                <option value="Admins" > Admins </option>
-            </select> */}
         </div>
     )
 }

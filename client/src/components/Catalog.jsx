@@ -61,6 +61,12 @@ export default function Catalog() {
                             placeholder="Search for a movie..."
                             type="text"
                             value={search}
+                            style={{
+                                backgroundColor: "#1e1e2f",
+                                color: "#ffffff",
+                                fontWeight: "500",
+                                width: "300px",
+                        }}
                         />
                         <span className="input-group-text bg-primary text-white">
                             <i className="bi bi-search"></i>
