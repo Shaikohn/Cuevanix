@@ -33,29 +33,33 @@ function App() {
   }, [location])
 
   return (
-    <GoogleOAuthProvider clientId="569222121144-fap8qmrds81cqlvr1kcqdnbn58flam7b.apps.googleusercontent.com">
-      <Header />
-      <Routes>
-        <Route exact path='/' element={<LandingPage />} />
-        <Route exact path='/catalog' element={<Catalog />} />
-        <Route exact path='/movie/:id' element={<Details />} />
-        <Route exact path='/results' element={<Results />} />
-        <Route exact path='/verification/:_id' element={<Verification />} />
-        <Route exact path='/changePassword/:_id' element={<PasswordChange />} />
-        <Route exact path='/purchases' element={localUser !== null ? <Purchases /> : <Navigate to="/" replace /> } />
-        <Route exact path='/profile' element={localUser !== null ? <Profile /> : <Navigate to="/" replace /> } />
-        <Route exact path='/purchasedMovie/:id' element={localUser !== null ? <PurchasedMovie /> : <Navigate to="/" replace /> } />
-        <Route exact path='/messages' element={<Messages />} />
-        <Route exact path='/adminPanel' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <AdminPanel /> : <Navigate to="/" replace /> } />
-        <Route exact path='/users' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <Users /> : <Navigate to="/" replace /> } />
-        <Route exact path='/user/:_id' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <UserDetails /> : <Navigate to="/" replace /> } />
-        <Route exact path='/orders' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <Orders /> : <Navigate to="/" replace /> } />
-        <Route exact path='/movies' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <Movies /> : <Navigate to="/" replace /> } />
-        <Route exact path='/movieDetails/:id' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <MovieDetails /> : <Navigate to="/" replace /> } />
-        <Route exact path='/adminPanel/inquiry/:_id' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <InquiryDetails /> : <Navigate to="/" replace /> } />
-      </Routes>
-      <Footer />
-    </ GoogleOAuthProvider>
+      <GoogleOAuthProvider clientId="569222121144-fap8qmrds81cqlvr1kcqdnbn58flam7b.apps.googleusercontent.com">
+          <div className="d-flex flex-column min-vh-100 bg-dark text-light">
+              <Header />
+              <main className="flex-fill">
+                  <Routes>
+                      <Route exact path='/' element={<LandingPage />} />
+                      <Route exact path='/catalog' element={<Catalog />} />
+                      <Route exact path='/movie/:id' element={<Details />} />
+                      <Route exact path='/results' element={<Results />} />
+                      <Route exact path='/verification/:_id' element={<Verification />} />
+                      <Route exact path='/changePassword/:_id' element={<PasswordChange />} />
+                      <Route exact path='/purchases' element={localUser !== null ? <Purchases /> : <Navigate to="/" replace />} />
+                      <Route exact path='/profile' element={localUser !== null ? <Profile /> : <Navigate to="/" replace />} />
+                      <Route exact path='/purchasedMovie/:id' element={localUser !== null ? <PurchasedMovie /> : <Navigate to="/" replace />} />
+                      <Route exact path='/messages' element={<Messages />} />
+                      <Route exact path='/adminPanel' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <AdminPanel /> : <Navigate to="/" replace />} />
+                      <Route exact path='/users' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <Users /> : <Navigate to="/" replace />} />
+                      <Route exact path='/user/:_id' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <UserDetails /> : <Navigate to="/" replace />} />
+                      <Route exact path='/orders' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <Orders /> : <Navigate to="/" replace />} />
+                      <Route exact path='/movies' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <Movies /> : <Navigate to="/" replace />} />
+                      <Route exact path='/movieDetails/:id' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <MovieDetails /> : <Navigate to="/" replace />} />
+                      <Route exact path='/adminPanel/inquiry/:_id' element={localUser?.result?.admin === true || localUser?.result?.owner === true ? <InquiryDetails /> : <Navigate to="/" replace />} />
+                  </Routes>
+              </main>
+              <Footer />
+          </div>
+    </GoogleOAuthProvider>
   );
 }
 
