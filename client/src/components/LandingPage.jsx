@@ -1,4 +1,5 @@
 import Cinema from "../assets/Cuevanix.jpg";
+import{ Link } from "react-router-dom"
 
 export default function LandingPage() {
     return (
@@ -14,16 +15,27 @@ export default function LandingPage() {
                     </div>
                     <div className="col-md-5 text-center text-md-start">
                         <h1 className="display-4 fw-bold mb-3">
-                            Welcome to <span className="text-danger">Cuevanix</span>
+                            Welcome to <span style={{ color: '#0d6efd' }}>Cuevanix</span>
                         </h1>
-                        <p className="lead mb-4">
+                        <p className="lead mb-4 text-white-50">
                             Your ultimate destination for movies and series. Discover, explore and enjoy cinematic experiences — all in one place.
                         </p>
-                        <a href="/catalog" className="btn btn-danger btn-lg">Enter the App</a>
+                        <Link
+                            to="/catalog"
+                            className="btn btn-primary btn-lg border-0 fw-semibold"
+                            style={{
+                                backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                                color: '#fff',
+                                transition: 'background-color 0.3s ease',
+                            }}
+                            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(0, 123, 255, 0.4)')}
+                            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(0, 123, 255, 0.2)')}
+                        >
+                            Enter the App
+                        </Link>
                     </div>
                 </div>
             </div>
-            {/* Features */}
             <div className="bg-black bg-opacity-75 py-5">
                 <div className="container">
                     <h2 className="text-center mb-5 text-light">Features</h2>
@@ -69,7 +81,6 @@ export default function LandingPage() {
                             </div>
                         </div>
                     </div>
-                    {/* Disclaimer */}
                     <p className="text-center text-muted mt-5 small fst-italic">
                         ⚠️ This is a demo project for educational purposes only. No real purchases or content are hosted.
                     </p>

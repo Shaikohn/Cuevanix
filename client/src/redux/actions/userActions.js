@@ -41,7 +41,7 @@ export const patchUser = (_id, editData, setLoading, closeModal, forceUpdate) =>
             title: "Edited",
             text: "User updated!",
             icon: "success",
-            timer: 2000,
+            timer: 4000,
         })
         setLoading(false)
         forceUpdate()
@@ -52,7 +52,6 @@ export const patchUser = (_id, editData, setLoading, closeModal, forceUpdate) =>
             title: "Not edited",
             text: e.response.data.message,
             icon: "error",
-            timer: 2000,
         })
         setLoading(false)
     }

@@ -4,7 +4,6 @@ import decode from 'jwt-decode'
 import Searcher from "./Searcher"
 import Auth from './Auth/Auth'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProfileById } from "../redux/actions/userActions"
 import { clearUser } from '../redux/slices/userSlice'
 import {FaUserShield} from 'react-icons/fa'
 import Inquiry from './Inquiry'
@@ -32,9 +31,6 @@ export default function Header() {
                 handleLogOut()
             }
         }
-        /* if(localUser) {
-            dispatch(getProfileById(localUser.result._id))
-        } */
         setLocalUser(JSON.parse(localStorage.getItem('profile')))
     }, [location])
 

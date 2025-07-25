@@ -5,7 +5,7 @@ import CV from '../assets/Shai Kohn CV.pdf';
 
 export default function Footer() {
     return (
-        <footer className="text-light pt-5 pb-3 mt-3" style={{backgroundColor: '#1e1e1e'}}>
+        <footer className="text-light pt-5 pb-3" style={{backgroundColor: '#1e1e1e'}}>
             <div className="container">
                 <div className="row text-center text-md-start">
                     <div className="col-md-6 mb-4">

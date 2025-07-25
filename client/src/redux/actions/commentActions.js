@@ -12,7 +12,7 @@ export const postComment = (commentData, closeModal, setLoading, forceUpdate) =>
             title: "Success!",
             text: "Comment added!",
             icon: "success",
-            timer: 2000,
+            timer: 4000,
         });
     } catch (e) {
         setLoading(false)
@@ -20,7 +20,7 @@ export const postComment = (commentData, closeModal, setLoading, forceUpdate) =>
             title: "Failed!",
             text: e.response.data.message,
             icon: "error",
-            timer: 2000,
+            timer: 4000,
         });
     }
 }
@@ -33,7 +33,7 @@ export const deleteComment = (_id, userId, movieId, forceUpdate) => async() => {
             title: "Deleted",
             text: "Comment deleted succesfully!",
             icon: "success",
-            timer: 2000,
+            timer: 4000,
         });
     }
     catch(e) {

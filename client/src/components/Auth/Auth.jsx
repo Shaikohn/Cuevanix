@@ -75,11 +75,16 @@ export default function Auth() {
         <div>
             <button
                 type="button"
-                className="btn btn-outline-info ms-3 px-4 py-2 rounded-pill fw-semibold"
+                className="btn btn-outline-info px-5 py-2 rounded-pill fw-semibold text-uppercase shadow-sm"
                 onClick={openedModal}
                 data-bs-toggle="tooltip"
                 data-bs-placement="bottom"
                 title="Log in to access your account"
+                style={{
+                    letterSpacing: '0.5px',
+                    fontSize: '1rem',
+                    minWidth: '17dvh'
+                }}
             >
                 Sign In
             </button>
@@ -185,7 +190,7 @@ export default function Auth() {
                     )}
                     {forgotPassword && !isSignUp && (
                         <form className="row justify-content-center mt-4" onSubmit={handlePasswordSubmit} noValidate>
-                            <div className="col-md-7 mb-2">
+                            <div className="col-12 col-md-7 mb-3 mb-md-0">
                                 <label>Email</label>
                                 <input
                                     autoComplete="off"
@@ -196,8 +201,10 @@ export default function Auth() {
                                     onChange={handlePasswordChange}
                                 />
                             </div>
-                            <div className="col-md-3 d-flex align-items-end">
-                                <button type="submit" className="btn btn-primary w-100">Send</button>
+                            <div className="col-12 col-md-3 mt-2 mt-md-4">
+                                <button type="submit" className="btn btn-primary w-100">
+                                    Send
+                                </button>
                             </div>
                         </form>
                     )}

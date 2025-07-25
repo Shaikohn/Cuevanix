@@ -7,14 +7,14 @@ dotenv.config();
 const { MAIL_USER, MAIL_PASS } = process.env
 
 const transport = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: MAIL_USER,
-    pass: MAIL_PASS,
-  },
-  tls: { rejectUnauthorized: false },
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: MAIL_USER,
+        pass: MAIL_PASS,
+    },
+    tls: { rejectUnauthorized: false },
 });
 
 

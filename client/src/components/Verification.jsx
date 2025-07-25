@@ -9,8 +9,8 @@ export default function Verification() {
     const navigate = useNavigate()
 
     const verify = () =>  {
-        dispatch(verifyUser(_id))
-        navigate("/catalog")
+        dispatch(verifyUser(_id, navigate))
+        
     }
 
     return (

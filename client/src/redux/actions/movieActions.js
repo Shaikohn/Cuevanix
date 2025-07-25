@@ -24,7 +24,6 @@ export const getAllResults = (keyword, setLoading, navigate) => async(dispatch) 
                 title: "Not Found",
                 text: "Movie not found!",
                 icon: "error",
-                timer: 2000,
             })
         }
     }
@@ -74,7 +73,7 @@ export const patchMovie = (id, editMovie, setLoading) => async(dispatch) => {
             title: "Edited",
             text: "User updated!",
             icon: "success",
-            timer: 2000,
+            timer: 4000,
         })
         setLoading(false)
     }
@@ -83,7 +82,6 @@ export const patchMovie = (id, editMovie, setLoading) => async(dispatch) => {
             title: "Not edited",
             text: "Something failed!",
             icon: "error",
-            timer: 2000,
         })
         setLoading(false)
     }
@@ -97,7 +95,7 @@ export const deleteMovie = (id, navigate) => async() => {
             title: "Deleted",
             text: "Movie deleted succesfully!",
             icon: "success",
-            timer: 2000,
+            timer: 4000,
         });
     }
     catch(e) {

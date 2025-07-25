@@ -26,7 +26,7 @@ export const signIn = (formData, navigate, closeModal, setLoading, forceUpdate, 
             title: "Signed in",
             text: "User Signed in successfully!",
             icon: "success",
-            timer: 2000,
+            timer: 4000,
         });
     } catch (e) {
         setLoading(false)
@@ -34,7 +34,6 @@ export const signIn = (formData, navigate, closeModal, setLoading, forceUpdate, 
             title: "Signed in failed",
             text: e.response.data.message,
             icon: "error",
-            timer: 2000,
         });
         console.log(e)
     }
@@ -50,7 +49,6 @@ export const signUp = ( formData, closeModal, setLoading, e, setFormData, initia
             title: "Signed up",
             text: "We have send you and email to verify your account!",
             icon: "success",
-            timer: 2000,
         });
         e.target.reset()
         closeModal()
@@ -60,17 +58,27 @@ export const signUp = ( formData, closeModal, setLoading, e, setFormData, initia
             title: "Signed up failed",
             text: e.response.data.message,
             icon: "error",
-            timer: 2000,
         });
     }
 }
 
-export const verifyUser = (_id) => async() => {
+export const verifyUser = (_id, navigate) => async() => {
     try {
         await axios.patch(`/user/verification/${_id}`)
+        Swal.fire({
+            title: "Verified",
+            text: "Your account is now active!",
+            icon: "success",
+            timer: 4000,
+        });
+        navigate('/catalog')
     }
     catch(e) {
-        console.log(e)
+        Swal.fire({
+            title: "Verification failed",
+            text: e.response.data.message,
+            icon: "error",
+        });
     }
 }
 
@@ -87,7 +95,7 @@ export const signGoogle = (googleUser, navigate, closeModal, setLoading, forceUp
             title: "Signed in",
             text: "User Signed in successfully!",
             icon: "success",
-            timer: 2000,
+            timer: 4000,
         });
     } catch (e) {
         setLoading(false)
@@ -95,7 +103,6 @@ export const signGoogle = (googleUser, navigate, closeModal, setLoading, forceUp
             title: "Signed in failed",
             text: e.response.data.message,
             icon: "error",
-            timer: 2000,
         });
         console.log(e)
     }
@@ -108,7 +115,6 @@ export const emailPassword = (sendEmail) => () => {
             title: "Mail sent",
             text: "Check your inbox!",
             icon: "success",
-            timer: 2000,
         })
     }
     catch(e) {
@@ -116,13 +122,11 @@ export const emailPassword = (sendEmail) => () => {
             title: "Not sent",
             text: "Something failed!",
             icon: "error",
-            timer: 2000,
         })
     }
 }
 
-export const changePassword = (_id, newPassword, e) => async() => {
-    /* setLoading(true) */
+export const changePassword = (_id, newPassword, navigate, e) => async() => {
     try {
         await axios.patch(`/user/changePassword/${_id}`, newPassword)
         e.target.reset()
@@ -130,17 +134,14 @@ export const changePassword = (_id, newPassword, e) => async() => {
             title: "Success",
             text: "Password updated!",
             icon: "success",
-            timer: 2000,
         })
-        /* setLoading(false) */
+        navigate('/catalog')
     }
     catch(e) {
         Swal.fire({
             title: "Not edited",
             text: "Something failed!",
             icon: "error",
-            timer: 2000,
         })
-        /* setLoading(false) */
     }
 }
