@@ -71,7 +71,7 @@ export default function UserDetails() {
             <div className="row gy-4">
                 <div className="col-md-6">
                     <div className="bg-dark text-light p-4 rounded h-100" style={{ backgroundColor: '#1c1c1c' }}>
-                        <h4 className="mb-3 border-bottom pb-2">Orders</h4>
+                        <h4 className="mb-3 border-bottom pb-2">Orders <span className="text-muted fs-6">({user?.orders?.length || 0})</span></h4>
                         {user?.orders?.length > 0 ? (
                             <div className="d-flex flex-column gap-3">
                                 {user.orders.map((o, i) => (
@@ -82,14 +82,14 @@ export default function UserDetails() {
                                     </div>
                                 ))}
                             </div>
-                            ) : (
+                        ) : (
                             <p className="text-muted">No orders found.</p>
                         )}
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="bg-dark text-light p-4 rounded h-100" style={{ backgroundColor: '#1c1c1c' }}>
-                        <h4 className="mb-3 border-bottom pb-2">Comments</h4>
+                        <h4 className="mb-3 border-bottom pb-2">Comments <span className="text-muted fs-6">({user?.comments?.length || 0})</span></h4>
                         {user?.comments?.length > 0 ? (
                             <div className="d-flex flex-column gap-3">
                                 {user.comments.map((c, i) => (
