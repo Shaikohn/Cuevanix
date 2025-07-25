@@ -28,82 +28,80 @@ export default function UserDetails() {
 
 
     return (
-        <div className="ms-3">
+        <div className="container py-4">
             <NavBar />
-            <div className="d-flex mb-3 mt-3 justify-content-center">
-                {user?.picture !== undefined ? <img style={{borderRadius: '50px', width: '150px'}} src={user?.picture} alt={user?.name} referrerPolicy="no-referrer" /> : ''}
-                <div className="ms-2">
-                    <h1 className="text-align-center"> {user?.name} </h1>
-                    <div className='displayFlexInPC mt-3'>
-                        {user?.owner === true ? <h3 className="text-warning">Role: Owner</h3> : user?.admin === true ? <h3 className="text-warning">Role: Admin</h3> : <h3>Role: User</h3>}
-                        {profile?.owner === true && profile?._id !== _id && user?.banned === false && user?.admin === false ? <button onClick={() => dispatch(patchUserRole(_id))} type="button" className="btn btn-success ms-3">Promote</button> :''}
-                        {profile?.owner === true && profile?._id !== _id && user?.banned === false && user?.admin === true ? <button onClick={() => dispatch(patchUserRole(_id))} type="button" className="btn btn-danger ms-3">Downgrade</button> :''}
-                        <h3 className="marginProfileDetails"> Status: {user?.banned === true ? 'Banned' : 'Active'} </h3> 
-                        {user?.owner === false && profile?._id !== user?._id && user?.banned === false ? <button onClick={() => dispatch(patchUserStatus(_id))} type="button" className="btn btn-danger ms-3">Ban</button> :''}
-                        {user?.owner === false && profile?._id !== user?._id && user?.banned === true ? <button onClick={() => dispatch(patchUserStatus(_id))} type="button" className="btn btn-secondary ms-3">Unban</button> :''}
+            <div className="bg-dark text-light p-4 rounded mb-4 d-flex align-items-center flex-wrap gap-4 justify-content-between" style={{ fontSize: '1.1rem' }}>
+                <div className="d-flex align-items-center gap-4 flex-wrap">
+                    {user?.picture && (
+                        <img
+                            src={user.picture}
+                            alt={user.name}
+                            className="rounded-circle"
+                            style={{ width: '12dvh', height: '12dvh', objectFit: 'cover' }}
+                          />
+                    )}
+                    <div>
+                        <h2 className="mb-1">{user?.name}</h2>
+                        <p className="mb-1 text-muted">{user?.email}</p>
+                        <div className="d-flex gap-2">
+                            <span className="badge bg-warning text-dark">{user?.owner ? 'Owner' : user?.admin ? 'Admin' : 'User'}</span>
+                            <span className={`badge ${user?.banned ? 'bg-danger' : 'bg-success'}`}>
+                                {user?.banned ? 'Banned' : 'Active'}
+                            </span>
+                        </div>
                     </div>
                 </div>
+                {profile?.owner && profile?._id !== user?._id && !user?.owner && (
+                    <div className="d-flex flex-wrap gap-3">
+                        <button
+                            onClick={() => dispatch(patchUserRole(_id))}
+                            className={`btn ${user?.admin ? 'btn-outline-danger' : 'btn-outline-success'} px-4 py-2`}
+                        >
+                            {user?.admin ? 'Downgrade' : 'Promote'}
+                        </button>
+                        <button
+                            onClick={() => dispatch(patchUserStatus(_id))}
+                            className={`btn ${user?.banned ? 'btn-secondary' : 'btn-danger'} px-4 py-2`}
+                        >
+                            {user?.banned ? 'Unban' : 'Ban'}
+                        </button>
+                    </div>
+                )}
             </div>
-            <div className="accordion mb-3 me-3" id="accordionExample">
-                <div className="accordion-item bg-light">
-                    <h2 className="accordion-header" id="headingOne">
-                        <button className="accordion-button collapsed bg-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <ImProfile size={30} className="me-2" /> Personal data
-                        </button>
-                    </h2>
-                    <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div className="accordion-body">
-                            <h1> {user?.name} </h1>
-                            <h2> {user?.email} </h2>
-                            <p style={{wordWrap: 'break-word', width: '350px'}}> Picture: {profile?.picture !== undefined ? `${profile?.picture}` : 'None'}</p>
-                        </div>
+            <div className="row gy-4">
+                <div className="col-md-6">
+                    <div className="bg-dark text-light p-4 rounded h-100" style={{ backgroundColor: '#1c1c1c' }}>
+                        <h4 className="mb-3 border-bottom pb-2">Orders</h4>
+                        {user?.orders?.length > 0 ? (
+                            <div className="d-flex flex-column gap-3">
+                                {user.orders.map((o, i) => (
+                                    <div key={i} className="p-3 rounded" style={{ backgroundColor: '#1c1c1c', border: '1px solid #333' }}>
+                                        <strong>{o?.purchased_Movie?.title}</strong>
+                                        <p className="mb-1">Order ID: {o?._id}</p>
+                                        <p className="mb-0">Spent: ${o?.purchased_Movie?.price?.toFixed()}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            ) : (
+                            <p className="text-muted">No orders found.</p>
+                        )}
                     </div>
                 </div>
-                <div className="accordion-item bg-light">
-                    <h2 className="accordion-header" id="headingTwo">
-                        <button className="accordion-button collapsed bg-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <BiPurchaseTagAlt size={30} className="me-2" />  Orders
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div className="accordion-body">
-                            {user?.orders?.length > 0 ?
-                                user?.orders?.map((o, i) => {
-                                    return (
-                                        <div className="card d-inline-flex ms-4 mb-3" style={{width: '19rem', height: '230px'}} key={i}>
-                                            <div className="card-body">
-                                                <h5 className="card-title">{o?.purchased_Movie?.title}</h5>
-                                                <p className="card-text">Order ID: {o?._id}</p>
-                                                <p className="card-text">Money spent: ${o?.purchased_Movie?.price?.toFixed()}</p>
-                                            </div>
-                                        </div>
-                                    )
-                                }) : 'None'
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div className="accordion-item bg-light">
-                    <h2 className="accordion-header" id="headingThree">
-                        <button className="accordion-button collapsed bg-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            <CgComment size={30} className="me-2" /> Comments
-                        </button>
-                    </h2>
-                    <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                        <div className="accordion-body">
-                            {user?.comments?.length > 0 ?
-                                profile?.comments?.map((o, i) => {
-                                    return (
-                                        <div className="card d-inline-flex ms-4 mb-3" style={{width: '19rem'}} key={i}>
-                                            <div className="card-body">
-                                                <h5 className="card-title">{o?.movieName}</h5>
-                                                <p className="card-text">{o?.text}</p>
-                                            </div>
-                                        </div>
-                                    )
-                                }) : 'None'
-                            }
-                        </div>
+                <div className="col-md-6">
+                    <div className="bg-dark text-light p-4 rounded h-100" style={{ backgroundColor: '#1c1c1c' }}>
+                        <h4 className="mb-3 border-bottom pb-2">Comments</h4>
+                        {user?.comments?.length > 0 ? (
+                            <div className="d-flex flex-column gap-3">
+                                {user.comments.map((c, i) => (
+                                    <div key={i} className="p-3 rounded" style={{ backgroundColor: '#1c1c1c', border: '1px solid #333' }}>
+                                        <strong>{c?.movieName}</strong>
+                                        <p className="mb-0">{c?.text}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="text-muted">No comments found.</p>
+                        )}
                     </div>
                 </div>
             </div>
