@@ -97,8 +97,8 @@ export default function Details() {
                                 const _id = c._id;
                                 return (
                                     <div
-                                        className="card bg-secondary text-light border-0 shadow-sm"
-                                        style={{ width: "18rem" }}
+                                        className="card text-light border-0 shadow-sm"
+                                        style={{ width: "18rem", backgroundColor: '#1c1c1c' }}
                                         key={i}
                                     >
                                         <div className="card-body">

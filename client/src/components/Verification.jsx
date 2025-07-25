@@ -1,8 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom"
 import { verifyUser } from "../redux/actions/authActions";
-import Verified from '../assets/Verified.png'
-import KeepCalm from '../assets/KeepCalm.jpg'
 
 export default function Verification() {
 
@@ -16,12 +14,16 @@ export default function Verification() {
     }
 
     return (
-        <div className="d-flex">
-            <img style={{height: '500px'}} src={KeepCalm} alt="verified" />
-            <div className="ms-5">
-                <h1>Click on the button to verify your account!</h1>
-                <button className="btn btn-success" onClick={() => verify(_id)}>Verify Account</button> 
-                <img src={Verified} alt="verified" />
+        <div className="d-flex justify-content-center align-items-center bg-dark text-light">
+            <div className="text-center p-4 rounded" style={{ maxWidth: '600px' }}>
+                <h1 className="display-3 fw-bold text-primary mb-3">CUEVANIX</h1>
+                <p className="fs-4 text-white-50 mb-5">Your favorite movies, anytime. Just one click away.</p>
+                <p className="mb-4 fs-5">
+                    Thank you for signing up. Please click the button below to verify your account and activate all features.
+                </p>
+                <button className="btn btn-success px-4 py-2 fs-5 fw-semibold" onClick={() => verify(_id)}>
+                    Verify Account
+                </button>
             </div>
         </div>
     )

@@ -84,7 +84,12 @@ export default function Catalog() {
                         .map((m, i) => (
                             <div className="col" key={i}>
                                 <div className="card text-light shadow-sm h-100 border-0" style={{ transition: 'transform 0.2s', backgroundColor: '#1e1e1e' }} >
-                                    <img src={m.image} className="card-img-top" alt={m.title} />
+                                    <img 
+                                        src={m.image} 
+                                        className="card-img-top" 
+                                        alt={m.title}
+                                        style={{ maxHeight: '40dvh'}} 
+                                    />
                                     <div className="card-body">
                                         <h5 className="card-title">{m.title}</h5>
                                         <p className="card-text">{m.overview}</p>
