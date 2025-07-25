@@ -3,8 +3,8 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { getProfileById, patchUser } from "../../redux/actions/userActions"
-import Modals from "../Modals/Modals"
-import { useModal } from "../Modals/useModal";
+import Modals from "../../components/Modals/Modals"
+import { useModal } from "../../components/Modals/useModal";
 
 export default function Profile() {
 

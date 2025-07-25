@@ -4,12 +4,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import Swal from "sweetalert2"
 import { deleteInquirie, getInquirie, postInquirieAnswer } from "../../redux/actions/inquirieActions"
-import Modals from "../Modals/Modals"
-import { useModal } from "../Modals/useModal"
-import NavBar from "./NavBar"
-import InquiryImage from "../../assets/Inquiry.jpg"
+import Modals from "../../components/Modals/Modals"
+import { useModal } from "../../components/Modals/useModal"
+import NavBar from "../../components/AdminNavBar"
 import { clearData } from "../../redux/slices/inquirieSlice"
-import Spinner from "../Spinner"
+import Spinner from "../../components/Spinner"
 import { MdDeleteForever } from 'react-icons/md'
 
 export default function InquirieDetails() {

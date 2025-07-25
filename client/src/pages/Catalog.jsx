@@ -2,10 +2,10 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovies } from "../redux/actions/movieActions";
-import Spinner from "./Spinner/index";
-import Pagination from "./Pagination";
+import Spinner from "../components/Spinner/index";
+import Pagination from "../components/Pagination";
 import Swal from "sweetalert2";
-import SortMovies from "./Sort/SortMovies";
+import SortMovies from "../components/Sort/SortMovies";
 
 export default function Catalog() {
     const dispatch = useDispatch();

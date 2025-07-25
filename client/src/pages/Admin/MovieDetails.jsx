@@ -2,13 +2,13 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import Swal from "sweetalert2"
-import { deleteMovie, getDetails, getMovieAdmin, patchMovie } from "../../redux/actions/movieActions"
-import { clearMovie, clearMovieAdmin } from "../../redux/slices/movieSlice"
-import Spinner from "../Spinner"
-import NavBar from "./NavBar";
+import { deleteMovie, getDetails, patchMovie } from "../../redux/actions/movieActions"
+import { clearMovie } from "../../redux/slices/movieSlice"
+import Spinner from "../../components/Spinner"
+import NavBar from "../../components/AdminNavBar";
 import { MdDeleteForever } from 'react-icons/md'
-import { useModal } from "../Modals/useModal"
-import Modals from "../Modals/Modals"
+import { useModal } from "../../components/Modals/useModal"
+import Modals from "../../components/Modals/Modals"
 
 
 export default function MovieDetails() {

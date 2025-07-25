@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { getDetails, getMovies, getMovieVideos, getPurchasedMovie } from "../../redux/actions/movieActions"
-import { clearMovie, clearPurchasedMovie, clearVideos } from "../../redux/slices/movieSlice"
+import { getMovies, getMovieVideos } from "../../redux/actions/movieActions"
+import { clearVideos } from "../../redux/slices/movieSlice"
 import { getProfileById } from "../../redux/actions/userActions"
 import ReactPlayer from 'react-player/lazy'
-import Spinner from '../Spinner/index'
-import { useModal } from "../Modals/useModal"
-import Modals from "../Modals/Modals"
+import Spinner from '../../components/Spinner/index'
+import { useModal } from "../../components/Modals/useModal"
+import Modals from "../../components/Modals/Modals"
 import { postComment } from "../../redux/actions/commentActions"
-import Swal from "sweetalert2"
 import { useReducer } from "react"
 
 

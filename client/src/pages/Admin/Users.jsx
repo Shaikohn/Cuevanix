@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getAllUsers } from "../../redux/actions/userActions";
-import Pagination from "../Pagination";
-import SortUsers from "../Sort/SortUsers";
-import Spinner from "../Spinner";
-import NavBar from "./NavBar";
+import Pagination from "../../components/Pagination";
+import SortUsers from "../../components/Sort/SortUsers";
+import Spinner from "../../components/Spinner";
+import NavBar from "../../components/AdminNavBar";
 
 export default function Users() {
 

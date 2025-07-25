@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import Swal from "sweetalert2";
 import { getAllOrders } from "../../redux/actions/userActions";
-import Pagination from "../Pagination";
-import SortOrders from "../Sort/SortOrders";
-import Spinner from "../Spinner";
-import NavBar from "./NavBar";
+import Pagination from "../../components/Pagination";
+import SortOrders from "../../components/Sort/SortOrders";
+import Spinner from "../../components/Spinner";
+import NavBar from "../../components/AdminNavBar";
 
 
 export default function Orders() {

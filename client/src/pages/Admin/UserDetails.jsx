@@ -1,14 +1,11 @@
 import { useState } from "react"
 import { useEffect } from "react"
-import { BiPurchaseTagAlt } from "react-icons/bi"
-import { CgComment } from "react-icons/cg"
-import { ImProfile } from "react-icons/im"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { getProfileById, getUserById, patchUserRole, patchUserStatus } from "../../redux/actions/userActions"
 import { clearUserDetails } from "../../redux/slices/userSlice"
-import NavBar from "./NavBar";
-import Spinner from "../Spinner"
+import NavBar from "../../components/AdminNavBar";
+import Spinner from "../../components/Spinner"
 
 
 export default function UserDetails() {

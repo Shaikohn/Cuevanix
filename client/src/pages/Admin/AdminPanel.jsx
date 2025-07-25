@@ -1,4 +1,4 @@
-import NavBar from "./NavBar";
+import NavBar from "../../components/AdminNavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllInquiries } from "../../redux/actions/inquirieActions";

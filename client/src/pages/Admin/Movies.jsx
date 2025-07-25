@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Swal from "sweetalert2"
 import { getMovies } from "../../redux/actions/movieActions"
-import Pagination from "../Pagination"
-import SortMovies from "../Sort/SortMovies"
-import Spinner from "../Spinner"
-import NavBar from "./NavBar"
+import Pagination from "../../components/Pagination"
+import SortMovies from "../../components/Sort/SortMovies"
+import Spinner from "../../components/Spinner"
+import NavBar from "../../components/AdminNavBar"
 
 
 export default function Movies() {
