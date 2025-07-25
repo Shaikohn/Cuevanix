@@ -32,7 +32,7 @@ export default function AdminPanel() {
                     </p>
                 </div>
                 {inquiries.length > 0 ? (
-                    <div className="d-flex flex-column align-items-center gap-4">
+                    <div className="d-flex flex-column align-items-center gap-4 mb-3">
                         {inquiries.map((inq, i) => (
                             <Link
                                 key={i}
