@@ -8,12 +8,14 @@ import { useParams } from "react-router-dom"
 import { getProfileById, getUserById, patchUserRole, patchUserStatus } from "../../redux/actions/userActions"
 import { clearUserDetails } from "../../redux/slices/userSlice"
 import NavBar from "./NavBar";
+import Spinner from "../Spinner"
 
 
 export default function UserDetails() {
 
     const { _id } = useParams()
     const { user } = useSelector(state => state.user)
+    console.log(user)
     const {profile} = useSelector(state => state.user)
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const dispatch = useDispatch()
@@ -30,7 +32,9 @@ export default function UserDetails() {
     return (
         <div className="container py-4">
             <NavBar />
-            <div className="bg-dark text-light p-4 rounded mb-4 d-flex align-items-center flex-wrap gap-4 justify-content-between" style={{ fontSize: '1.1rem' }}>
+            {user && Object.keys(user).length > 0 ? (
+                <>
+                <div className="bg-dark text-light p-4 rounded mb-4 d-flex align-items-center flex-wrap gap-4 justify-content-between" style={{ fontSize: '1.1rem' }}>
                 <div className="d-flex align-items-center gap-4 flex-wrap">
                     {user?.picture && (
                         <img
@@ -38,7 +42,7 @@ export default function UserDetails() {
                             alt={user.name}
                             className="rounded-circle"
                             style={{ width: '12dvh', height: '12dvh', objectFit: 'cover' }}
-                          />
+                        />
                     )}
                     <div>
                         <h2 className="mb-1">{user?.name}</h2>
@@ -105,6 +109,8 @@ export default function UserDetails() {
                     </div>
                 </div>
             </div>
+                </>
+            ) : <Spinner />}
         </div>
     )
 }

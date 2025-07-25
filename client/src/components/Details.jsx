@@ -38,7 +38,7 @@ export default function Details() {
 
     return (
         <>
-            {movie !== null ? (
+            {movie && Object.keys(movie).length > 0 ? (
                 <div className="bg-dark text-light py-5" style={{ minHeight: '100vh' }}>
                     <div className="container bg-secondary bg-opacity-10 rounded-4 p-4">
                         <h2 className="text-info mb-4">{movie?.title}</h2>
