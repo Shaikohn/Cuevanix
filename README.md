@@ -66,7 +66,7 @@ cd Cuevanix
 ### 2. Install dependencies
 
 ```bash
-# Client
+# client
 cd client
 npm install
 
@@ -79,7 +79,7 @@ npm install
 ### 3.  Setup your .env files
 Create two .env files:
 
-# 📁 client/.env:
+## 📁 client/.env:
 
 ```bash
 
@@ -87,7 +87,7 @@ REACT_APP_CLIENT_ID=your_client_id
 REACT_APP_STRIPE=your_stripe_public_key
 
 ```
-# 📁 api/.env:
+## 📁 api/.env:
 
 ```bash
 
@@ -100,7 +100,7 @@ MAIL_PASS=your_email_password
 
 ```
 
-### 4.  Run Locally
+### 4. 📦 Run Locally
 
 ```bash
 # client
